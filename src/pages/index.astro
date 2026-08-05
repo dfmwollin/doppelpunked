@@ -54,12 +54,22 @@ const englishMailLink =
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
+
     <meta name="description" content={pageDescription} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
     <title>{pageTitle}</title>
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
 
   <body>
@@ -158,7 +168,7 @@ const englishMailLink =
       </section>
 
       <section id="about" class="content-section">
-        <div class="section-grid">
+        <div class="section-grid reveal">
           <div>
             <p
               class="section-label"
@@ -191,7 +201,7 @@ const englishMailLink =
       </section>
 
       <section id="work" class="content-section">
-        <div class="section-heading">
+        <div class="section-heading reveal">
           <p
             class="section-label"
             data-de="Schwerpunkte"
@@ -209,8 +219,11 @@ const englishMailLink =
         </div>
 
         <div class="cards">
-          <article>
-            <span class="number">01</span>
+          <article class="focus-card reveal">
+            <div class="card-top">
+              <span class="number">01</span>
+              <span class="card-icon" aria-hidden="true">✦</span>
+            </div>
 
             <h3
               data-de="KI & Arbeitsabläufe"
@@ -220,35 +233,89 @@ const englishMailLink =
             </h3>
 
             <p
-              data-de="KI sinnvoll einsetzen, Prozesse vereinfachen und Wissen leichter zugänglich machen."
-              data-en="Using AI meaningfully, simplifying processes and making knowledge easier to access."
+              data-de="KI praxisnah einführen, sinnvolle Arbeitsabläufe entwickeln und wiederkehrende Aufgaben einfacher, schneller und transparenter machen."
+              data-en="Introducing AI practically, designing useful workflows and making recurring tasks simpler, faster and more transparent."
             >
-              KI sinnvoll einsetzen, Prozesse vereinfachen und Wissen leichter
-              zugänglich machen.
+              KI praxisnah einführen, sinnvolle Arbeitsabläufe entwickeln und
+              wiederkehrende Aufgaben einfacher, schneller und transparenter
+              machen.
             </p>
+
+            <ul>
+              <li
+                data-de="KI-Einführung und Schulung"
+                data-en="AI adoption and training"
+              >
+                KI-Einführung und Schulung
+              </li>
+
+              <li
+                data-de="Workflow-Optimierung"
+                data-en="Workflow improvement"
+              >
+                Workflow-Optimierung
+              </li>
+
+              <li
+                data-de="Automatisierung und Wissensmanagement"
+                data-en="Automation and knowledge management"
+              >
+                Automatisierung und Wissensmanagement
+              </li>
+            </ul>
           </article>
 
-          <article>
-            <span class="number">02</span>
+          <article class="focus-card reveal">
+            <div class="card-top">
+              <span class="number">02</span>
+              <span class="card-icon" aria-hidden="true">↗</span>
+            </div>
 
             <h3
-              data-de="Produkt & Marketing"
-              data-en="Product & Marketing"
+              data-de="Produkt & technisches Marketing"
+              data-en="Product & Technical Marketing"
             >
-              Produkt & Marketing
+              Produkt & technisches Marketing
             </h3>
 
             <p
-              data-de="Technische Produkte verständlich positionieren und überzeugend präsentieren."
-              data-en="Positioning technical products clearly and presenting their value convincingly."
+              data-de="Komplexe Produkte klar positionieren, ihren Nutzen verständlich machen und Vertrieb sowie Markteinführung mit überzeugenden Inhalten unterstützen."
+              data-en="Positioning complex products clearly, communicating their value and supporting sales and market launches with convincing content."
             >
-              Technische Produkte verständlich positionieren und überzeugend
-              präsentieren.
+              Komplexe Produkte klar positionieren, ihren Nutzen verständlich
+              machen und Vertrieb sowie Markteinführung mit überzeugenden
+              Inhalten unterstützen.
             </p>
+
+            <ul>
+              <li
+                data-de="Positionierung und Nutzenargumentation"
+                data-en="Positioning and value propositions"
+              >
+                Positionierung und Nutzenargumentation
+              </li>
+
+              <li
+                data-de="Go-to-Market und Produkteinführung"
+                data-en="Go-to-market and product launches"
+              >
+                Go-to-Market und Produkteinführung
+              </li>
+
+              <li
+                data-de="Vertriebs- und Marketingmaterialien"
+                data-en="Sales and marketing materials"
+              >
+                Vertriebs- und Marketingmaterialien
+              </li>
+            </ul>
           </article>
 
-          <article>
-            <span class="number">03</span>
+          <article class="focus-card reveal">
+            <div class="card-top">
+              <span class="number">03</span>
+              <span class="card-icon" aria-hidden="true">◎</span>
+            </div>
 
             <h3
               data-de="Training & Bildung"
@@ -258,18 +325,88 @@ const englishMailLink =
             </h3>
 
             <p
-              data-de="Komplexe Inhalte für Schüler, Fachkräfte und Organisationen greifbar machen."
-              data-en="Making complex content accessible to students, professionals and organizations."
+              data-de="Lernangebote entwickeln, die technische und digitale Inhalte für Schüler, Fachkräfte und Organisationen verständlich und anwendbar machen."
+              data-en="Designing learning experiences that make technical and digital subjects understandable and applicable for students, professionals and organizations."
             >
-              Komplexe Inhalte für Schüler, Fachkräfte und Organisationen
-              greifbar machen.
+              Lernangebote entwickeln, die technische und digitale Inhalte für
+              Schüler, Fachkräfte und Organisationen verständlich und anwendbar
+              machen.
             </p>
+
+            <ul>
+              <li
+                data-de="Workshops und Schulungen"
+                data-en="Workshops and training"
+              >
+                Workshops und Schulungen
+              </li>
+
+              <li
+                data-de="Deutsch, Englisch und zweisprachig"
+                data-en="German, English and bilingual"
+              >
+                Deutsch, Englisch und zweisprachig
+              </li>
+
+              <li
+                data-de="Praxisnahe Lernmaterialien"
+                data-en="Practical learning resources"
+              >
+                Praxisnahe Lernmaterialien
+              </li>
+            </ul>
+          </article>
+
+          <article class="focus-card reveal">
+            <div class="card-top">
+              <span class="number">04</span>
+              <span class="card-icon brand-icon" aria-hidden="true">:</span>
+            </div>
+
+            <h3
+              data-de="Kommunikation & Präsentation"
+              data-en="Communication & Presentation"
+            >
+              Kommunikation & Präsentation
+            </h3>
+
+            <p
+              data-de="Technische Zusammenhänge strukturieren, visuell aufbereiten und so präsentieren, dass unterschiedliche Zielgruppen sie verstehen und ins Handeln kommen."
+              data-en="Structuring technical subjects, presenting them visually and helping different audiences understand them and take action."
+            >
+              Technische Zusammenhänge strukturieren, visuell aufbereiten und
+              so präsentieren, dass unterschiedliche Zielgruppen sie verstehen
+              und ins Handeln kommen.
+            </p>
+
+            <ul>
+              <li
+                data-de="Präsentationen und Storytelling"
+                data-en="Presentations and storytelling"
+              >
+                Präsentationen und Storytelling
+              </li>
+
+              <li
+                data-de="Technische Dokumentation"
+                data-en="Technical documentation"
+              >
+                Technische Dokumentation
+              </li>
+
+              <li
+                data-de="Komplexes einfach erklären"
+                data-en="Explaining complexity clearly"
+              >
+                Komplexes einfach erklären
+              </li>
+            </ul>
           </article>
         </div>
       </section>
 
       <section id="contact" class="contact-section">
-        <div class="contact-inner">
+        <div class="contact-inner reveal">
           <p
             class="section-label"
             data-de="Kontakt"
@@ -308,9 +445,11 @@ const englishMailLink =
 
     <script is:inline>
       const languageButtons = document.querySelectorAll("[data-language]");
+
       const translatedElements = document.querySelectorAll(
         "[data-de][data-en]"
       );
+
       const languageMailLinks = document.querySelectorAll(
         ".language-mail-link"
       );
@@ -362,6 +501,44 @@ const englishMailLink =
 
       setLanguage(savedLanguage);
     </script>
+
+    <script is:inline>
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        revealElements.forEach((element) => {
+          element.classList.add("is-visible");
+        });
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px",
+          }
+        );
+
+        revealElements.forEach((element, index) => {
+          element.style.setProperty(
+            "--reveal-delay",
+            `${Math.min(index * 70, 280)}ms`
+          );
+
+          observer.observe(element);
+        });
+      }
+    </script>
   </body>
 </html>
 
@@ -376,6 +553,7 @@ const englishMailLink =
 
   :global(body) {
     margin: 0;
+    overflow-x: hidden;
     background: #f5f6f7;
     color: #10243d;
     font-family:
@@ -396,10 +574,10 @@ const englishMailLink =
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 10;
-    background: rgba(245, 246, 247, 0.92);
-    border-bottom: 1px solid #d9e0e7;
-    backdrop-filter: blur(12px);
+    z-index: 20;
+    background: rgba(245, 246, 247, 0.88);
+    border-bottom: 1px solid rgba(217, 224, 231, 0.9);
+    backdrop-filter: blur(14px);
   }
 
   .header-inner,
@@ -421,8 +599,8 @@ const englishMailLink =
   .logo {
     margin-right: auto;
     font-size: 1.3rem;
-    font-weight: 750;
-    letter-spacing: -0.03em;
+    font-weight: 780;
+    letter-spacing: -0.035em;
     text-decoration: none;
   }
 
@@ -432,14 +610,33 @@ const englishMailLink =
   }
 
   .desktop-nav a {
+    position: relative;
     color: #46586c;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 650;
     text-decoration: none;
+  }
+
+  .desktop-nav a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #174f82, #6c4aa3);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 180ms ease;
   }
 
   .desktop-nav a:hover {
     color: #124f85;
+  }
+
+  .desktop-nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .language-switch {
@@ -469,10 +666,59 @@ const englishMailLink =
   }
 
   .hero {
+    position: relative;
+    overflow: hidden;
     border-bottom: 1px solid #d9e0e7;
+    background-color: #f5f6f7;
+    background-image:
+      linear-gradient(
+        rgba(23, 79, 130, 0.055) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(23, 79, 130, 0.055) 1px,
+        transparent 1px
+      );
+    background-size: 48px 48px;
+  }
+
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .hero::before {
+    width: 440px;
+    height: 440px;
+    top: -220px;
+    right: -100px;
+    background: radial-gradient(
+      circle,
+      rgba(106, 72, 164, 0.18),
+      transparent 68%
+    );
+  }
+
+  .hero::after {
+    width: 360px;
+    height: 360px;
+    bottom: -220px;
+    left: -120px;
+    background: radial-gradient(
+      circle,
+      rgba(26, 111, 157, 0.18),
+      transparent 68%
+    );
   }
 
   .hero-inner {
+    position: relative;
+    z-index: 1;
     min-height: calc(100vh - 77px);
     display: flex;
     flex-direction: column;
@@ -528,31 +774,35 @@ const englishMailLink =
     justify-content: center;
     padding: 13px 21px;
     border: 1px solid #174f82;
-    border-radius: 8px;
+    border-radius: 9px;
     font-size: 0.96rem;
     font-weight: 750;
     text-decoration: none;
     transition:
-      transform 160ms ease,
-      background 160ms ease;
+      transform 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
   }
 
   .button:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
 
   .button-primary {
     background: #174f82;
     color: white;
+    box-shadow: 0 10px 24px rgba(23, 79, 130, 0.16);
   }
 
   .button-primary:hover {
     background: #103e69;
+    box-shadow: 0 15px 30px rgba(23, 79, 130, 0.24);
   }
 
   .button-secondary {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.45);
     color: #174f82;
+    backdrop-filter: blur(8px);
   }
 
   .content-section {
@@ -593,41 +843,170 @@ const englishMailLink =
 
   .cards {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    perspective: 1000px;
   }
 
-  article {
-    min-height: 300px;
+  .focus-card {
+    position: relative;
+    min-height: 390px;
     display: flex;
     flex-direction: column;
-    padding: 28px;
-    border: 1px solid #d4dde6;
-    border-radius: 12px;
-    background: white;
+    padding: 30px;
+    overflow: hidden;
+    border: 1px solid rgba(23, 79, 130, 0.16);
+    border-radius: 18px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(238, 244, 249, 0.88)
+      );
+    box-shadow:
+      0 14px 40px rgba(16, 36, 61, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .focus-card::before {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    top: -100px;
+    right: -90px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(92, 61, 163, 0.18),
+      transparent 68%
+    );
+    transition: transform 350ms ease;
+  }
+
+  .focus-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        115deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.55) 45%,
+        transparent 65%
+      );
+    transform: translateX(-120%);
+    transition: transform 650ms ease;
+  }
+
+  .focus-card:hover {
+    transform: translateY(-8px) rotateX(1deg);
+    border-color: rgba(23, 79, 130, 0.34);
+    box-shadow:
+      0 24px 55px rgba(16, 36, 61, 0.13),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  .focus-card:hover::before {
+    transform: scale(1.25);
+  }
+
+  .focus-card:hover::after {
+    transform: translateX(120%);
+  }
+
+  .card-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .number {
     color: #1e5d93;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .card-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(23, 79, 130, 0.16);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+    color: #174f82;
+    font-size: 1.2rem;
+  }
+
+  .brand-icon {
+    font-size: 1.45rem;
     font-weight: 800;
   }
 
-  article h3 {
-    margin: auto 0 16px;
-    font-size: 1.45rem;
-    letter-spacing: -0.025em;
+  .focus-card h3 {
+    position: relative;
+    z-index: 1;
+    margin: 62px 0 16px;
+    font-size: clamp(1.45rem, 2.5vw, 2rem);
+    letter-spacing: -0.035em;
+    line-height: 1.1;
   }
 
-  article p {
+  .focus-card p {
+    position: relative;
+    z-index: 1;
     margin: 0;
     color: #536579;
     line-height: 1.65;
   }
 
+  .focus-card ul {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 9px;
+    margin: auto 0 0;
+    padding: 28px 0 0;
+    list-style: none;
+  }
+
+  .focus-card li {
+    position: relative;
+    padding-left: 18px;
+    color: #334b63;
+    font-size: 0.92rem;
+  }
+
+  .focus-card li::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 0.55em;
+    left: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #174f82, #6c4aa3);
+  }
+
   .contact-section {
     padding-block: 110px;
-    background: #10243d;
+    background:
+      radial-gradient(
+        circle at 85% 20%,
+        rgba(108, 74, 163, 0.24),
+        transparent 30%
+      ),
+      #10243d;
     color: white;
   }
 
@@ -653,6 +1032,19 @@ const englishMailLink =
     font-size: 0.88rem;
   }
 
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 650ms ease var(--reveal-delay, 0ms),
+      transform 650ms ease var(--reveal-delay, 0ms);
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   @media (max-width: 850px) {
     .desktop-nav {
       display: none;
@@ -671,8 +1063,8 @@ const englishMailLink =
       grid-template-columns: 1fr;
     }
 
-    article {
-      min-height: 230px;
+    .focus-card {
+      min-height: 360px;
     }
   }
 
@@ -697,6 +1089,24 @@ const englishMailLink =
     .language-button {
       min-width: 36px;
       padding: 7px 8px;
+    }
+
+    .hero {
+      background-size: 34px 34px;
+    }
+
+    .hero::before {
+      width: 300px;
+      height: 300px;
+      top: -170px;
+      right: -140px;
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      bottom: -170px;
+      left: -140px;
     }
 
     .hero-inner {
@@ -735,9 +1145,17 @@ const englishMailLink =
       font-size: 1.04rem;
     }
 
-    article {
-      min-height: 220px;
-      padding: 23px;
+    .focus-card {
+      min-height: auto;
+      padding: 24px;
+    }
+
+    .focus-card h3 {
+      margin-top: 44px;
+    }
+
+    .focus-card ul {
+      margin-top: 28px;
     }
 
     .footer-inner {
@@ -746,6 +1164,24 @@ const englishMailLink =
       align-items: flex-start;
       justify-content: center;
       gap: 6px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+
+    .js .reveal,
+    .js .reveal.is-visible,
+    .focus-card,
+    .focus-card::before,
+    .focus-card::after,
+    .button,
+    .desktop-nav a::after {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
 </style>
