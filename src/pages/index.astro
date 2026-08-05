@@ -1,0 +1,751 @@
+---
+const pageTitle = "Doppelpunked — David Wollin";
+const pageDescription =
+  "Technik, Kommunikation, Bildung und KI verständlich und praktisch verbinden.";
+
+const emailAddress = "doppelpunked@gmail.com";
+
+const germanSubject = encodeURIComponent(
+  "Anfrage über doppelpunked.com"
+);
+
+const germanBody = encodeURIComponent(
+  `Hallo David,
+
+ich bin über doppelpunked.com auf dich aufmerksam geworden.
+
+Ich interessiere mich für:
+[Bitte Thema oder Projekt eintragen]
+
+Kurz zu meiner Anfrage:
+[Bitte Nachricht eintragen]
+
+Viele Grüße
+[Name]`
+);
+
+const englishSubject = encodeURIComponent(
+  "Inquiry via doppelpunked.com"
+);
+
+const englishBody = encodeURIComponent(
+  `Hello David,
+
+I found you through doppelpunked.com.
+
+I am interested in:
+[Please enter the topic or project]
+
+A short description of my inquiry:
+[Please enter your message]
+
+Best regards,
+[Name]`
+);
+
+const germanMailLink =
+  `mailto:${emailAddress}?subject=${germanSubject}&body=${germanBody}`;
+
+const englishMailLink =
+  `mailto:${emailAddress}?subject=${englishSubject}&body=${englishBody}`;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content={pageDescription} />
+    <title>{pageTitle}</title>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="#top" aria-label="Doppelpunked Startseite">
+          Doppelpunked
+        </a>
+
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+          <a href="#about" data-de="Über mich" data-en="About">
+            Über mich
+          </a>
+
+          <a href="#work" data-de="Schwerpunkte" data-en="Focus">
+            Schwerpunkte
+          </a>
+
+          <a href="#contact" data-de="Kontakt" data-en="Contact">
+            Kontakt
+          </a>
+        </nav>
+
+        <div class="language-switch" aria-label="Sprache auswählen">
+          <button
+            class="language-button active"
+            type="button"
+            data-language="de"
+            aria-pressed="true"
+          >
+            DE
+          </button>
+
+          <button
+            class="language-button"
+            type="button"
+            data-language="en"
+            aria-pressed="false"
+          >
+            EN
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-inner">
+          <p
+            class="eyebrow"
+            data-de="Technik · Kommunikation · Bildung · KI"
+            data-en="Technology · Communication · Education · AI"
+          >
+            Technik · Kommunikation · Bildung · KI
+          </p>
+
+          <h1
+            data-de="Komplexe Themen klar machen und praktisch umsetzen."
+            data-en="Making complex ideas clear and practical."
+          >
+            Komplexe Themen klar machen und praktisch umsetzen.
+          </h1>
+
+          <p
+            class="hero-text"
+            data-de="Ich verbinde Technikverständnis, Produktdenken, Kommunikation, Bildung und künstliche Intelligenz, um aus Ideen verständliche und nützliche Lösungen zu machen."
+            data-en="I connect technical understanding, product thinking, communication, education and artificial intelligence to turn ideas into clear and useful solutions."
+          >
+            Ich verbinde Technikverständnis, Produktdenken, Kommunikation,
+            Bildung und künstliche Intelligenz, um aus Ideen verständliche und
+            nützliche Lösungen zu machen.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="button button-primary"
+              href="#work"
+              data-de="Schwerpunkte ansehen"
+              data-en="Explore my focus"
+            >
+              Schwerpunkte ansehen
+            </a>
+
+            <a
+              class="button button-secondary language-mail-link"
+              href={germanMailLink}
+              data-mail-de={germanMailLink}
+              data-mail-en={englishMailLink}
+              data-de="Kontakt aufnehmen"
+              data-en="Get in touch"
+            >
+              Kontakt aufnehmen
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="content-section">
+        <div class="section-grid">
+          <div>
+            <p
+              class="section-label"
+              data-de="Profil"
+              data-en="Profile"
+            >
+              Profil
+            </p>
+
+            <h2
+              data-de="Zwischen Technik, Menschen und Ideen."
+              data-en="Between technology, people and ideas."
+            >
+              Zwischen Technik, Menschen und Ideen.
+            </h2>
+          </div>
+
+          <div>
+            <p
+              class="section-copy"
+              data-de="Mein Hintergrund umfasst Bauingenieurwesen, Produktmanagement, Medizintechnik, Marketing, Unterricht und die praktische Anwendung moderner KI-Werkzeuge."
+              data-en="My background spans civil engineering, product management, medical technology, marketing, teaching and the practical application of modern AI tools."
+            >
+              Mein Hintergrund umfasst Bauingenieurwesen, Produktmanagement,
+              Medizintechnik, Marketing, Unterricht und die praktische
+              Anwendung moderner KI-Werkzeuge.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" class="content-section">
+        <div class="section-heading">
+          <p
+            class="section-label"
+            data-de="Schwerpunkte"
+            data-en="Focus"
+          >
+            Schwerpunkte
+          </p>
+
+          <h2
+            data-de="Was ich anbiete"
+            data-en="What I offer"
+          >
+            Was ich anbiete
+          </h2>
+        </div>
+
+        <div class="cards">
+          <article>
+            <span class="number">01</span>
+
+            <h3
+              data-de="KI & Arbeitsabläufe"
+              data-en="AI & Workflows"
+            >
+              KI & Arbeitsabläufe
+            </h3>
+
+            <p
+              data-de="KI sinnvoll einsetzen, Prozesse vereinfachen und Wissen leichter zugänglich machen."
+              data-en="Using AI meaningfully, simplifying processes and making knowledge easier to access."
+            >
+              KI sinnvoll einsetzen, Prozesse vereinfachen und Wissen leichter
+              zugänglich machen.
+            </p>
+          </article>
+
+          <article>
+            <span class="number">02</span>
+
+            <h3
+              data-de="Produkt & Marketing"
+              data-en="Product & Marketing"
+            >
+              Produkt & Marketing
+            </h3>
+
+            <p
+              data-de="Technische Produkte verständlich positionieren und überzeugend präsentieren."
+              data-en="Positioning technical products clearly and presenting their value convincingly."
+            >
+              Technische Produkte verständlich positionieren und überzeugend
+              präsentieren.
+            </p>
+          </article>
+
+          <article>
+            <span class="number">03</span>
+
+            <h3
+              data-de="Training & Bildung"
+              data-en="Training & Education"
+            >
+              Training & Bildung
+            </h3>
+
+            <p
+              data-de="Komplexe Inhalte für Schüler, Fachkräfte und Organisationen greifbar machen."
+              data-en="Making complex content accessible to students, professionals and organizations."
+            >
+              Komplexe Inhalte für Schüler, Fachkräfte und Organisationen
+              greifbar machen.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <div class="contact-inner">
+          <p
+            class="section-label"
+            data-de="Kontakt"
+            data-en="Contact"
+          >
+            Kontakt
+          </p>
+
+          <h2
+            data-de="Was könnten wir gemeinsam klarer, einfacher oder besser machen?"
+            data-en="What could we make clearer, simpler or better together?"
+          >
+            Was könnten wir gemeinsam klarer, einfacher oder besser machen?
+          </h2>
+
+          <a
+            class="button button-primary language-mail-link"
+            href={germanMailLink}
+            data-mail-de={germanMailLink}
+            data-mail-en={englishMailLink}
+            data-de="E-Mail schreiben"
+            data-en="Send an email"
+          >
+            E-Mail schreiben
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© {new Date().getFullYear()} David Wollin</span>
+        <span>doppelpunked.com</span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const languageButtons = document.querySelectorAll("[data-language]");
+      const translatedElements = document.querySelectorAll(
+        "[data-de][data-en]"
+      );
+      const languageMailLinks = document.querySelectorAll(
+        ".language-mail-link"
+      );
+
+      function setLanguage(language) {
+        document.documentElement.lang = language;
+
+        translatedElements.forEach((element) => {
+          const translatedText = element.dataset[language];
+
+          if (translatedText) {
+            element.textContent = translatedText;
+          }
+        });
+
+        languageMailLinks.forEach((link) => {
+          const selectedMailLink =
+            language === "en"
+              ? link.dataset.mailEn
+              : link.dataset.mailDe;
+
+          if (selectedMailLink) {
+            link.setAttribute("href", selectedMailLink);
+          }
+        });
+
+        languageButtons.forEach((button) => {
+          const isActive = button.dataset.language === language;
+
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        localStorage.setItem("doppelpunked-language", language);
+      }
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const selectedLanguage = button.dataset.language;
+
+          if (selectedLanguage) {
+            setLanguage(selectedLanguage);
+          }
+        });
+      });
+
+      const savedLanguage =
+        localStorage.getItem("doppelpunked-language") || "de";
+
+      setLanguage(savedLanguage);
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #f5f6f7;
+    color: #10243d;
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :global(a) {
+    color: inherit;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(245, 246, 247, 0.92);
+    border-bottom: 1px solid #d9e0e7;
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner,
+  .hero-inner,
+  .content-section,
+  .contact-inner,
+  .footer-inner {
+    width: min(1120px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .header-inner {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .logo {
+    margin-right: auto;
+    font-size: 1.3rem;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .desktop-nav {
+    display: flex;
+    gap: 26px;
+  }
+
+  .desktop-nav a {
+    color: #46586c;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .desktop-nav a:hover {
+    color: #124f85;
+  }
+
+  .language-switch {
+    display: flex;
+    padding: 3px;
+    border: 1px solid #cbd5df;
+    border-radius: 9px;
+    background: white;
+  }
+
+  .language-button {
+    min-width: 42px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #536579;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 750;
+  }
+
+  .language-button.active {
+    background: #174f82;
+    color: white;
+  }
+
+  .hero {
+    border-bottom: 1px solid #d9e0e7;
+  }
+
+  .hero-inner {
+    min-height: calc(100vh - 77px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 80px;
+  }
+
+  .eyebrow,
+  .section-label {
+    margin: 0 0 20px;
+    color: #1e5d93;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    overflow-wrap: anywhere;
+  }
+
+  h1 {
+    max-width: 900px;
+    margin: 0;
+    font-size: clamp(3rem, 6vw, 5.7rem);
+    font-weight: 720;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .hero-text {
+    max-width: 760px;
+    margin: 32px 0 0;
+    color: #536579;
+    font-size: clamp(1.08rem, 1.7vw, 1.35rem);
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 38px;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 21px;
+    border: 1px solid #174f82;
+    border-radius: 8px;
+    font-size: 0.96rem;
+    font-weight: 750;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background 160ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    background: #174f82;
+    color: white;
+  }
+
+  .button-primary:hover {
+    background: #103e69;
+  }
+
+  .button-secondary {
+    background: transparent;
+    color: #174f82;
+  }
+
+  .content-section {
+    padding-block: 100px;
+    border-bottom: 1px solid #d9e0e7;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
+    gap: 80px;
+    align-items: start;
+  }
+
+  h2 {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+
+  .section-copy {
+    margin: 42px 0 0;
+    color: #536579;
+    font-size: 1.15rem;
+    line-height: 1.75;
+  }
+
+  .section-grid .section-copy {
+    margin-top: 40px;
+  }
+
+  .section-heading {
+    margin-bottom: 42px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  article {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    border: 1px solid #d4dde6;
+    border-radius: 12px;
+    background: white;
+  }
+
+  .number {
+    color: #1e5d93;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  article h3 {
+    margin: auto 0 16px;
+    font-size: 1.45rem;
+    letter-spacing: -0.025em;
+  }
+
+  article p {
+    margin: 0;
+    color: #536579;
+    line-height: 1.65;
+  }
+
+  .contact-section {
+    padding-block: 110px;
+    background: #10243d;
+    color: white;
+  }
+
+  .contact-section .section-label {
+    color: #91b9dc;
+  }
+
+  .contact-section h2 {
+    margin-bottom: 36px;
+  }
+
+  footer {
+    background: #0b1c30;
+    color: #aebccc;
+  }
+
+  .footer-inner {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 850px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .section-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .section-grid .section-copy {
+      margin-top: 0;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    article {
+      min-height: 230px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header-inner,
+    .hero-inner,
+    .content-section,
+    .contact-inner,
+    .footer-inner {
+      width: min(100% - 28px, 1120px);
+    }
+
+    .header-inner {
+      min-height: 66px;
+      gap: 14px;
+    }
+
+    .logo {
+      font-size: 1.08rem;
+    }
+
+    .language-button {
+      min-width: 36px;
+      padding: 7px 8px;
+    }
+
+    .hero-inner {
+      min-height: auto;
+      padding-block: 72px;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 13vw, 4.2rem);
+      line-height: 1.02;
+    }
+
+    .hero-text {
+      margin-top: 25px;
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .content-section,
+    .contact-section {
+      padding-block: 72px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .section-copy {
+      font-size: 1.04rem;
+    }
+
+    article {
+      min-height: 220px;
+      padding: 23px;
+    }
+
+    .footer-inner {
+      min-height: 96px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 6px;
+    }
+  }
+</style>
