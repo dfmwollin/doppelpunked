@@ -1,4 +1,267 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout titleDe="Über mich — :Doppelpunked" titleEn="About — :Doppelpunked" descriptionDe="David Wollin verbindet Technik, Produktmanagement, Marketing, Bildung und KI." descriptionEn="David Wollin connects technology, product management, marketing, education and AI."><section class="page-hero"><div class="page-hero-inner"><p class="eyebrow" data-de="Über mich" data-en="About me">Über mich</p><h1 data-de="Technik, Menschen und Ideen verbinden." data-en="Connecting technology, people and ideas.">Zwischen Technik, Menschen und Ideen.</h1><p class="lead" data-de="Ich bin Bauingenieur mit Erfahrung in Produktmanagement, Medizintechnik, Marketing und Unterricht. Besonders gerne übersetze ich komplexe Inhalte in klare Botschaften, praktische Abläufe und hilfreiche Lernangebote." data-en="I am a civil engineer with experience in product management, medical technology, marketing and teaching. I especially enjoy translating complex topics into clear messages, practical workflows and useful learning experiences.">Ich bin Bauingenieur mit Erfahrung in Produktmanagement, Medizintechnik, Marketing und Unterricht. Besonders gerne übersetze ich komplexe Inhalte in klare Botschaften, praktische Abläufe und hilfreiche Lernangebote.</p></div></section><section class="content-section"><div class="content-inner cards"><article class="focus-card reveal"><div class="card-top"><span class="number">01</span><span class="card-icon">◎</span></div><h3 data-de="Mein Profil" data-en="My profile">Mein Profil</h3><p data-de="Technisches Verständnis, Produktmanagement, B2B-Marketing, Unterricht und praktische KI-Anwendung." data-en="Technical understanding, product management, B2B marketing, teaching and practical AI use.">Technisches Verständnis, Produktmanagement, B2B-Marketing, Unterricht und praktische KI-Anwendung.</p></article><article class="focus-card reveal"><div class="card-top"><span class="number">02</span><span class="card-icon">✦</span></div><h3 data-de="Wie ich arbeite" data-en="How I work">Wie ich arbeite</h3><p data-de="Klar, pragmatisch und nah an den Menschen, die eine Lösung später wirklich verwenden." data-en="Clearly, pragmatically and close to the people who will actually use the solution.">Klar, pragmatisch und nah an den Menschen, die eine Lösung später wirklich verwenden.</p></article></div></section></BaseLayout>
+
+<BaseLayout
+  titleDe="Über mich — :Doppelpunked"
+  titleEn="About — :Doppelpunked"
+  descriptionDe="David Wollin verbindet Technik, Produktmanagement, Marketing, Bildung und KI."
+  descriptionEn="David Wollin connects technology, product management, marketing, education and AI."
+>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p
+        class="eyebrow"
+        data-de="Über mich"
+        data-en="About me"
+      >
+        Über mich
+      </p>
+
+      <h1
+        data-de="Zwischen Technik, Menschen und Ideen."
+        data-en="Between technology, people and ideas."
+      >
+        Zwischen Technik, Menschen und Ideen.
+      </h1>
+
+      <p
+        class="lead"
+        data-de="Ich bin Bauingenieur mit Erfahrung in Produktmanagement, Medizintechnik, Marketing und Unterricht. Besonders gerne übersetze ich komplexe Inhalte in klare Botschaften, praktische Abläufe und hilfreiche Lernangebote."
+        data-en="I am a civil engineer with experience in product management, medical technology, marketing and teaching. I especially enjoy translating complex topics into clear messages, practical workflows and useful learning experiences."
+      >
+        Ich bin Bauingenieur mit Erfahrung in Produktmanagement,
+        Medizintechnik, Marketing und Unterricht. Besonders gerne übersetze
+        ich komplexe Inhalte in klare Botschaften, praktische Abläufe und
+        hilfreiche Lernangebote.
+      </p>
+    </div>
+  </section>
+
+  <section class="portrait-section">
+    <div class="content-inner">
+      <figure class="process-portrait reveal">
+        <img
+          src="/images/david-process.webp"
+          alt="David Wollin dargestellt vom ersten Bleistiftentwurf bis zum fertigen Foto"
+          data-alt-de="David Wollin dargestellt vom ersten Bleistiftentwurf bis zum fertigen Foto"
+          data-alt-en="David Wollin shown from an initial pencil sketch to a finished photograph"
+          width="1536"
+          height="1024"
+          loading="eager"
+        />
+
+        <figcaption
+          data-de="Von der ersten Idee über Struktur und Gestaltung bis zur praktischen Umsetzung."
+          data-en="From the first idea through structure and design to practical implementation."
+        >
+          Von der ersten Idee über Struktur und Gestaltung bis zur praktischen
+          Umsetzung.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-inner cards">
+      <article class="focus-card reveal">
+        <div class="card-top">
+          <span class="number">01</span>
+          <span class="card-icon" aria-hidden="true">◎</span>
+        </div>
+
+        <h3
+          data-de="Mein Profil"
+          data-en="My profile"
+        >
+          Mein Profil
+        </h3>
+
+        <ul>
+          <li
+            data-de="Bauingenieurwesen und technisches Verständnis"
+            data-en="Civil engineering and technical understanding"
+          >
+            Bauingenieurwesen und technisches Verständnis
+          </li>
+
+          <li
+            data-de="Produktmanagement und Medizintechnik"
+            data-en="Product management and medical technology"
+          >
+            Produktmanagement und Medizintechnik
+          </li>
+
+          <li
+            data-de="B2B-Marketing und Produkteinführung"
+            data-en="B2B marketing and product launches"
+          >
+            B2B-Marketing und Produkteinführung
+          </li>
+
+          <li
+            data-de="Technikunterricht und Workshop-Entwicklung"
+            data-en="Technology teaching and workshop design"
+          >
+            Technikunterricht und Workshop-Entwicklung
+          </li>
+
+          <li
+            data-de="Praktische Anwendung moderner KI-Werkzeuge"
+            data-en="Practical use of modern AI tools"
+          >
+            Praktische Anwendung moderner KI-Werkzeuge
+          </li>
+        </ul>
+      </article>
+
+      <article class="focus-card reveal">
+        <div class="card-top">
+          <span class="number">02</span>
+          <span class="card-icon" aria-hidden="true">✦</span>
+        </div>
+
+        <h3
+          data-de="Wie ich arbeite"
+          data-en="How I work"
+        >
+          Wie ich arbeite
+        </h3>
+
+        <p
+          data-de="Klar, pragmatisch und nah an den Menschen, die eine Lösung später wirklich verwenden. Ich beginne mit dem tatsächlichen Bedarf, schaffe Struktur und entwickle daraus einen umsetzbaren nächsten Schritt."
+          data-en="Clearly, pragmatically and close to the people who will actually use a solution. I begin with the real need, create structure and turn it into an achievable next step."
+        >
+          Klar, pragmatisch und nah an den Menschen, die eine Lösung später
+          wirklich verwenden. Ich beginne mit dem tatsächlichen Bedarf,
+          schaffe Struktur und entwickle daraus einen umsetzbaren nächsten
+          Schritt.
+        </p>
+      </article>
+
+      <article class="focus-card reveal">
+        <div class="card-top">
+          <span class="number">03</span>
+          <span class="card-icon" aria-hidden="true">↗</span>
+        </div>
+
+        <h3
+          data-de="Was ich verbinde"
+          data-en="What I connect"
+        >
+          Was ich verbinde
+        </h3>
+
+        <p
+          data-de="Ich bewege mich zwischen technischen Details, Produktnutzen, verständlicher Kommunikation und praktischer Anwendung. Dadurch kann ich Fachwissen für unterschiedliche Zielgruppen übersetzen."
+          data-en="I work between technical detail, product value, clear communication and practical application. This allows me to translate specialist knowledge for different audiences."
+        >
+          Ich bewege mich zwischen technischen Details, Produktnutzen,
+          verständlicher Kommunikation und praktischer Anwendung. Dadurch kann
+          ich Fachwissen für unterschiedliche Zielgruppen übersetzen.
+        </p>
+      </article>
+
+      <article class="focus-card reveal">
+        <div class="card-top">
+          <span class="number">04</span>
+          <span class="card-icon brand-icon" aria-hidden="true">:</span>
+        </div>
+
+        <h3
+          data-de="Wofür :Doppelpunked steht"
+          data-en="What :Doppelpunked stands for"
+        >
+          Wofür :Doppelpunked steht
+        </h3>
+
+        <p
+          data-de="Der Doppelpunkt steht für eine Verbindung und einen nächsten Gedanken. Doppelpunked verbindet Ideen, Fachgebiete und Menschen, damit aus einem ersten Ansatz eine verständliche und nützliche Lösung wird."
+          data-en="The colon represents a connection and the beginning of a next thought. Doppelpunked connects ideas, disciplines and people so that an initial concept can become a clear and useful solution."
+        >
+          Der Doppelpunkt steht für eine Verbindung und einen nächsten
+          Gedanken. Doppelpunked verbindet Ideen, Fachgebiete und Menschen,
+          damit aus einem ersten Ansatz eine verständliche und nützliche Lösung
+          wird.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-inner reveal">
+      <p
+        class="section-label"
+        data-de="Zusammenarbeit"
+        data-en="Collaboration"
+      >
+        Zusammenarbeit
+      </p>
+
+      <h2
+        data-de="Hast du ein technisches, kreatives oder organisatorisches Thema, das klarer werden muss?"
+        data-en="Do you have a technical, creative or organizational topic that needs greater clarity?"
+      >
+        Hast du ein technisches, kreatives oder organisatorisches Thema, das
+        klarer werden muss?
+      </h2>
+
+      <a
+        class="button button-primary"
+        href="/contact"
+        data-de="Kontakt aufnehmen"
+        data-en="Get in touch"
+      >
+        Kontakt aufnehmen
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .portrait-section {
+    padding-block: 70px 30px;
+    border-bottom: 1px solid #d9e0e7;
+  }
+
+  .process-portrait {
+    margin: 0;
+  }
+
+  .process-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 680px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid rgba(23, 79, 130, 0.16);
+    border-radius: 22px;
+    box-shadow:
+      0 24px 70px rgba(16, 36, 61, 0.14),
+      0 4px 14px rgba(16, 36, 61, 0.06);
+  }
+
+  .process-portrait figcaption {
+    max-width: 760px;
+    margin: 18px auto 0;
+    color: #536579;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .portrait-section {
+      padding-block: 42px 18px;
+    }
+
+    .process-portrait img {
+      border-radius: 15px;
+    }
+
+    .process-portrait figcaption {
+      text-align: left;
+    }
+  }
+</style>
