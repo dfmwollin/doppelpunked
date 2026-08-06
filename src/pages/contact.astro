@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const subject = encodeURIComponent("Anfrage über doppelpunked.com");
+const body = encodeURIComponent(`Hallo David,
+
+ich bin über doppelpunked.com auf dich aufmerksam geworden.
+
+Thema oder Projekt:
+[Bitte eintragen]
+
+Meine Anfrage:
+[Bitte Nachricht eintragen]
+
+Viele Grüße
+[Name]`);
+
+const mailLink = `mailto:doppelpunked@gmail.com?subject=${subject}&body=${body}`;
+---
+<BaseLayout
+  title="Kontakt — :Doppelpunked"
+  description="Kontakt zu David Wollin und :Doppelpunked."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Kontakt</p>
+      <h1>Was könnten wir gemeinsam klarer, einfacher oder besser machen?</h1>
+      <p class="lead">
+        Schreib mir kurz, worum es geht, wer die Zielgruppe ist und welches
+        Ergebnis du erreichen möchtest.
+      </p>
+      <div class="button-row">
+        <a class="button button-primary" href={mailLink}>E-Mail schreiben</a>
+        <a class="button button-secondary" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+          LinkedIn ergänzen
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
