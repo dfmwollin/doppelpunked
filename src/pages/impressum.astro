@@ -5,8 +5,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout
   titleDe="Impressum — :Doppelpunked"
   titleEn="Legal notice — :Doppelpunked"
-  descriptionDe="Impressum von :Doppelpunked."
-  descriptionEn="Legal notice for :Doppelpunked."
+  descriptionDe="Impressum und Anbieterkennzeichnung von :Doppelpunked."
+  descriptionEn="Legal notice and provider information for :Doppelpunked."
 >
   <section class="page-hero">
     <div class="page-hero-inner">
@@ -31,7 +31,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="content-inner text-block reveal">
       <h2
         data-de="Angaben gemäß § 5 DDG"
-        data-en="Provider information under § 5 DDG"
+        data-en="Provider information pursuant to § 5 DDG"
       >
         Angaben gemäß § 5 DDG
       </h2>
@@ -65,27 +65,54 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </h2>
 
       <p>
-        E-Mail:
-        <a href="mailto:doppelpunked@gmail.com">
-          doppelpunked@gmail.com
+        <span data-de="Telefon:" data-en="Telephone:">
+          Telefon:
+        </span>
+
+        <a href="tel:+4971279349678">
+          +49 7127 9349678
         </a><br />
 
-        <span
-          data-de="Telefon: +49 7127 9349678"
-          data-en="Telephone: +49 7127 9349678"
-        >
-          Telefon: +49 7127 9349678
-        </span>
+        E-Mail:
+
+        <a href="mailto:doppelpunked@gmail.com">
+          doppelpunked@gmail.com
+        </a>
       </p>
 
       <h2
-        data-de="Verantwortlich für redaktionelle Inhalte"
-        data-en="Responsible for editorial content"
+        data-de="Wirtschafts-Identifikationsnummer"
+        data-en="Business identification number"
       >
-        Verantwortlich für redaktionelle Inhalte
+        Wirtschafts-Identifikationsnummer
       </h2>
 
       <p>
+        <span
+          data-de="Wirtschafts-Identifikationsnummer gemäß § 139c Abgabenordnung:"
+          data-en="Business identification number pursuant to § 139c of the German Fiscal Code:"
+        >
+          Wirtschafts-Identifikationsnummer gemäß § 139c Abgabenordnung:
+        </span><br />
+
+        DE324941845-00001
+      </p>
+
+      <h2
+        data-de="Verantwortlich für journalistisch-redaktionelle Inhalte"
+        data-en="Responsible for journalistic and editorial content"
+      >
+        Verantwortlich für journalistisch-redaktionelle Inhalte
+      </h2>
+
+      <p>
+        <span
+          data-de="Verantwortlich gemäß § 18 Abs. 2 MStV:"
+          data-en="Responsible pursuant to § 18 paragraph 2 of the German Interstate Media Treaty:"
+        >
+          Verantwortlich gemäß § 18 Abs. 2 MStV:
+        </span><br /><br />
+
         David Wollin<br />
         Ziegelweg 8<br />
         72141 Walddorfhäslach<br />
@@ -112,6 +139,57 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         Ich bin nicht bereit und nicht verpflichtet, an
         Streitbeilegungsverfahren vor einer
         Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+
+      <h2
+        data-de="Haftung für Inhalte"
+        data-en="Liability for content"
+      >
+        Haftung für Inhalte
+      </h2>
+
+      <p
+        data-de="Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden."
+        data-en="The content of this website has been prepared with the greatest possible care. However, no guarantee can be given regarding the accuracy, completeness or currentness of the content."
+      >
+        Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+        Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann
+        jedoch keine Gewähr übernommen werden.
+      </p>
+
+      <h2
+        data-de="Haftung für externe Links"
+        data-en="Liability for external links"
+      >
+        Haftung für externe Links
+      </h2>
+
+      <p
+        data-de="Diese Website kann Links zu externen Websites enthalten. Auf deren Inhalte habe ich keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links entfernt."
+        data-en="This website may contain links to external websites. I have no control over their content. The respective provider or operator is responsible for the content of linked websites. Links will be removed if legal violations become known."
+      >
+        Diese Website kann Links zu externen Websites enthalten. Auf deren
+        Inhalte habe ich keinen Einfluss. Für die Inhalte der verlinkten Seiten
+        ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Bei
+        Bekanntwerden von Rechtsverletzungen werden entsprechende Links
+        entfernt.
+      </p>
+
+      <h2
+        data-de="Urheberrecht"
+        data-en="Copyright"
+      >
+        Urheberrecht
+      </h2>
+
+      <p
+        data-de="Die auf dieser Website erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Eine Vervielfältigung, Bearbeitung, Verbreitung oder sonstige Nutzung außerhalb der gesetzlichen Grenzen bedarf der vorherigen Zustimmung des jeweiligen Rechteinhabers."
+        data-en="The content and works created for this website are subject to German copyright law. Reproduction, editing, distribution or other use beyond the limits permitted by law requires the prior consent of the respective rights holder."
+      >
+        Die auf dieser Website erstellten Inhalte und Werke unterliegen dem
+        deutschen Urheberrecht. Eine Vervielfältigung, Bearbeitung, Verbreitung
+        oder sonstige Nutzung außerhalb der gesetzlichen Grenzen bedarf der
+        vorherigen Zustimmung des jeweiligen Rechteinhabers.
       </p>
     </div>
   </section>
