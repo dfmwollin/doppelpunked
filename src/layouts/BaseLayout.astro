@@ -542,18 +542,38 @@ if (!reducedMotion) {
 
     let touching = false;
 
-    let tunnelPhase = 0;
+    let cycle = 0;
 
     let lastTouchFrame =
       performance.now();
 
+    const sideOffset = 70;
+    const verticalGap = 11;
+
+    const cycleDuration = 2600;
+
+
+    function clamp(value, min, max) {
+      return Math.min(
+        Math.max(value, min),
+        max
+      );
+    }
+
+
+    function smoothstep(value) {
+      const t =
+        clamp(value, 0, 1);
+
+      return (
+        t *
+        t *
+        (3 - 2 * t)
+      );
+    }
+
 
     function updateTouchPosition(event) {
-
-      // Only react to an actual finger.
-      // Mouse interactions are handled by
-      // the desktop cursor.
-
       if (event.pointerType !== "touch") {
         return;
       }
@@ -561,13 +581,12 @@ if (!reducedMotion) {
       touchX = event.clientX;
 
       /*
-        Move the animation slightly above
-        the actual touch point so the
-        finger doesn't completely cover it.
+        Slightly above the real finger
+        position so the animation stays
+        visible around the fingertip.
       */
-
       touchY =
-        event.clientY - 18;
+        event.clientY - 20;
 
       touching = true;
 
@@ -580,15 +599,15 @@ if (!reducedMotion) {
     window.addEventListener(
       "pointerdown",
       (event) => {
-
-        if (
-          event.pointerType !== "touch"
-        ) {
+        if (event.pointerType !== "touch") {
           return;
         }
 
-        tunnelPhase =
-          -Math.PI / 2;
+        /*
+          Restart with both dots
+          on the left.
+        */
+        cycle = 0;
 
         updateTouchPosition(event);
       },
@@ -601,10 +620,7 @@ if (!reducedMotion) {
     window.addEventListener(
       "pointermove",
       (event) => {
-
-        if (
-          event.pointerType !== "touch"
-        ) {
+        if (event.pointerType !== "touch") {
           return;
         }
 
@@ -619,10 +635,7 @@ if (!reducedMotion) {
     window.addEventListener(
       "pointerup",
       (event) => {
-
-        if (
-          event.pointerType !== "touch"
-        ) {
+        if (event.pointerType !== "touch") {
           return;
         }
 
@@ -641,10 +654,7 @@ if (!reducedMotion) {
     window.addEventListener(
       "pointercancel",
       (event) => {
-
-        if (
-          event.pointerType !== "touch"
-        ) {
+        if (event.pointerType !== "touch") {
           return;
         }
 
@@ -660,11 +670,116 @@ if (!reducedMotion) {
     );
 
 
-    function animateTouchColon(time) {
+    function getDotState(
+      progress,
+      start,
+      end,
+      fromSide,
+      toSide
+    ) {
+      /*
+        Before this dot starts moving:
+        stay fully formed at fromSide.
+      */
+      if (progress <= start) {
+        return {
+          x:
+            fromSide *
+            sideOffset,
 
+          scale: 1,
+
+          opacity: 1,
+        };
+      }
+
+      /*
+        After movement:
+        stay fully formed at toSide.
+      */
+      if (progress >= end) {
+        return {
+          x:
+            toSide *
+            sideOffset,
+
+          scale: 1,
+
+          opacity: 1,
+        };
+      }
+
+      const localProgress =
+        (
+          progress -
+          start
+        ) /
+        (
+          end -
+          start
+        );
+
+      const eased =
+        smoothstep(
+          localProgress
+        );
+
+      /*
+        Travel independently
+        from one side to the other.
+      */
+      const x =
+        (
+          fromSide *
+          sideOffset
+        ) +
+        (
+          (
+            toSide -
+            fromSide
+          ) *
+          sideOffset *
+          eased
+        );
+
+
+      /*
+        Shrink toward the finger center,
+        then grow again after passing it.
+      */
+      const centerDistance =
+        Math.abs(
+          eased * 2 - 1
+        );
+
+      const scale =
+        0.12 +
+        centerDistance *
+        0.88;
+
+
+      /*
+        Slight fade under the finger.
+      */
+      const opacity =
+        0.22 +
+        centerDistance *
+        0.78;
+
+
+      return {
+        x,
+        scale,
+        opacity,
+      };
+    }
+
+
+    function animateTouchColon(time) {
       const delta =
         Math.min(
-          time - lastTouchFrame,
+          time -
+          lastTouchFrame,
           40
         );
 
@@ -672,94 +787,107 @@ if (!reducedMotion) {
 
 
       if (touching) {
+        cycle +=
+          delta /
+          cycleDuration;
 
         /*
-          Full left → right → left cycle:
-          approximately 1.8 seconds.
+          Repeat continuously.
         */
-
-        tunnelPhase +=
-          (
-            delta / 1800
-          ) *
-          Math.PI *
-          2;
+        cycle =
+          cycle % 1;
 
 
         /*
-          -1 = left
-           0 = underneath finger
-          +1 = right
+          Two halves:
+
+          0.0 -> 0.5:
+          left to right
+
+          0.5 -> 1.0:
+          right to left
         */
 
-        const travel =
-          Math.sin(
-            tunnelPhase
+        const goingRight =
+          cycle < 0.5;
+
+        const halfProgress =
+          goingRight
+            ? cycle * 2
+            : (cycle - 0.5) * 2;
+
+
+        /*
+          Direction:
+          -1 means left
+          +1 means right
+        */
+
+        const fromSide =
+          goingRight
+            ? -1
+            : 1;
+
+        const toSide =
+          goingRight
+            ? 1
+            : -1;
+
+
+        /*
+          Dot 1 goes first.
+          Dot 2 follows shortly after.
+
+          Dot 1:
+          10% -> 60%
+
+          Dot 2:
+          40% -> 90%
+
+          This creates:
+          :
+          then · finger ·
+          then :
+        */
+
+        const dotOneState =
+          getDotState(
+            halfProgress,
+            0.10,
+            0.60,
+            fromSide,
+            toSide
+          );
+
+        const dotTwoState =
+          getDotState(
+            halfProgress,
+            0.40,
+            0.90,
+            fromSide,
+            toSide
           );
 
 
         /*
-          Horizontal travel distance.
+          Dot 1 stays the upper dot.
+          Dot 2 stays the lower dot.
+
+          Only the horizontal travel
+          happens independently.
         */
-
-        const maxOffset = 46;
-
-        const centerOffset =
-          travel *
-          maxOffset;
-
-
-        /*
-          Shrink while entering the finger.
-        */
-
-        const distance =
-          Math.abs(
-            travel
-          );
-
-
-        /*
-          Goes from nearly invisible/small
-          under the finger to normal size
-          beside it.
-        */
-
-        const tunnelScale =
-          0.08 +
-          distance *
-          0.92;
-
-
-        /*
-          Fade while underneath.
-        */
-
-        const tunnelOpacity =
-          0.12 +
-          distance *
-          0.88;
-
-
-        /*
-          Vertical colon spacing.
-        */
-
-        const verticalGap = 7;
-
 
         const dotOneX =
           touchX +
-          centerOffset;
+          dotOneState.x;
 
         const dotOneY =
           touchY -
           verticalGap;
 
-
         const dotTwoX =
           touchX +
-          centerOffset;
+          dotTwoState.x;
 
         const dotTwoY =
           touchY +
@@ -772,7 +900,7 @@ if (!reducedMotion) {
             ${dotOneY}px,
             0
           )
-          scale(${tunnelScale})`;
+          scale(${dotOneState.scale})`;
 
 
         touchDotTwo.style.transform =
@@ -781,15 +909,15 @@ if (!reducedMotion) {
             ${dotTwoY}px,
             0
           )
-          scale(${tunnelScale})`;
+          scale(${dotTwoState.scale})`;
 
 
         touchDotOne.style.opacity =
-          tunnelOpacity;
+          dotOneState.opacity;
 
 
         touchDotTwo.style.opacity =
-          tunnelOpacity * 0.72;
+          dotTwoState.opacity;
       }
 
 
