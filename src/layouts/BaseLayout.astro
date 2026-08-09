@@ -93,16 +93,21 @@ const {
       ></span>
     </div>
 
+
     <script is:inline>
       // ==================================
       // LANGUAGE
       // ==================================
 
       const languageButtons =
-        document.querySelectorAll("[data-language]");
+        document.querySelectorAll(
+          "[data-language]"
+        );
 
       const translatedElements =
-        document.querySelectorAll("[data-de][data-en]");
+        document.querySelectorAll(
+          "[data-de][data-en]"
+        );
 
       const translatedImages =
         document.querySelectorAll(
@@ -119,60 +124,72 @@ const {
           'meta[name="description"]'
         );
 
+
       function setLanguage(language) {
-        document.documentElement.lang = language;
+        document.documentElement.lang =
+          language;
 
-        translatedElements.forEach((element) => {
-          const translatedText =
-            element.dataset[language];
+        translatedElements.forEach(
+          (element) => {
+            const translatedText =
+              element.dataset[language];
 
-          if (translatedText) {
-            element.textContent = translatedText;
+            if (translatedText) {
+              element.textContent =
+                translatedText;
+            }
           }
-        });
+        );
 
-        translatedImages.forEach((image) => {
-          const translatedAlt =
-            language === "en"
-              ? image.dataset.altEn
-              : image.dataset.altDe;
+        translatedImages.forEach(
+          (image) => {
+            const translatedAlt =
+              language === "en"
+                ? image.dataset.altEn
+                : image.dataset.altDe;
 
-          if (translatedAlt) {
-            image.setAttribute(
-              "alt",
-              translatedAlt
+            if (translatedAlt) {
+              image.setAttribute(
+                "alt",
+                translatedAlt
+              );
+            }
+          }
+        );
+
+        languageMailLinks.forEach(
+          (link) => {
+            const selectedMailLink =
+              language === "en"
+                ? link.dataset.mailEn
+                : link.dataset.mailDe;
+
+            if (selectedMailLink) {
+              link.setAttribute(
+                "href",
+                selectedMailLink
+              );
+            }
+          }
+        );
+
+        languageButtons.forEach(
+          (button) => {
+            const isActive =
+              button.dataset.language ===
+              language;
+
+            button.classList.toggle(
+              "active",
+              isActive
+            );
+
+            button.setAttribute(
+              "aria-pressed",
+              String(isActive)
             );
           }
-        });
-
-        languageMailLinks.forEach((link) => {
-          const selectedMailLink =
-            language === "en"
-              ? link.dataset.mailEn
-              : link.dataset.mailDe;
-
-          if (selectedMailLink) {
-            link.setAttribute(
-              "href",
-              selectedMailLink
-            );
-          }
-        });
-
-        languageButtons.forEach((button) => {
-          const isActive =
-            button.dataset.language === language;
-
-          button.classList.toggle(
-            "active",
-            isActive
-          );
-
-          button.setAttribute(
-            "aria-pressed",
-            String(isActive)
-          );
-        });
+        );
 
         const pageTitle =
           language === "en"
@@ -185,8 +202,10 @@ const {
 
         const pageDescription =
           language === "en"
-            ? document.body.dataset.descriptionEn
-            : document.body.dataset.descriptionDe;
+            ? document.body.dataset
+                .descriptionEn
+            : document.body.dataset
+                .descriptionDe;
 
         if (
           metaDescription &&
@@ -204,21 +223,25 @@ const {
         );
       }
 
-      languageButtons.forEach((button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            const selectedLanguage =
-              button.dataset.language;
 
-            if (selectedLanguage) {
-              setLanguage(
-                selectedLanguage
-              );
+      languageButtons.forEach(
+        (button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              const selectedLanguage =
+                button.dataset.language;
+
+              if (selectedLanguage) {
+                setLanguage(
+                  selectedLanguage
+                );
+              }
             }
-          }
-        );
-      });
+          );
+        }
+      );
+
 
       const savedLanguage =
         localStorage.getItem(
@@ -228,44 +251,214 @@ const {
       setLanguage(savedLanguage);
 
 
+
+      // ==================================
+      // BLOCK TEXT SELECTION / LONG PRESS
+      // ==================================
+
+      function isEditableElement(target) {
+        if (
+          !(target instanceof Element)
+        ) {
+          return false;
+        }
+
+        return Boolean(
+          target.closest(
+            `
+              input,
+              textarea,
+              select,
+              [contenteditable="true"]
+            `
+          )
+        );
+      }
+
+
+      /*
+        Prevent normal browser text
+        selection.
+
+        Form fields remain selectable.
+      */
+
+      document.addEventListener(
+        "selectstart",
+        (event) => {
+          if (
+            !isEditableElement(
+              event.target
+            )
+          ) {
+            event.preventDefault();
+          }
+        }
+      );
+
+
+      /*
+        iPhone/iPad can display the
+        native long-press callout even
+        when user-select:none is set.
+
+        Prevent it outside editable
+        elements.
+      */
+
+      document.addEventListener(
+        "contextmenu",
+        (event) => {
+          if (
+            !isEditableElement(
+              event.target
+            )
+          ) {
+            event.preventDefault();
+          }
+        }
+      );
+
+
+      /*
+        Prevent dragging text, links
+        and images into another app
+        or browser location.
+      */
+
+      document.addEventListener(
+        "dragstart",
+        (event) => {
+          if (
+            !isEditableElement(
+              event.target
+            )
+          ) {
+            event.preventDefault();
+          }
+        }
+      );
+
+
+      /*
+        Safari sometimes retains an
+        existing selection after a
+        long touch.
+
+        Clear accidental selections
+        when a finger touches the page.
+      */
+
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          if (
+            isEditableElement(
+              event.target
+            )
+          ) {
+            return;
+          }
+
+          const selection =
+            window.getSelection();
+
+          if (
+            selection &&
+            selection.rangeCount > 0
+          ) {
+            selection.removeAllRanges();
+          }
+        },
+        {
+          passive: true,
+        }
+      );
+
+
+      /*
+        Clear any selection that iOS
+        manages to create despite the
+        CSS/selectstart protection.
+      */
+
+      document.addEventListener(
+        "selectionchange",
+        () => {
+          const activeElement =
+            document.activeElement;
+
+          if (
+            isEditableElement(
+              activeElement
+            )
+          ) {
+            return;
+          }
+
+          const selection =
+            window.getSelection();
+
+          if (
+            selection &&
+            !selection.isCollapsed
+          ) {
+            selection.removeAllRanges();
+          }
+        }
+      );
+
+
+
       // ==================================
       // REVEAL ANIMATIONS
       // ==================================
 
       const revealElements =
-        document.querySelectorAll(".reveal");
+        document.querySelectorAll(
+          ".reveal"
+        );
 
       const reducedMotion =
         window.matchMedia(
           "(prefers-reduced-motion: reduce)"
         ).matches;
 
+
       if (
         reducedMotion ||
-        !("IntersectionObserver" in window)
+        !(
+          "IntersectionObserver"
+          in window
+        )
       ) {
-        revealElements.forEach((element) => {
-          element.classList.add(
-            "is-visible"
-          );
-        });
+        revealElements.forEach(
+          (element) => {
+            element.classList.add(
+              "is-visible"
+            );
+          }
+        );
       } else {
         const observer =
           new IntersectionObserver(
             (entries) => {
-              entries.forEach((entry) => {
-                if (
-                  entry.isIntersecting
-                ) {
-                  entry.target.classList.add(
-                    "is-visible"
-                  );
-
-                  observer.unobserve(
+              entries.forEach(
+                (entry) => {
+                  if (
+                    entry.isIntersecting
+                  ) {
                     entry.target
-                  );
+                      .classList.add(
+                        "is-visible"
+                      );
+
+                    observer.unobserve(
+                      entry.target
+                    );
+                  }
                 }
-              });
+              );
             },
             {
               threshold: 0.12,
@@ -273,6 +466,7 @@ const {
                 "0px 0px -40px 0px",
             }
           );
+
 
         revealElements.forEach(
           (element, index) => {
@@ -284,10 +478,13 @@ const {
               )}ms`
             );
 
-            observer.observe(element);
+            observer.observe(
+              element
+            );
           }
         );
       }
+
 
 
       // ==================================
@@ -298,6 +495,7 @@ const {
         window.matchMedia(
           "(hover: hover) and (pointer: fine)"
         );
+
 
       if (
         finePointer.matches &&
@@ -318,14 +516,17 @@ const {
             ".colon-dot-trailing"
           );
 
+
         if (
           colonCursor &&
           primaryDot &&
           trailingDot
         ) {
-          document.documentElement.classList.add(
-            "has-colon-cursor"
-          );
+          document.documentElement
+            .classList.add(
+              "has-colon-cursor"
+            );
+
 
           let mouseX =
             window.innerWidth / 2;
@@ -337,6 +538,7 @@ const {
           let primaryY = mouseY;
 
           let trailingX = mouseX;
+
           let trailingY =
             mouseY + 20;
 
@@ -356,8 +558,11 @@ const {
           window.addEventListener(
             "mousemove",
             (event) => {
-              mouseX = event.clientX;
-              mouseY = event.clientY;
+              mouseX =
+                event.clientX;
+
+              mouseY =
+                event.clientY;
 
               lastMovement =
                 performance.now();
@@ -368,6 +573,7 @@ const {
             }
           );
 
+
           document.addEventListener(
             "mouseleave",
             () => {
@@ -376,6 +582,7 @@ const {
               );
             }
           );
+
 
           document.addEventListener(
             "mouseenter",
@@ -387,20 +594,28 @@ const {
           );
 
 
-          function animateColonCursor(time) {
+          function animateColonCursor(
+            time
+          ) {
             const previousPrimaryX =
               primaryX;
 
             const previousPrimaryY =
               primaryY;
 
+
             primaryX +=
-              (mouseX - primaryX) *
-              0.32;
+              (
+                mouseX -
+                primaryX
+              ) * 0.32;
 
             primaryY +=
-              (mouseY - primaryY) *
-              0.32;
+              (
+                mouseY -
+                primaryY
+              ) * 0.32;
+
 
             const dx =
               primaryX -
@@ -410,11 +625,13 @@ const {
               primaryY -
               previousPrimaryY;
 
+
             const speed =
               Math.sqrt(
                 dx * dx +
                 dy * dy
               );
+
 
             const activity =
               Math.min(
@@ -422,24 +639,29 @@ const {
                 1
               );
 
+
             smoothedActivity +=
               (
                 activity -
                 smoothedActivity
               ) * 0.04;
 
+
             const isIdle =
               time -
                 lastMovement >
               140;
 
+
             const targetTrailingX =
               primaryX;
+
 
             const targetTrailingY =
               isIdle
                 ? primaryY + gap
                 : primaryY + 7;
+
 
             trailingX +=
               (
@@ -447,16 +669,19 @@ const {
                 trailingX
               ) * 0.11;
 
+
             trailingY +=
               (
                 targetTrailingY -
                 trailingY
               ) * 0.11;
 
+
             const breathingPeriod =
               2500 -
               smoothedActivity *
                 1500;
+
 
             const delta =
               Math.min(
@@ -464,6 +689,7 @@ const {
                   lastFrameTime,
                 50
               );
+
 
             breathingPhase +=
               (
@@ -473,7 +699,10 @@ const {
               Math.PI *
               2;
 
-            lastFrameTime = time;
+
+            lastFrameTime =
+              time;
+
 
             const breath =
               1 +
@@ -481,6 +710,7 @@ const {
                 breathingPhase
               ) *
                 0.06;
+
 
             const trailingBreath =
               1 +
@@ -490,6 +720,7 @@ const {
               ) *
                 0.045;
 
+
             primaryDot.style.transform =
               `translate3d(
                 ${primaryX}px,
@@ -497,6 +728,7 @@ const {
                 0
               )
               scale(${breath})`;
+
 
             trailingDot.style.transform =
               `translate3d(
@@ -506,10 +738,12 @@ const {
               )
               scale(${trailingBreath})`;
 
+
             requestAnimationFrame(
               animateColonCursor
             );
           }
+
 
           requestAnimationFrame(
             animateColonCursor
@@ -518,420 +752,476 @@ const {
       }
 
 
+
       // ==================================
-// MOBILE / TOUCHSCREEN COLON
-// ==================================
-
-if (!reducedMotion) {
-  const touchColon =
-    document.querySelector(".touch-colon");
-
-  const touchDotOne =
-    document.querySelector(".touch-dot-one");
-
-  const touchDotTwo =
-    document.querySelector(".touch-dot-two");
-
-  if (
-    touchColon &&
-    touchDotOne &&
-    touchDotTwo
-  ) {
-    let touchX = 0;
-    let touchY = 0;
-
-    let touching = false;
-
-    let cycle = 0;
-
-    let lastTouchFrame =
-      performance.now();
-
-    const sideOffset = 70;
-    const verticalGap = 11;
-
-    const cycleDuration = 2600;
-
-
-    function clamp(value, min, max) {
-      return Math.min(
-        Math.max(value, min),
-        max
-      );
-    }
-
-
-    function smoothstep(value) {
-      const t =
-        clamp(value, 0, 1);
-
-      return (
-        t *
-        t *
-        (3 - 2 * t)
-      );
-    }
-
-
-    function updateTouchPosition(event) {
-      if (event.pointerType !== "touch") {
-        return;
-      }
-
-      touchX = event.clientX;
-
-      /*
-        Slightly above the real finger
-        position so the animation stays
-        visible around the fingertip.
-      */
-      touchY =
-        event.clientY - 20;
-
-      touching = true;
-
-      touchColon.classList.add(
-        "is-visible"
-      );
-    }
-
-
-    window.addEventListener(
-      "pointerdown",
-      (event) => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
-
-        /*
-          Restart with both dots
-          on the left.
-        */
-        cycle = 0;
-
-        updateTouchPosition(event);
-      },
-      {
-        passive: true,
-      }
-    );
-
-
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
-
-        updateTouchPosition(event);
-      },
-      {
-        passive: true,
-      }
-    );
-
-
-    window.addEventListener(
-      "pointerup",
-      (event) => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
-
-        touching = false;
-
-        touchColon.classList.remove(
-          "is-visible"
-        );
-      },
-      {
-        passive: true,
-      }
-    );
-
-
-    window.addEventListener(
-      "pointercancel",
-      (event) => {
-        if (event.pointerType !== "touch") {
-          return;
-        }
-
-        touching = false;
-
-        touchColon.classList.remove(
-          "is-visible"
-        );
-      },
-      {
-        passive: true,
-      }
-    );
-
-
-    function getDotState(
-      progress,
-      start,
-      end,
-      fromSide,
-      toSide
-    ) {
-      /*
-        Before this dot starts moving:
-        stay fully formed at fromSide.
-      */
-      if (progress <= start) {
-        return {
-          x:
-            fromSide *
-            sideOffset,
-
-          scale: 1,
-
-          opacity: 1,
-        };
-      }
-
-      /*
-        After movement:
-        stay fully formed at toSide.
-      */
-      if (progress >= end) {
-        return {
-          x:
-            toSide *
-            sideOffset,
-
-          scale: 1,
-
-          opacity: 1,
-        };
-      }
-
-      const localProgress =
-        (
-          progress -
-          start
-        ) /
-        (
-          end -
-          start
-        );
-
-      const eased =
-        smoothstep(
-          localProgress
-        );
-
-      /*
-        Travel independently
-        from one side to the other.
-      */
-      const x =
-        (
-          fromSide *
-          sideOffset
-        ) +
-        (
-          (
-            toSide -
-            fromSide
-          ) *
-          sideOffset *
-          eased
-        );
-
-
-      /*
-        Shrink toward the finger center,
-        then grow again after passing it.
-      */
-      const centerDistance =
-        Math.abs(
-          eased * 2 - 1
-        );
-
-      const scale =
-        0.12 +
-        centerDistance *
-        0.88;
-
-
-      /*
-        Slight fade under the finger.
-      */
-      const opacity =
-        0.22 +
-        centerDistance *
-        0.78;
-
-
-      return {
-        x,
-        scale,
-        opacity,
-      };
-    }
-
-
-    function animateTouchColon(time) {
-      const delta =
-        Math.min(
-          time -
-          lastTouchFrame,
-          40
-        );
-
-      lastTouchFrame = time;
-
-
-      if (touching) {
-        cycle +=
-          delta /
-          cycleDuration;
-
-        /*
-          Repeat continuously.
-        */
-        cycle =
-          cycle % 1;
-
-
-        /*
-          Two halves:
-
-          0.0 -> 0.5:
-          left to right
-
-          0.5 -> 1.0:
-          right to left
-        */
-
-        const goingRight =
-          cycle < 0.5;
-
-        const halfProgress =
-          goingRight
-            ? cycle * 2
-            : (cycle - 0.5) * 2;
-
-
-        /*
-          Direction:
-          -1 means left
-          +1 means right
-        */
-
-        const fromSide =
-          goingRight
-            ? -1
-            : 1;
-
-        const toSide =
-          goingRight
-            ? 1
-            : -1;
-
-
-        /*
-          Dot 1 goes first.
-          Dot 2 follows shortly after.
-
-          Dot 1:
-          10% -> 60%
-
-          Dot 2:
-          40% -> 90%
-
-          This creates:
-          :
-          then · finger ·
-          then :
-        */
-
-        const dotOneState =
-          getDotState(
-            halfProgress,
-            0.10,
-            0.60,
-            fromSide,
-            toSide
+      // MOBILE / TOUCHSCREEN COLON
+      // ==================================
+
+      if (!reducedMotion) {
+        const touchColon =
+          document.querySelector(
+            ".touch-colon"
           );
 
-        const dotTwoState =
-          getDotState(
-            halfProgress,
-            0.40,
-            0.90,
-            fromSide,
-            toSide
+        const touchDotOne =
+          document.querySelector(
+            ".touch-dot-one"
+          );
+
+        const touchDotTwo =
+          document.querySelector(
+            ".touch-dot-two"
           );
 
 
-        /*
-          Dot 1 stays the upper dot.
-          Dot 2 stays the lower dot.
+        if (
+          touchColon &&
+          touchDotOne &&
+          touchDotTwo
+        ) {
+          let touchX = 0;
+          let touchY = 0;
 
-          Only the horizontal travel
-          happens independently.
-        */
+          let touching = false;
 
-        const dotOneX =
-          touchX +
-          dotOneState.x;
+          let cycle = 0;
 
-        const dotOneY =
-          touchY -
-          verticalGap;
-
-        const dotTwoX =
-          touchX +
-          dotTwoState.x;
-
-        const dotTwoY =
-          touchY +
-          verticalGap;
+          let lastTouchFrame =
+            performance.now();
 
 
-        touchDotOne.style.transform =
-          `translate3d(
-            ${dotOneX}px,
-            ${dotOneY}px,
-            0
-          )
-          scale(${dotOneState.scale})`;
+          const sideOffset = 70;
+
+          const verticalGap = 11;
+
+          const cycleDuration = 2600;
 
 
-        touchDotTwo.style.transform =
-          `translate3d(
-            ${dotTwoX}px,
-            ${dotTwoY}px,
-            0
-          )
-          scale(${dotTwoState.scale})`;
+          function clamp(
+            value,
+            min,
+            max
+          ) {
+            return Math.min(
+              Math.max(
+                value,
+                min
+              ),
+              max
+            );
+          }
 
 
-        touchDotOne.style.opacity =
-          dotOneState.opacity;
+          function smoothstep(value) {
+            const t =
+              clamp(
+                value,
+                0,
+                1
+              );
+
+            return (
+              t *
+              t *
+              (3 - 2 * t)
+            );
+          }
 
 
-        touchDotTwo.style.opacity =
-          dotTwoState.opacity;
+          function updateTouchPosition(
+            event
+          ) {
+            if (
+              event.pointerType !==
+              "touch"
+            ) {
+              return;
+            }
+
+
+            touchX =
+              event.clientX;
+
+
+            /*
+              Slightly above the actual
+              fingertip so the dots
+              remain visible.
+            */
+
+            touchY =
+              event.clientY - 20;
+
+
+            touching = true;
+
+
+            touchColon.classList.add(
+              "is-visible"
+            );
+          }
+
+
+          window.addEventListener(
+            "pointerdown",
+            (event) => {
+              if (
+                event.pointerType !==
+                "touch"
+              ) {
+                return;
+              }
+
+
+              /*
+                Begin with both dots
+                on the left.
+              */
+
+              cycle = 0;
+
+
+              updateTouchPosition(
+                event
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+
+          window.addEventListener(
+            "pointermove",
+            (event) => {
+              if (
+                event.pointerType !==
+                "touch"
+              ) {
+                return;
+              }
+
+
+              updateTouchPosition(
+                event
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+
+          window.addEventListener(
+            "pointerup",
+            (event) => {
+              if (
+                event.pointerType !==
+                "touch"
+              ) {
+                return;
+              }
+
+
+              touching = false;
+
+
+              touchColon.classList.remove(
+                "is-visible"
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+
+          window.addEventListener(
+            "pointercancel",
+            (event) => {
+              if (
+                event.pointerType !==
+                "touch"
+              ) {
+                return;
+              }
+
+
+              touching = false;
+
+
+              touchColon.classList.remove(
+                "is-visible"
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+
+          function getDotState(
+            progress,
+            start,
+            end,
+            fromSide,
+            toSide
+          ) {
+            /*
+              Dot hasn't started yet.
+            */
+
+            if (
+              progress <= start
+            ) {
+              return {
+                x:
+                  fromSide *
+                  sideOffset,
+
+                scale: 1,
+
+                opacity: 1,
+              };
+            }
+
+
+            /*
+              Dot has reached the
+              opposite side.
+            */
+
+            if (
+              progress >= end
+            ) {
+              return {
+                x:
+                  toSide *
+                  sideOffset,
+
+                scale: 1,
+
+                opacity: 1,
+              };
+            }
+
+
+            const localProgress =
+              (
+                progress -
+                start
+              ) /
+              (
+                end -
+                start
+              );
+
+
+            const eased =
+              smoothstep(
+                localProgress
+              );
+
+
+            /*
+              Independent horizontal
+              movement.
+            */
+
+            const x =
+              (
+                fromSide *
+                sideOffset
+              ) +
+              (
+                (
+                  toSide -
+                  fromSide
+                ) *
+                sideOffset *
+                eased
+              );
+
+
+            /*
+              Shrink as this individual
+              dot passes underneath the
+              finger, then grow again.
+            */
+
+            const centerDistance =
+              Math.abs(
+                eased * 2 - 1
+              );
+
+
+            const scale =
+              0.12 +
+              centerDistance *
+                0.88;
+
+
+            const opacity =
+              0.22 +
+              centerDistance *
+                0.78;
+
+
+            return {
+              x,
+              scale,
+              opacity,
+            };
+          }
+
+
+          function animateTouchColon(
+            time
+          ) {
+            const delta =
+              Math.min(
+                time -
+                  lastTouchFrame,
+                40
+              );
+
+
+            lastTouchFrame =
+              time;
+
+
+            if (touching) {
+              cycle +=
+                delta /
+                cycleDuration;
+
+
+              cycle =
+                cycle % 1;
+
+
+              /*
+                First half:
+                left -> right
+
+                Second half:
+                right -> left
+              */
+
+              const goingRight =
+                cycle < 0.5;
+
+
+              const halfProgress =
+                goingRight
+                  ? cycle * 2
+                  : (
+                      cycle -
+                      0.5
+                    ) * 2;
+
+
+              const fromSide =
+                goingRight
+                  ? -1
+                  : 1;
+
+
+              const toSide =
+                goingRight
+                  ? 1
+                  : -1;
+
+
+              /*
+                First dot tunnels
+                through first.
+
+                Second dot follows.
+              */
+
+              const dotOneState =
+                getDotState(
+                  halfProgress,
+                  0.10,
+                  0.60,
+                  fromSide,
+                  toSide
+                );
+
+
+              const dotTwoState =
+                getDotState(
+                  halfProgress,
+                  0.40,
+                  0.90,
+                  fromSide,
+                  toSide
+                );
+
+
+              const dotOneX =
+                touchX +
+                dotOneState.x;
+
+
+              const dotOneY =
+                touchY -
+                verticalGap;
+
+
+              const dotTwoX =
+                touchX +
+                dotTwoState.x;
+
+
+              const dotTwoY =
+                touchY +
+                verticalGap;
+
+
+              touchDotOne.style.transform =
+                `translate3d(
+                  ${dotOneX}px,
+                  ${dotOneY}px,
+                  0
+                )
+                scale(
+                  ${dotOneState.scale}
+                )`;
+
+
+              touchDotTwo.style.transform =
+                `translate3d(
+                  ${dotTwoX}px,
+                  ${dotTwoY}px,
+                  0
+                )
+                scale(
+                  ${dotTwoState.scale}
+                )`;
+
+
+              touchDotOne.style.opacity =
+                dotOneState.opacity;
+
+
+              touchDotTwo.style.opacity =
+                dotTwoState.opacity;
+            }
+
+
+            requestAnimationFrame(
+              animateTouchColon
+            );
+          }
+
+
+          requestAnimationFrame(
+            animateTouchColon
+          );
+        }
       }
-
-
-      requestAnimationFrame(
-        animateTouchColon
-      );
-    }
-
-
-    requestAnimationFrame(
-      animateTouchColon
-    );
-  }
-}
     </script>
   </body>
 </html>
