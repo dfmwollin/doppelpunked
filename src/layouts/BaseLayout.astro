@@ -65,7 +65,28 @@ const {
 
     <Footer />
 
+    <!--
+      Doppelpunked interactive colon cursor.
+      JavaScript activates it only on mouse/trackpad devices.
+    -->
+    <div
+      class="colon-cursor"
+      aria-hidden="true"
+    >
+      <span
+        class="colon-dot colon-dot-primary"
+      ></span>
+
+      <span
+        class="colon-dot colon-dot-trailing"
+      ></span>
+    </div>
+
     <script is:inline>
+      // ==================================
+      // LANGUAGE
+      // ==================================
+
       const languageButtons =
         document.querySelectorAll("[data-language]");
 
@@ -73,19 +94,26 @@ const {
         document.querySelectorAll("[data-de][data-en]");
 
       const translatedImages =
-        document.querySelectorAll("[data-alt-de][data-alt-en]");
+        document.querySelectorAll(
+          "[data-alt-de][data-alt-en]"
+        );
 
       const languageMailLinks =
-        document.querySelectorAll(".language-mail-link");
+        document.querySelectorAll(
+          ".language-mail-link"
+        );
 
       const metaDescription =
-        document.querySelector('meta[name="description"]');
+        document.querySelector(
+          'meta[name="description"]'
+        );
 
       function setLanguage(language) {
         document.documentElement.lang = language;
 
         translatedElements.forEach((element) => {
-          const translatedText = element.dataset[language];
+          const translatedText =
+            element.dataset[language];
 
           if (translatedText) {
             element.textContent = translatedText;
@@ -99,7 +127,10 @@ const {
               : image.dataset.altDe;
 
           if (translatedAlt) {
-            image.setAttribute("alt", translatedAlt);
+            image.setAttribute(
+              "alt",
+              translatedAlt
+            );
           }
         });
 
@@ -110,7 +141,10 @@ const {
               : link.dataset.mailDe;
 
           if (selectedMailLink) {
-            link.setAttribute("href", selectedMailLink);
+            link.setAttribute(
+              "href",
+              selectedMailLink
+            );
           }
         });
 
@@ -118,7 +152,10 @@ const {
           const isActive =
             button.dataset.language === language;
 
-          button.classList.toggle("active", isActive);
+          button.classList.toggle(
+            "active",
+            isActive
+          );
 
           button.setAttribute(
             "aria-pressed",
@@ -140,7 +177,10 @@ const {
             ? document.body.dataset.descriptionEn
             : document.body.dataset.descriptionDe;
 
-        if (metaDescription && pageDescription) {
+        if (
+          metaDescription &&
+          pageDescription
+        ) {
           metaDescription.setAttribute(
             "content",
             pageDescription
@@ -154,21 +194,32 @@ const {
       }
 
       languageButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const selectedLanguage =
-            button.dataset.language;
+        button.addEventListener(
+          "click",
+          () => {
+            const selectedLanguage =
+              button.dataset.language;
 
-          if (selectedLanguage) {
-            setLanguage(selectedLanguage);
+            if (selectedLanguage) {
+              setLanguage(
+                selectedLanguage
+              );
+            }
           }
-        });
+        );
       });
 
       const savedLanguage =
-        localStorage.getItem("doppelpunked-language") ||
-        "de";
+        localStorage.getItem(
+          "doppelpunked-language"
+        ) || "de";
 
       setLanguage(savedLanguage);
+
+
+      // ==================================
+      // REVEAL ANIMATIONS
+      // ==================================
 
       const revealElements =
         document.querySelectorAll(".reveal");
@@ -183,25 +234,32 @@ const {
         !("IntersectionObserver" in window)
       ) {
         revealElements.forEach((element) => {
-          element.classList.add("is-visible");
+          element.classList.add(
+            "is-visible"
+          );
         });
       } else {
         const observer =
           new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-                if (entry.isIntersecting) {
+                if (
+                  entry.isIntersecting
+                ) {
                   entry.target.classList.add(
                     "is-visible"
                   );
 
-                  observer.unobserve(entry.target);
+                  observer.unobserve(
+                    entry.target
+                  );
                 }
               });
             },
             {
               threshold: 0.12,
-              rootMargin: "0px 0px -40px 0px",
+              rootMargin:
+                "0px 0px -40px 0px",
             }
           );
 
@@ -209,12 +267,307 @@ const {
           (element, index) => {
             element.style.setProperty(
               "--reveal-delay",
-              `${Math.min(index * 70, 280)}ms`
+              `${Math.min(
+                index * 70,
+                280
+              )}ms`
             );
 
             observer.observe(element);
           }
         );
+      }
+
+
+      // ==================================
+      // DOPPELPUNKED COLON CURSOR
+      // ==================================
+
+      const finePointer =
+        window.matchMedia(
+          "(hover: hover) and (pointer: fine)"
+        );
+
+      if (
+        finePointer.matches &&
+        !reducedMotion
+      ) {
+        const colonCursor =
+          document.querySelector(
+            ".colon-cursor"
+          );
+
+        const primaryDot =
+          document.querySelector(
+            ".colon-dot-primary"
+          );
+
+        const trailingDot =
+          document.querySelector(
+            ".colon-dot-trailing"
+          );
+
+        if (
+          colonCursor &&
+          primaryDot &&
+          trailingDot
+        ) {
+          document.documentElement.classList.add(
+            "has-colon-cursor"
+          );
+
+          // ------------------------------
+          // Position
+          // ------------------------------
+
+          let mouseX =
+            window.innerWidth / 2;
+
+          let mouseY =
+            window.innerHeight / 2;
+
+          let primaryX = mouseX;
+          let primaryY = mouseY;
+
+          let trailingX = mouseX;
+          let trailingY =
+            mouseY + 20;
+
+          let lastMovement =
+            performance.now();
+
+
+          // ------------------------------
+          // Breathing
+          // ------------------------------
+
+          let smoothedActivity = 0;
+
+          let breathingPhase = 0;
+
+          let lastFrameTime =
+            performance.now();
+
+          // Distance between dots
+          // when the cursor is resting.
+          const gap = 20;
+
+
+          // ------------------------------
+          // Mouse events
+          // ------------------------------
+
+          window.addEventListener(
+            "mousemove",
+            (event) => {
+              mouseX = event.clientX;
+              mouseY = event.clientY;
+
+              lastMovement =
+                performance.now();
+
+              colonCursor.classList.add(
+                "is-visible"
+              );
+            }
+          );
+
+          document.addEventListener(
+            "mouseleave",
+            () => {
+              colonCursor.classList.remove(
+                "is-visible"
+              );
+            }
+          );
+
+          document.addEventListener(
+            "mouseenter",
+            () => {
+              colonCursor.classList.add(
+                "is-visible"
+              );
+            }
+          );
+
+
+          // ------------------------------
+          // Animation loop
+          // ------------------------------
+
+          function animateColonCursor(time) {
+            const previousPrimaryX =
+              primaryX;
+
+            const previousPrimaryY =
+              primaryY;
+
+
+            // ----------------------------
+            // Lead dot follows mouse
+            // ----------------------------
+
+            primaryX +=
+              (mouseX - primaryX) *
+              0.32;
+
+            primaryY +=
+              (mouseY - primaryY) *
+              0.32;
+
+
+            // ----------------------------
+            // Calculate mouse activity
+            // ----------------------------
+
+            const dx =
+              primaryX -
+              previousPrimaryX;
+
+            const dy =
+              primaryY -
+              previousPrimaryY;
+
+            const speed =
+              Math.sqrt(
+                dx * dx +
+                dy * dy
+              );
+
+            const activity =
+              Math.min(
+                speed / 18,
+                1
+              );
+
+            // Smooth transition between
+            // calm and active breathing.
+            smoothedActivity +=
+              (
+                activity -
+                smoothedActivity
+              ) * 0.04;
+
+
+            // ----------------------------
+            // Trailing dot
+            // ----------------------------
+
+            const isIdle =
+              time -
+                lastMovement >
+              140;
+
+            const targetTrailingX =
+              primaryX;
+
+            const targetTrailingY =
+              isIdle
+                ? primaryY + gap
+                : primaryY + 7;
+
+            trailingX +=
+              (
+                targetTrailingX -
+                trailingX
+              ) * 0.11;
+
+            trailingY +=
+              (
+                targetTrailingY -
+                trailingY
+              ) * 0.11;
+
+
+            // ----------------------------
+            // Breathing frequency
+            // ----------------------------
+
+            // Calm:
+            // 2500 ms per cycle
+            //
+            // Fast movement:
+            // approximately 1000 ms
+            // per cycle.
+
+            const breathingPeriod =
+              2500 -
+              smoothedActivity *
+                1500;
+
+            const delta =
+              Math.min(
+                time -
+                  lastFrameTime,
+                50
+              );
+
+            breathingPhase +=
+              (
+                delta /
+                breathingPeriod
+              ) *
+              Math.PI *
+              2;
+
+            lastFrameTime = time;
+
+
+            // ----------------------------
+            // Breathing size
+            // ----------------------------
+
+            // Main dot:
+            // roughly 94% - 106%
+
+            const breath =
+              1 +
+              Math.sin(
+                breathingPhase
+              ) *
+                0.06;
+
+            // Second dot breathes
+            // slightly differently.
+
+            const trailingBreath =
+              1 +
+              Math.sin(
+                breathingPhase -
+                  0.22
+              ) *
+                0.045;
+
+
+            // ----------------------------
+            // Render
+            // ----------------------------
+
+            primaryDot.style.transform =
+              `translate3d(
+                ${primaryX}px,
+                ${primaryY}px,
+                0
+              )
+              scale(${breath})`;
+
+            trailingDot.style.transform =
+              `translate3d(
+                ${trailingX}px,
+                ${trailingY}px,
+                0
+              )
+              scale(${trailingBreath})`;
+
+            requestAnimationFrame(
+              animateColonCursor
+            );
+          }
+
+          requestAnimationFrame(
+            animateColonCursor
+          );
+        }
       }
     </script>
   </body>
