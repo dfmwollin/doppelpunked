@@ -35,6 +35,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         ich komplexe Inhalte in klare Botschaften, praktische Abläufe und
         hilfreiche Lernangebote.
       </p>
+
+      <div class="profile-links">
+        <a
+          class="linkedin-link"
+          href="https://www.linkedin.com/in/dfmwollin/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="David Wollin auf LinkedIn"
+        >
+          LinkedIn ↗
+        </a>
+      </div>
     </div>
   </section>
 
@@ -192,10 +204,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="contact-inner reveal">
       <p
         class="section-label"
-        data-de="Zusammenarbeit"
-        data-en="Collaboration"
+        data-de="Kontakt"
+        data-en="Contact"
       >
-        Zusammenarbeit
+        Kontakt
       </p>
 
       <h2
@@ -206,19 +218,47 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         klarer werden muss?
       </h2>
 
-      <a
-        class="button button-primary"
-        href="/contact"
-        data-de="Kontakt aufnehmen"
-        data-en="Get in touch"
-      >
-        Kontakt aufnehmen
-      </a>
+      <div class="contact-actions">
+        <a
+          class="button button-primary"
+          href="/contact"
+          data-de="Kontakt aufnehmen"
+          data-en="Get in touch"
+        >
+          Kontakt aufnehmen
+        </a>
+
+        <a
+          class="button button-secondary"
+          href="https://www.linkedin.com/in/dfmwollin/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn ↗
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .profile-links {
+    margin-top: 24px;
+  }
+
+  .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .linkedin-link:hover {
+    text-decoration: underline;
+  }
+
   .portrait-section {
     padding-block: 70px 30px;
     border-bottom: 1px solid #d9e0e7;
@@ -249,6 +289,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-size: 0.95rem;
     line-height: 1.6;
     text-align: center;
+  }
+
+  .contact-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 600px) {
