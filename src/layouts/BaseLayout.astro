@@ -65,10 +65,7 @@ const {
 
     <Footer />
 
-    <!--
-      Doppelpunked interactive colon cursor.
-      JavaScript activates it only on mouse/trackpad devices.
-    -->
+    <!-- Desktop / mouse colon cursor -->
     <div
       class="colon-cursor"
       aria-hidden="true"
@@ -79,6 +76,20 @@ const {
 
       <span
         class="colon-dot colon-dot-trailing"
+      ></span>
+    </div>
+
+    <!-- Mobile / touchscreen colon -->
+    <div
+      class="touch-colon"
+      aria-hidden="true"
+    >
+      <span
+        class="touch-dot touch-dot-one"
+      ></span>
+
+      <span
+        class="touch-dot touch-dot-two"
       ></span>
     </div>
 
@@ -280,7 +291,7 @@ const {
 
 
       // ==================================
-      // DOPPELPUNKED COLON CURSOR
+      // DESKTOP COLON CURSOR
       // ==================================
 
       const finePointer =
@@ -316,10 +327,6 @@ const {
             "has-colon-cursor"
           );
 
-          // ------------------------------
-          // Position
-          // ------------------------------
-
           let mouseX =
             window.innerWidth / 2;
 
@@ -336,11 +343,6 @@ const {
           let lastMovement =
             performance.now();
 
-
-          // ------------------------------
-          // Breathing
-          // ------------------------------
-
           let smoothedActivity = 0;
 
           let breathingPhase = 0;
@@ -348,14 +350,8 @@ const {
           let lastFrameTime =
             performance.now();
 
-          // Distance between dots
-          // when the cursor is resting.
           const gap = 20;
 
-
-          // ------------------------------
-          // Mouse events
-          // ------------------------------
 
           window.addEventListener(
             "mousemove",
@@ -391,21 +387,12 @@ const {
           );
 
 
-          // ------------------------------
-          // Animation loop
-          // ------------------------------
-
           function animateColonCursor(time) {
             const previousPrimaryX =
               primaryX;
 
             const previousPrimaryY =
               primaryY;
-
-
-            // ----------------------------
-            // Lead dot follows mouse
-            // ----------------------------
 
             primaryX +=
               (mouseX - primaryX) *
@@ -414,11 +401,6 @@ const {
             primaryY +=
               (mouseY - primaryY) *
               0.32;
-
-
-            // ----------------------------
-            // Calculate mouse activity
-            // ----------------------------
 
             const dx =
               primaryX -
@@ -440,18 +422,11 @@ const {
                 1
               );
 
-            // Smooth transition between
-            // calm and active breathing.
             smoothedActivity +=
               (
                 activity -
                 smoothedActivity
               ) * 0.04;
-
-
-            // ----------------------------
-            // Trailing dot
-            // ----------------------------
 
             const isIdle =
               time -
@@ -478,18 +453,6 @@ const {
                 trailingY
               ) * 0.11;
 
-
-            // ----------------------------
-            // Breathing frequency
-            // ----------------------------
-
-            // Calm:
-            // 2500 ms per cycle
-            //
-            // Fast movement:
-            // approximately 1000 ms
-            // per cycle.
-
             const breathingPeriod =
               2500 -
               smoothedActivity *
@@ -512,23 +475,12 @@ const {
 
             lastFrameTime = time;
 
-
-            // ----------------------------
-            // Breathing size
-            // ----------------------------
-
-            // Main dot:
-            // roughly 94% - 106%
-
             const breath =
               1 +
               Math.sin(
                 breathingPhase
               ) *
                 0.06;
-
-            // Second dot breathes
-            // slightly differently.
 
             const trailingBreath =
               1 +
@@ -537,11 +489,6 @@ const {
                   0.22
               ) *
                 0.045;
-
-
-            // ----------------------------
-            // Render
-            // ----------------------------
 
             primaryDot.style.transform =
               `translate3d(
@@ -566,6 +513,247 @@ const {
 
           requestAnimationFrame(
             animateColonCursor
+          );
+        }
+      }
+
+
+      // ==================================
+      // MOBILE / TOUCHSCREEN COLON
+      // ==================================
+
+      const coarsePointer =
+        window.matchMedia(
+          "(hover: none) and (pointer: coarse)"
+        );
+
+      if (
+        coarsePointer.matches &&
+        !reducedMotion
+      ) {
+        const touchColon =
+          document.querySelector(
+            ".touch-colon"
+          );
+
+        const touchDotOne =
+          document.querySelector(
+            ".touch-dot-one"
+          );
+
+        const touchDotTwo =
+          document.querySelector(
+            ".touch-dot-two"
+          );
+
+        if (
+          touchColon &&
+          touchDotOne &&
+          touchDotTwo
+        ) {
+          let touchX = 0;
+          let touchY = 0;
+
+          let touching = false;
+
+          let tunnelPhase = 0;
+
+          let lastTouchFrame =
+            performance.now();
+
+
+          function updateTouch(event) {
+            const touch =
+              event.touches?.[0] ||
+              event.changedTouches?.[0];
+
+            if (!touch) return;
+
+            touchX = touch.clientX;
+
+            /*
+              Raise the visual effect slightly
+              above the actual touch point so
+              it remains visible around the
+              fingertip.
+            */
+            touchY =
+              touch.clientY - 10;
+
+            touching = true;
+
+            touchColon.classList.add(
+              "is-visible"
+            );
+          }
+
+
+          window.addEventListener(
+            "touchstart",
+            updateTouch,
+            {
+              passive: true,
+            }
+          );
+
+          window.addEventListener(
+            "touchmove",
+            updateTouch,
+            {
+              passive: true,
+            }
+          );
+
+          window.addEventListener(
+            "touchend",
+            () => {
+              touching = false;
+
+              touchColon.classList.remove(
+                "is-visible"
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+          window.addEventListener(
+            "touchcancel",
+            () => {
+              touching = false;
+
+              touchColon.classList.remove(
+                "is-visible"
+              );
+            },
+            {
+              passive: true,
+            }
+          );
+
+
+          function animateTouchColon(time) {
+            const delta =
+              Math.min(
+                time -
+                  lastTouchFrame,
+                40
+              );
+
+            lastTouchFrame = time;
+
+            if (touching) {
+              /*
+                One full back-and-forth tunnel
+                takes roughly 1.8 seconds.
+              */
+              tunnelPhase +=
+                delta / 1800 *
+                Math.PI *
+                2;
+
+              /*
+                -1 = left of finger
+                 0 = inside finger
+                +1 = right of finger
+              */
+              const travel =
+                Math.sin(
+                  tunnelPhase
+                );
+
+              /*
+                Distance from finger center.
+              */
+              const maxOffset = 42;
+
+              const centerOffset =
+                travel *
+                maxOffset;
+
+              /*
+                Shrink as the colon approaches
+                the touch point.
+
+                At the center it becomes very
+                small, creating the impression
+                that it tunnels through the
+                fingertip.
+              */
+              const distance =
+                Math.abs(
+                  travel
+                );
+
+              const tunnelScale =
+                0.12 +
+                distance *
+                  0.88;
+
+              /*
+                Fade slightly while underneath
+                the fingertip.
+              */
+              const tunnelOpacity =
+                0.18 +
+                distance *
+                  0.82;
+
+              /*
+                Keep the two dots vertically
+                aligned like a colon.
+              */
+              const verticalGap = 7;
+
+              const dotOneX =
+                touchX +
+                centerOffset;
+
+              const dotOneY =
+                touchY -
+                verticalGap;
+
+              const dotTwoX =
+                touchX +
+                centerOffset;
+
+              const dotTwoY =
+                touchY +
+                verticalGap;
+
+
+              touchDotOne.style.transform =
+                `translate3d(
+                  ${dotOneX}px,
+                  ${dotOneY}px,
+                  0
+                )
+                scale(${tunnelScale})`;
+
+              touchDotTwo.style.transform =
+                `translate3d(
+                  ${dotTwoX}px,
+                  ${dotTwoY}px,
+                  0
+                )
+                scale(${tunnelScale})`;
+
+              touchDotOne.style.opacity =
+                tunnelOpacity;
+
+              touchDotTwo.style.opacity =
+                tunnelOpacity * 0.75;
+            }
+
+            requestAnimationFrame(
+              animateTouchColon
+            );
+          }
+
+
+          requestAnimationFrame(
+            animateTouchColon
           );
         }
       }
