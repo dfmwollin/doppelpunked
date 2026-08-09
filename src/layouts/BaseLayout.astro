@@ -519,244 +519,291 @@ const {
 
 
       // ==================================
-      // MOBILE / TOUCHSCREEN COLON
-      // ==================================
+// MOBILE / TOUCHSCREEN COLON
+// ==================================
 
-      const coarsePointer =
-        window.matchMedia(
-          "(hover: none) and (pointer: coarse)"
-        );
+if (!reducedMotion) {
+  const touchColon =
+    document.querySelector(".touch-colon");
 
-      if (
-        coarsePointer.matches &&
-        !reducedMotion
-      ) {
-        const touchColon =
-          document.querySelector(
-            ".touch-colon"
-          );
+  const touchDotOne =
+    document.querySelector(".touch-dot-one");
 
-        const touchDotOne =
-          document.querySelector(
-            ".touch-dot-one"
-          );
+  const touchDotTwo =
+    document.querySelector(".touch-dot-two");
 
-        const touchDotTwo =
-          document.querySelector(
-            ".touch-dot-two"
-          );
+  if (
+    touchColon &&
+    touchDotOne &&
+    touchDotTwo
+  ) {
+    let touchX = 0;
+    let touchY = 0;
+
+    let touching = false;
+
+    let tunnelPhase = 0;
+
+    let lastTouchFrame =
+      performance.now();
+
+
+    function updateTouchPosition(event) {
+
+      // Only react to an actual finger.
+      // Mouse interactions are handled by
+      // the desktop cursor.
+
+      if (event.pointerType !== "touch") {
+        return;
+      }
+
+      touchX = event.clientX;
+
+      /*
+        Move the animation slightly above
+        the actual touch point so the
+        finger doesn't completely cover it.
+      */
+
+      touchY =
+        event.clientY - 18;
+
+      touching = true;
+
+      touchColon.classList.add(
+        "is-visible"
+      );
+    }
+
+
+    window.addEventListener(
+      "pointerdown",
+      (event) => {
 
         if (
-          touchColon &&
-          touchDotOne &&
-          touchDotTwo
+          event.pointerType !== "touch"
         ) {
-          let touchX = 0;
-          let touchY = 0;
-
-          let touching = false;
-
-          let tunnelPhase = 0;
-
-          let lastTouchFrame =
-            performance.now();
-
-
-          function updateTouch(event) {
-            const touch =
-              event.touches?.[0] ||
-              event.changedTouches?.[0];
-
-            if (!touch) return;
-
-            touchX = touch.clientX;
-
-            /*
-              Raise the visual effect slightly
-              above the actual touch point so
-              it remains visible around the
-              fingertip.
-            */
-            touchY =
-              touch.clientY - 10;
-
-            touching = true;
-
-            touchColon.classList.add(
-              "is-visible"
-            );
-          }
-
-
-          window.addEventListener(
-            "touchstart",
-            updateTouch,
-            {
-              passive: true,
-            }
-          );
-
-          window.addEventListener(
-            "touchmove",
-            updateTouch,
-            {
-              passive: true,
-            }
-          );
-
-          window.addEventListener(
-            "touchend",
-            () => {
-              touching = false;
-
-              touchColon.classList.remove(
-                "is-visible"
-              );
-            },
-            {
-              passive: true,
-            }
-          );
-
-          window.addEventListener(
-            "touchcancel",
-            () => {
-              touching = false;
-
-              touchColon.classList.remove(
-                "is-visible"
-              );
-            },
-            {
-              passive: true,
-            }
-          );
-
-
-          function animateTouchColon(time) {
-            const delta =
-              Math.min(
-                time -
-                  lastTouchFrame,
-                40
-              );
-
-            lastTouchFrame = time;
-
-            if (touching) {
-              /*
-                One full back-and-forth tunnel
-                takes roughly 1.8 seconds.
-              */
-              tunnelPhase +=
-                delta / 1800 *
-                Math.PI *
-                2;
-
-              /*
-                -1 = left of finger
-                 0 = inside finger
-                +1 = right of finger
-              */
-              const travel =
-                Math.sin(
-                  tunnelPhase
-                );
-
-              /*
-                Distance from finger center.
-              */
-              const maxOffset = 42;
-
-              const centerOffset =
-                travel *
-                maxOffset;
-
-              /*
-                Shrink as the colon approaches
-                the touch point.
-
-                At the center it becomes very
-                small, creating the impression
-                that it tunnels through the
-                fingertip.
-              */
-              const distance =
-                Math.abs(
-                  travel
-                );
-
-              const tunnelScale =
-                0.12 +
-                distance *
-                  0.88;
-
-              /*
-                Fade slightly while underneath
-                the fingertip.
-              */
-              const tunnelOpacity =
-                0.18 +
-                distance *
-                  0.82;
-
-              /*
-                Keep the two dots vertically
-                aligned like a colon.
-              */
-              const verticalGap = 7;
-
-              const dotOneX =
-                touchX +
-                centerOffset;
-
-              const dotOneY =
-                touchY -
-                verticalGap;
-
-              const dotTwoX =
-                touchX +
-                centerOffset;
-
-              const dotTwoY =
-                touchY +
-                verticalGap;
-
-
-              touchDotOne.style.transform =
-                `translate3d(
-                  ${dotOneX}px,
-                  ${dotOneY}px,
-                  0
-                )
-                scale(${tunnelScale})`;
-
-              touchDotTwo.style.transform =
-                `translate3d(
-                  ${dotTwoX}px,
-                  ${dotTwoY}px,
-                  0
-                )
-                scale(${tunnelScale})`;
-
-              touchDotOne.style.opacity =
-                tunnelOpacity;
-
-              touchDotTwo.style.opacity =
-                tunnelOpacity * 0.75;
-            }
-
-            requestAnimationFrame(
-              animateTouchColon
-            );
-          }
-
-
-          requestAnimationFrame(
-            animateTouchColon
-          );
+          return;
         }
+
+        tunnelPhase =
+          -Math.PI / 2;
+
+        updateTouchPosition(event);
+      },
+      {
+        passive: true,
       }
+    );
+
+
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+
+        if (
+          event.pointerType !== "touch"
+        ) {
+          return;
+        }
+
+        updateTouchPosition(event);
+      },
+      {
+        passive: true,
+      }
+    );
+
+
+    window.addEventListener(
+      "pointerup",
+      (event) => {
+
+        if (
+          event.pointerType !== "touch"
+        ) {
+          return;
+        }
+
+        touching = false;
+
+        touchColon.classList.remove(
+          "is-visible"
+        );
+      },
+      {
+        passive: true,
+      }
+    );
+
+
+    window.addEventListener(
+      "pointercancel",
+      (event) => {
+
+        if (
+          event.pointerType !== "touch"
+        ) {
+          return;
+        }
+
+        touching = false;
+
+        touchColon.classList.remove(
+          "is-visible"
+        );
+      },
+      {
+        passive: true,
+      }
+    );
+
+
+    function animateTouchColon(time) {
+
+      const delta =
+        Math.min(
+          time - lastTouchFrame,
+          40
+        );
+
+      lastTouchFrame = time;
+
+
+      if (touching) {
+
+        /*
+          Full left → right → left cycle:
+          approximately 1.8 seconds.
+        */
+
+        tunnelPhase +=
+          (
+            delta / 1800
+          ) *
+          Math.PI *
+          2;
+
+
+        /*
+          -1 = left
+           0 = underneath finger
+          +1 = right
+        */
+
+        const travel =
+          Math.sin(
+            tunnelPhase
+          );
+
+
+        /*
+          Horizontal travel distance.
+        */
+
+        const maxOffset = 46;
+
+        const centerOffset =
+          travel *
+          maxOffset;
+
+
+        /*
+          Shrink while entering the finger.
+        */
+
+        const distance =
+          Math.abs(
+            travel
+          );
+
+
+        /*
+          Goes from nearly invisible/small
+          under the finger to normal size
+          beside it.
+        */
+
+        const tunnelScale =
+          0.08 +
+          distance *
+          0.92;
+
+
+        /*
+          Fade while underneath.
+        */
+
+        const tunnelOpacity =
+          0.12 +
+          distance *
+          0.88;
+
+
+        /*
+          Vertical colon spacing.
+        */
+
+        const verticalGap = 7;
+
+
+        const dotOneX =
+          touchX +
+          centerOffset;
+
+        const dotOneY =
+          touchY -
+          verticalGap;
+
+
+        const dotTwoX =
+          touchX +
+          centerOffset;
+
+        const dotTwoY =
+          touchY +
+          verticalGap;
+
+
+        touchDotOne.style.transform =
+          `translate3d(
+            ${dotOneX}px,
+            ${dotOneY}px,
+            0
+          )
+          scale(${tunnelScale})`;
+
+
+        touchDotTwo.style.transform =
+          `translate3d(
+            ${dotTwoX}px,
+            ${dotTwoY}px,
+            0
+          )
+          scale(${tunnelScale})`;
+
+
+        touchDotOne.style.opacity =
+          tunnelOpacity;
+
+
+        touchDotTwo.style.opacity =
+          tunnelOpacity * 0.72;
+      }
+
+
+      requestAnimationFrame(
+        animateTouchColon
+      );
+    }
+
+
+    requestAnimationFrame(
+      animateTouchColon
+    );
+  }
+}
     </script>
   </body>
 </html>
