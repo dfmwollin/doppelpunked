@@ -61,3 +61,104 @@
     cursor: auto;
   }
 }
+
+/* ==================================
+   KLAR / CLEAR GLASS EFFECT
+================================== */
+
+.glass-word {
+  position: relative;
+  display: inline-block;
+
+  color: var(--ink);
+
+  transition:
+    color 0.55s ease,
+    text-shadow 0.55s ease,
+    transform 0.55s ease;
+
+  cursor: default;
+}
+
+
+/* Glass state */
+
+.glass-word:hover {
+  color: rgba(255, 255, 255, 0.18);
+
+  -webkit-text-stroke:
+    1px rgba(23, 79, 130, 0.35);
+
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8),
+    0 3px 8px rgba(23, 79, 130, 0.12),
+    0 8px 20px rgba(16, 36, 61, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* Moving glass reflection */
+
+.glass-word::after {
+  content: "";
+
+  position: absolute;
+  inset: -5% -8%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.15) 38%,
+      rgba(255, 255, 255, 0.85) 48%,
+      rgba(255, 255, 255, 0.18) 58%,
+      transparent 72%
+    );
+
+  opacity: 0;
+
+  transform:
+    translateX(-80%)
+    skewX(-12deg);
+
+  transition:
+    opacity 0.25s ease;
+}
+
+
+.glass-word:hover::after {
+  opacity: 1;
+
+  animation:
+    glass-shine 1.25s ease forwards;
+}
+
+
+@keyframes glass-shine {
+  from {
+    transform:
+      translateX(-80%)
+      skewX(-12deg);
+  }
+
+  to {
+    transform:
+      translateX(80%)
+      skewX(-12deg);
+  }
+}
+
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .glass-word,
+  .glass-word::after {
+    animation: none;
+    transition: none;
+  }
+}
