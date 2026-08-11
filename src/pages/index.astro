@@ -1,3 +1,4 @@
+```astro
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -182,6 +183,117 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     </div>
   </section>
 
+  <section class="ask-section">
+    <div class="content-inner ask-inner reveal">
+      <div class="ask-intro">
+        <p class="section-label">: ask</p>
+
+        <h2>
+          <span
+            data-de="Was möchtest du verstehen?"
+            data-en="What would you like to understand?"
+          >
+            Was möchtest du verstehen?
+          </span>
+        </h2>
+
+        <p
+          class="ask-lead"
+          data-de="Frag nach meiner Arbeit, meinen Projekten oder danach, wobei :Doppelpunked helfen kann."
+          data-en="Ask about my work, my projects, or where :Doppelpunked could help."
+        >
+          Frag nach meiner Arbeit, meinen Projekten oder danach, wobei
+          :Doppelpunked helfen kann.
+        </p>
+      </div>
+
+      <div class="ask-interface">
+        <form class="ask-form" id="ask-form">
+          <label class="sr-only" for="ask-input">
+            Frage
+          </label>
+
+          <div class="ask-input-wrap">
+            <input
+              id="ask-input"
+              class="ask-input"
+              type="text"
+              autocomplete="off"
+              maxlength="180"
+              placeholder="Was macht David eigentlich?"
+              data-placeholder-de="Was macht David eigentlich?"
+              data-placeholder-en="What does David actually do?"
+            />
+
+            <button
+              class="ask-submit"
+              type="submit"
+              aria-label="Frage senden"
+            >
+              →
+            </button>
+          </div>
+        </form>
+
+        <div class="ask-suggestions">
+          <button
+            type="button"
+            class="ask-suggestion"
+            data-question-de="Was macht David eigentlich?"
+            data-question-en="What does David actually do?"
+          >
+            Was macht David eigentlich?
+          </button>
+
+          <button
+            type="button"
+            class="ask-suggestion"
+            data-question-de="Was kann David für uns tun?"
+            data-question-en="How could David help us?"
+          >
+            Was kann David für uns tun?
+          </button>
+
+          <button
+            type="button"
+            class="ask-suggestion"
+            data-question-de="Welche Projekte passen zu uns?"
+            data-question-en="Which projects could be relevant to us?"
+          >
+            Welche Projekte passen zu uns?
+          </button>
+
+          <button
+            type="button"
+            class="ask-suggestion"
+            data-question-de="Warum heißt es :Doppelpunked?"
+            data-question-en="Why is it called :Doppelpunked?"
+          >
+            Warum heißt es :Doppelpunked?
+          </button>
+        </div>
+
+        <div
+          class="ask-answer"
+          id="ask-answer"
+          aria-live="polite"
+          hidden
+        >
+          <div
+            class="ask-thinking"
+            id="ask-thinking"
+            aria-hidden="true"
+          >
+            <span></span>
+            <span></span>
+          </div>
+
+          <div id="ask-answer-content"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact-section">
     <div class="contact-inner reveal">
       <h2
@@ -205,4 +317,431 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    const askForm =
+      document.querySelector("#ask-form");
+
+    const askInput =
+      document.querySelector("#ask-input");
+
+    const askAnswer =
+      document.querySelector("#ask-answer");
+
+    const askAnswerContent =
+      document.querySelector("#ask-answer-content");
+
+    const askThinking =
+      document.querySelector("#ask-thinking");
+
+    const askSuggestions =
+      document.querySelectorAll(".ask-suggestion");
+
+    const askContent = {
+      de: {
+        david: {
+          title: "Kurz gesagt:",
+          text:
+            "David verbindet technisches Verständnis mit Produktdenken, Kommunikation, Bildung und KI. Besonders stark ist er dort, wo komplexe Inhalte strukturiert, verständlich und praktisch nutzbar werden müssen.",
+          links: [
+            ["Mehr über David", "/about"],
+            ["Projekte ansehen", "/projects"]
+          ]
+        },
+
+        services: {
+          title: "Dafür ist :Doppelpunked gedacht:",
+          text:
+            "Wenn technische Produkte erklärt, Arbeitsabläufe mit KI verbessert, Wissen verständlich vermittelt oder komplexe Informationen klar visualisiert werden sollen, kann :Doppelpunked unterstützen.",
+          links: [
+            ["Angebot ansehen", "/services"],
+            ["Kontakt aufnehmen", "/contact"]
+          ]
+        },
+
+        projects: {
+          title: "Ein paar passende Richtungen:",
+          text:
+            "Die Arbeit reicht von technischer Produktkommunikation und Medizintechnik über KI-Workflows bis zu Unterricht, Visualisierung und praktischen Lernprojekten.",
+          links: [
+            ["Projekte entdecken", "/projects"]
+          ]
+        },
+
+        ai: {
+          title: "KI — aber praktisch:",
+          text:
+            "Der Schwerpunkt liegt nicht auf KI um der KI willen. Interessant wird sie dort, wo sie Recherche, Kommunikation, Wissensarbeit oder wiederkehrende Abläufe tatsächlich verbessert.",
+          links: [
+            ["KI & Arbeitsabläufe", "/services"],
+            ["Projekte ansehen", "/projects"]
+          ]
+        },
+
+        brand: {
+          title: "Der Doppelpunkt ist die Idee.",
+          text:
+            "Er verbindet zwei Gedanken: Problem : Lösung. Technik : Mensch. Idee : Umsetzung. :Doppelpunked steht für genau diese Verbindung — und für das, was danach kommt.",
+          links: [
+            ["Mehr zur Idee", "/about"]
+          ]
+        },
+
+        education: {
+          title: "Technik verstehen heißt Technik anwenden.",
+          text:
+            "David verbindet technische Inhalte mit Visualisierung, Prototyping und praktischer Anwendung. Ziel ist nicht nur Wissen, sondern echtes Verstehen und Umsetzen.",
+          links: [
+            ["Mehr erfahren", "/about"],
+            ["Projekte ansehen", "/projects"]
+          ]
+        },
+
+        fallback: {
+          title: "Das weiß : ask noch nicht.",
+          text:
+            "Diese erste Version kennt nur ausgewählte Themen. Aber David wahrscheinlich schon. Schreib ihm direkt oder schau dir die Projekte an.",
+          links: [
+            ["David fragen", "/contact"],
+            ["Projekte ansehen", "/projects"]
+          ]
+        }
+      },
+
+      en: {
+        david: {
+          title: "In short:",
+          text:
+            "David connects technical understanding with product thinking, communication, education and AI. He is particularly strong where complex information needs to become structured, understandable and practically useful.",
+          links: [
+            ["About David", "/about"],
+            ["View projects", "/projects"]
+          ]
+        },
+
+        services: {
+          title: "That's what :Doppelpunked is for:",
+          text:
+            "When technical products need explaining, workflows can benefit from AI, knowledge needs to be communicated clearly, or complex information needs structure and visualization, :Doppelpunked can help.",
+          links: [
+            ["Explore services", "/services"],
+            ["Get in touch", "/contact"]
+          ]
+        },
+
+        projects: {
+          title: "A few relevant directions:",
+          text:
+            "The work ranges from technical product communication and medical technology to AI workflows, education, visualization and practical learning projects.",
+          links: [
+            ["Explore projects", "/projects"]
+          ]
+        },
+
+        ai: {
+          title: "AI — made practical:",
+          text:
+            "The focus isn't AI for its own sake. It becomes useful when it improves research, communication, knowledge work or repetitive workflows.",
+          links: [
+            ["AI & workflows", "/services"],
+            ["View projects", "/projects"]
+          ]
+        },
+
+        brand: {
+          title: "The colon is the idea.",
+          text:
+            "It connects two thoughts: problem : solution. Technology : people. Idea : implementation. :Doppelpunked is about that connection — and what comes next.",
+          links: [
+            ["About the idea", "/about"]
+          ]
+        },
+
+        education: {
+          title: "Understanding technology means using it.",
+          text:
+            "David combines technical subjects with visualization, prototyping and practical application. The goal isn't simply knowledge, but understanding and implementation.",
+          links: [
+            ["Learn more", "/about"],
+            ["View projects", "/projects"]
+          ]
+        },
+
+        fallback: {
+          title: ": ask doesn't know that yet.",
+          text:
+            "This first version only knows selected topics. David probably knows more. Ask him directly or explore the projects.",
+          links: [
+            ["Ask David", "/contact"],
+            ["View projects", "/projects"]
+          ]
+        }
+      }
+    };
+
+    function getAskLanguage() {
+      return document.documentElement.lang === "en"
+        ? "en"
+        : "de";
+    }
+
+    function findAskTopic(question) {
+      const q = question
+        .toLowerCase()
+        .trim();
+
+      const groups = [
+        {
+          topic: "brand",
+          words: [
+            "doppelpunked",
+            "doppelpunkt",
+            "name",
+            "colon",
+            "brand",
+            "marke",
+            "warum heißt",
+            "why"
+          ]
+        },
+
+        {
+          topic: "ai",
+          words: [
+            "ki",
+            "ai",
+            "chatgpt",
+            "automation",
+            "automatisierung",
+            "workflow",
+            "workflows",
+            "künstliche intelligenz",
+            "artificial intelligence"
+          ]
+        },
+
+        {
+          topic: "projects",
+          words: [
+            "projekt",
+            "projekte",
+            "projects",
+            "project",
+            "beispiel",
+            "examples",
+            "referenz",
+            "portfolio"
+          ]
+        },
+
+        {
+          topic: "education",
+          words: [
+            "schule",
+            "unterricht",
+            "bildung",
+            "lernen",
+            "training",
+            "education",
+            "teaching",
+            "teacher",
+            "learning"
+          ]
+        },
+
+        {
+          topic: "services",
+          words: [
+            "helfen",
+            "hilfe",
+            "unternehmen",
+            "firma",
+            "angebot",
+            "service",
+            "services",
+            "help",
+            "company",
+            "business",
+            "zusammenarbeiten",
+            "collaborate"
+          ]
+        },
+
+        {
+          topic: "david",
+          words: [
+            "david",
+            "wer",
+            "who",
+            "person",
+            "hintergrund",
+            "background",
+            "erfahrung",
+            "experience",
+            "macht"
+          ]
+        }
+      ];
+
+      for (const group of groups) {
+        if (
+          group.words.some(
+            (word) => q.includes(word)
+          )
+        ) {
+          return group.topic;
+        }
+      }
+
+      return "fallback";
+    }
+
+    function renderAskAnswer(topic) {
+      if (
+        !askAnswer ||
+        !askAnswerContent
+      ) {
+        return;
+      }
+
+      const language =
+        getAskLanguage();
+
+      const answer =
+        askContent[language][topic] ||
+        askContent[language].fallback;
+
+      askAnswer.hidden = false;
+
+      askAnswer.classList.remove(
+        "is-ready"
+      );
+
+      askAnswerContent.innerHTML = "";
+
+      if (askThinking) {
+        askThinking.hidden = false;
+      }
+
+      window.setTimeout(() => {
+        if (askThinking) {
+          askThinking.hidden = true;
+        }
+
+        const links = answer.links
+          .map(
+            ([label, url]) =>
+              `<a href="${url}">${label} <span aria-hidden="true">→</span></a>`
+          )
+          .join("");
+
+        askAnswerContent.innerHTML = `
+          <p class="ask-answer-label">
+            ${answer.title}
+          </p>
+
+          <p class="ask-answer-text">
+            ${answer.text}
+          </p>
+
+          <div class="ask-answer-links">
+            ${links}
+          </div>
+        `;
+
+        askAnswer.classList.add(
+          "is-ready"
+        );
+      }, 420);
+    }
+
+    function askQuestion(question) {
+      if (!question.trim()) {
+        return;
+      }
+
+      const topic =
+        findAskTopic(question);
+
+      renderAskAnswer(topic);
+    }
+
+    askForm?.addEventListener(
+      "submit",
+      (event) => {
+        event.preventDefault();
+
+        if (askInput) {
+          askQuestion(
+            askInput.value
+          );
+        }
+      }
+    );
+
+    askSuggestions.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            const language =
+              getAskLanguage();
+
+            const question =
+              language === "en"
+                ? button.dataset.questionEn
+                : button.dataset.questionDe;
+
+            if (!question) {
+              return;
+            }
+
+            if (askInput) {
+              askInput.value =
+                question;
+            }
+
+            askQuestion(question);
+          }
+        );
+      }
+    );
+
+    function updateAskLanguage() {
+      const language =
+        getAskLanguage();
+
+      if (askInput) {
+        askInput.placeholder =
+          language === "en"
+            ? askInput.dataset.placeholderEn
+            : askInput.dataset.placeholderDe;
+      }
+
+      askSuggestions.forEach(
+        (button) => {
+          button.textContent =
+            language === "en"
+              ? button.dataset.questionEn
+              : button.dataset.questionDe;
+        }
+      );
+    }
+
+    updateAskLanguage();
+
+    const askLanguageObserver =
+      new MutationObserver(() => {
+        updateAskLanguage();
+      });
+
+    askLanguageObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+        attributeFilter: ["lang"]
+      }
+    );
+  </script>
 </BaseLayout>
+```
