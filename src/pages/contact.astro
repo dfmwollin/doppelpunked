@@ -1,4 +1,83 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";const email="david@doppelpunked.com";const de=`mailto:${email}?subject=${encodeURIComponent('Anfrage über doppelpunked.com')}`;const en=`mailto:${email}?subject=${encodeURIComponent('Inquiry via doppelpunked.com')}`;
----
-<BaseLayout titleDe="Kontakt — :Doppelpunked" titleEn="Contact — :Doppelpunked" descriptionDe="Kontakt zu David Wollin und :Doppelpunked." descriptionEn="Contact David Wollin and :Doppelpunked."><section class="page-hero"><div class="page-hero-inner"><p class="eyebrow" data-de="Kontakt" data-en="Contact">Kontakt</p><h1 data-de="Was könnten wir gemeinsam klarer, einfacher oder besser machen?" data-en="What could we make clearer, simpler or better together?">Was könnten wir gemeinsam klarer, einfacher oder besser machen?</h1><p class="lead" data-de="Schreib mir kurz, worum es geht, wer die Zielgruppe ist und welches Ergebnis du erreichen möchtest." data-en="Send me a short note about the topic, target audience and result you want to achieve.">Schreib mir kurz, worum es geht, wer die Zielgruppe ist und welches Ergebnis du erreichen möchtest.</p><div class="button-row"><a class="button button-primary language-mail-link" href={de} data-mail-de={de} data-mail-en={en} data-de="E-Mail schreiben" data-en="Send an email">E-Mail schreiben</a></div></div></section></BaseLayout>
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const email = "[david@doppelpunked.com](mailto:david@doppelpunked.com)";
+const whatsappNumber = "491775711154";
+
+const de = `mailto:${email}?subject=${encodeURIComponent(
+  "Anfrage über doppelpunked.com"
+)}`;
+
+const en = `mailto:${email}?subject=${encodeURIComponent(
+  "Inquiry via doppelpunked.com"
+)}`;
+
+## const whatsapp = `https://wa.me/${whatsappNumber}`;
+
+<BaseLayout
+titleDe="Kontakt — :Doppelpunked"
+titleEn="Contact — :Doppelpunked"
+descriptionDe="Kontakt zu David Wollin und :Doppelpunked."
+descriptionEn="Contact David Wollin and :Doppelpunked."
+
+>
+
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow" data-de="Kontakt" data-en="Contact">
+        Kontakt
+      </p>
+
+```
+  <h1
+    data-de="Was könnten wir gemeinsam klarer, einfacher oder besser machen?"
+    data-en="What could we make clearer, simpler or better together?"
+  >
+    Was könnten wir gemeinsam klarer, einfacher oder besser machen?
+  </h1>
+
+  <p
+    class="lead"
+    data-de="Schreib mir kurz, worum es geht, wer die Zielgruppe ist und welches Ergebnis du erreichen möchtest."
+    data-en="Send me a short note about the topic, target audience and result you want to achieve."
+  >
+    Schreib mir kurz, worum es geht, wer die Zielgruppe ist und welches
+    Ergebnis du erreichen möchtest.
+  </p>
+
+  <div class="button-row">
+    <a
+      class="button button-primary language-mail-link"
+      href={de}
+      data-mail-de={de}
+      data-mail-en={en}
+      data-de="E-Mail schreiben"
+      data-en="Send an email"
+    >
+      E-Mail schreiben
+    </a>
+
+    <a
+      class="button button-secondary"
+      href={whatsapp}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-de="WhatsApp schreiben"
+      data-en="Message on WhatsApp"
+    >
+      WhatsApp schreiben
+    </a>
+  </div>
+
+  <p class="contact-details">
+    <a href={`mailto:${email}`}>{email}</a><br />
+    <a href={whatsapp} target="_blank" rel="noopener noreferrer">
+      +49 177 5711154
+    </a>
+  </p>
+</div>
+```
+
+  </section>
+</BaseLayout>
