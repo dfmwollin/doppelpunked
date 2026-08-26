@@ -1,63 +1,62 @@
-```astro
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const email = "david@doppelpunked.com";
 
 const de = `mailto:${email}?subject=${encodeURIComponent(
-  "Anfrage über doppelpunked.com"
+  "Anfrage zu Wissenssicherung und Wissenstransfer"
 )}`;
 
 const en = `mailto:${email}?subject=${encodeURIComponent(
-  "Inquiry via doppelpunked.com"
+  "Knowledge capture and transfer inquiry"
 )}`;
 ---
 
 <BaseLayout
-  titleDe=":Doppelpunked — David Wollin"
-  titleEn=":Doppelpunked — David Wollin"
-  descriptionDe="Technik, Kommunikation, Bildung und KI verständlich und praktisch verbinden."
-  descriptionEn="Connecting technology, communication, education and AI in clear and practical ways."
+  titleDe=":Doppelpunked — Wissenssicherung & Wissenstransfer"
+  titleEn=":Doppelpunked — Knowledge Capture & Transfer"
+  descriptionDe="Wissenssicherung und Wissenstransfer für technische KMU im DACH-Raum: Erfahrungswissen erfassen, strukturieren und für andere nutzbar machen."
+  descriptionEn="Knowledge capture and transfer for technical SMEs: capturing expert know-how, structuring it clearly and making it usable for others."
 >
   <section class="page-hero">
     <div class="page-hero-inner">
       <h1>
         <span
-          data-de="Du hast eine Vision. Machen wir sie "
-          data-en="You have a vision. Let’s make it "
+          data-de="Wissen im Kopf? Machen wir es "
+          data-en="Knowledge in people's heads? Let’s make it "
         >
-          Du hast eine Vision. Machen wir sie
+          Wissen im Kopf? Machen wir es
         </span>
 
         <span class="glass-word" data-de="klar" data-en="clear">
           klar
         </span>
 
-        <span data-de=" und umsetzbar." data-en=" and practical.">
-          und umsetzbar.
+        <span data-de=" und nutzbar." data-en=" and usable.">
+          und nutzbar.
         </span>
       </h1>
 
       <p
         class="lead"
-        data-de="Du möchtest komplexe Themen verständlich vermitteln, Ideen weiterentwickeln oder moderne Technologien sinnvoll einsetzen. Deine Vision soll nicht nur gut klingen, sondern verstanden werden und Wirkung entfalten. Dabei unterstütze ich dich – mit Technikverständnis, Produktdenken, Kommunikation, Bildung und KI."
-        data-en="You want to communicate complex topics clearly, develop ideas or use modern technologies effectively. Your vision should not only sound good — it should be understood and make an impact. I can support you with technical understanding, product thinking, communication, education and AI."
+        data-de="In vielen Unternehmen steckt entscheidendes Erfahrungswissen in den Köpfen einzelner Mitarbeitender. Ich helfe technischen KMU, dieses Wissen zu sichern, zu strukturieren und so aufzubereiten, dass andere damit arbeiten können – zum Beispiel als SOPs, Checklisten, Onboarding- oder Lernmaterial."
+        data-en="In many companies, critical know-how lives in the heads of individual employees. I help technical SMEs capture that knowledge, structure it and turn it into something others can actually use — such as SOPs, checklists, onboarding or learning materials."
       >
-        Du möchtest komplexe Themen verständlich vermitteln, Ideen
-        weiterentwickeln oder moderne Technologien sinnvoll einsetzen. Deine
-        Vision soll nicht nur gut klingen, sondern verstanden werden und Wirkung
-        entfalten. Dabei unterstütze ich dich – mit Technikverständnis,
-        Produktdenken, Kommunikation, Bildung und KI.
+        In vielen Unternehmen steckt entscheidendes Erfahrungswissen in den
+        Köpfen einzelner Mitarbeitender. Ich helfe technischen KMU, dieses
+        Wissen zu sichern, zu strukturieren und so aufzubereiten, dass andere
+        damit arbeiten können – zum Beispiel als SOPs, Checklisten, Onboarding-
+        oder Lernmaterial.
       </p>
 
       <div class="hero-actions">
         <a
           class="button button-primary"
           href="/services"
-          data-de="Angebot ansehen"
-          data-en="Explore services"
+          data-de="Wissenstransfer ansehen"
+          data-en="Explore knowledge transfer"
         >
-          Angebot ansehen
+          Wissenstransfer ansehen
         </a>
 
         <a
@@ -65,10 +64,10 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           href={de}
           data-mail-de={de}
           data-mail-en={en}
-          data-de="Kontakt aufnehmen"
-          data-en="Get in touch"
+          data-de="Erstgespräch anfragen"
+          data-en="Start a conversation"
         >
-          Kontakt aufnehmen
+          Erstgespräch anfragen
         </a>
       </div>
     </div>
@@ -78,21 +77,22 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     <div class="content-inner">
       <div class="section-heading reveal">
         <h2
-          data-de="Zwischen Technik, Menschen und Ideen."
-          data-en="Between technology, people and ideas."
+          data-de="Wissen darf nicht mit Menschen gehen."
+          data-en="Knowledge shouldn't walk out the door."
         >
-          Zwischen Technik, Menschen und Ideen.
+          Wissen darf nicht mit Menschen gehen.
         </h2>
       </div>
 
       <p
         class="section-copy reveal"
-        data-de="Mein Hintergrund umfasst Bauingenieurwesen, Produktmanagement, Medizintechnik, Marketing, Unterricht und die praktische Anwendung moderner KI-Werkzeuge."
-        data-en="My background spans civil engineering, product management, medical technology, marketing, teaching and the practical application of modern AI tools."
+        data-de="Wenn langjährige Mitarbeitende wechseln oder in Rente gehen, verschwinden oft undokumentierte Abläufe, Ausnahmen und Erfahrungswerte. Genau dieses Wissen ist für Nachfolger, neue Mitarbeitende und stabile Prozesse besonders wertvoll."
+        data-en="When experienced employees change roles or retire, undocumented processes, exceptions and lessons learned can disappear with them. That knowledge is especially valuable for successors, new employees and reliable day-to-day operations."
       >
-        Mein Hintergrund umfasst Bauingenieurwesen, Produktmanagement,
-        Medizintechnik, Marketing, Unterricht und die praktische Anwendung
-        moderner KI-Werkzeuge.
+        Wenn langjährige Mitarbeitende wechseln oder in Rente gehen,
+        verschwinden oft undokumentierte Abläufe, Ausnahmen und Erfahrungswerte.
+        Genau dieses Wissen ist für Nachfolger, neue Mitarbeitende und stabile
+        Prozesse besonders wertvoll.
       </p>
     </div>
   </section>
@@ -105,16 +105,19 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           <span class="card-icon" aria-hidden="true">✦</span>
         </div>
 
-        <h3 data-de="KI & Arbeitsabläufe" data-en="AI & Workflows">
-          KI & Arbeitsabläufe
+        <h3
+          data-de="Kritisches Wissen erkennen"
+          data-en="Identify critical knowledge"
+        >
+          Kritisches Wissen erkennen
         </h3>
 
         <p
-          data-de="KI praxisnah einführen, Abläufe verbessern und Wissen leichter zugänglich machen."
-          data-en="Introduce AI practically, improve workflows and make knowledge easier to access."
+          data-de="Wo hängt ein Prozess von einzelnen Personen ab? Gemeinsam bestimmen wir, welches Wissen zuerst gesichert werden sollte."
+          data-en="Where does a process depend on individual people? Together, we identify which knowledge should be captured first."
         >
-          KI praxisnah einführen, Abläufe verbessern und Wissen leichter
-          zugänglich machen.
+          Wo hängt ein Prozess von einzelnen Personen ab? Gemeinsam bestimmen
+          wir, welches Wissen zuerst gesichert werden sollte.
         </p>
       </article>
 
@@ -125,18 +128,18 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         </div>
 
         <h3
-          data-de="Produkt & technisches Marketing"
-          data-en="Product & Technical Marketing"
+          data-de="Erfahrungswissen erfassen"
+          data-en="Capture expert know-how"
         >
-          Produkt & technisches Marketing
+          Erfahrungswissen erfassen
         </h3>
 
         <p
-          data-de="Komplexe Produkte klar positionieren und ihren Nutzen überzeugend kommunizieren."
-          data-en="Position complex products clearly and communicate their value convincingly."
+          data-de="Durch Interviews, Beobachtung und vorhandene Unterlagen holen wir Praxiswissen aus den Köpfen und aus dem Arbeitsalltag heraus."
+          data-en="Through interviews, observation and existing documents, we capture the practical knowledge that usually stays in people's heads and daily routines."
         >
-          Komplexe Produkte klar positionieren und ihren Nutzen überzeugend
-          kommunizieren.
+          Durch Interviews, Beobachtung und vorhandene Unterlagen holen wir
+          Praxiswissen aus den Köpfen und aus dem Arbeitsalltag heraus.
         </p>
       </article>
 
@@ -146,16 +149,16 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           <span class="card-icon" aria-hidden="true">◎</span>
         </div>
 
-        <h3 data-de="Training & Bildung" data-en="Training & Education">
-          Training & Bildung
+        <h3 data-de="Klar strukturieren" data-en="Structure it clearly">
+          Klar strukturieren
         </h3>
 
         <p
-          data-de="Technische und digitale Inhalte für unterschiedliche Zielgruppen verständlich machen."
-          data-en="Make technical and digital content understandable for different audiences."
+          data-de="Aus Notizen und Erfahrungswissen entstehen verständliche Abläufe, SOPs, Checklisten, FAQs oder Prozessübersichten."
+          data-en="Notes and expert know-how become clear workflows, SOPs, checklists, FAQs or process overviews."
         >
-          Technische und digitale Inhalte für unterschiedliche Zielgruppen
-          verständlich machen.
+          Aus Notizen und Erfahrungswissen entstehen verständliche Abläufe,
+          SOPs, Checklisten, FAQs oder Prozessübersichten.
         </p>
       </article>
 
@@ -166,18 +169,18 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         </div>
 
         <h3
-          data-de="Kommunikation & Präsentation"
-          data-en="Communication & Presentation"
+          data-de="Weitergeben & nutzen"
+          data-en="Transfer & use"
         >
-          Kommunikation & Präsentation
+          Weitergeben & nutzen
         </h3>
 
         <p
-          data-de="Zusammenhänge strukturieren, visualisieren und Menschen ins Handeln bringen."
-          data-en="Structure and visualize ideas so people can understand and act."
+          data-de="Das Wissen wird für Onboarding, Vertretung, Schulung oder den täglichen Zugriff aufbereitet – auf Deutsch und Englisch, wenn nötig."
+          data-en="The knowledge is prepared for onboarding, cover, training or everyday access — in German and English when needed."
         >
-          Zusammenhänge strukturieren, visualisieren und Menschen ins Handeln
-          bringen.
+          Das Wissen wird für Onboarding, Vertretung, Schulung oder den
+          täglichen Zugriff aufbereitet – auf Deutsch und Englisch, wenn nötig.
         </p>
       </article>
     </div>
@@ -190,20 +193,20 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
 
         <h2>
           <span
-            data-de="Was möchtest du verstehen?"
-            data-en="What would you like to understand?"
+            data-de="Wo steckt bei euch kritisches Wissen?"
+            data-en="Where does critical knowledge sit in your organization?"
           >
-            Was möchtest du verstehen?
+            Wo steckt bei euch kritisches Wissen?
           </span>
         </h2>
 
         <p
           class="ask-lead"
-          data-de="Frag nach meiner Arbeit, meinen Projekten oder danach, wobei :Doppelpunked helfen kann."
-          data-en="Ask about my work, my projects, or where :Doppelpunked could help."
+          data-de="Frag nach Wissenssicherung, dem Ablauf eines Wissenstransfers, möglichen Ergebnissen oder meiner Arbeitsweise."
+          data-en="Ask about knowledge capture, how a knowledge transfer works, possible outcomes or how I work."
         >
-          Frag nach meiner Arbeit, meinen Projekten oder danach, wobei
-          :Doppelpunked helfen kann.
+          Frag nach Wissenssicherung, dem Ablauf eines Wissenstransfers,
+          möglichen Ergebnissen oder meiner Arbeitsweise.
         </p>
       </div>
 
@@ -220,9 +223,9 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
               type="text"
               autocomplete="off"
               maxlength="180"
-              placeholder="Was macht David eigentlich?"
-              data-placeholder-de="Was macht David eigentlich?"
-              data-placeholder-en="What does David actually do?"
+              placeholder="Wie läuft ein Wissenstransfer ab?"
+              data-placeholder-de="Wie läuft ein Wissenstransfer ab?"
+              data-placeholder-en="How does a knowledge transfer work?"
             />
 
             <button
@@ -239,28 +242,28 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           <button
             type="button"
             class="ask-suggestion"
-            data-question-de="Was macht David eigentlich?"
-            data-question-en="What does David actually do?"
+            data-question-de="Wie läuft ein Wissenstransfer ab?"
+            data-question-en="How does a knowledge transfer work?"
           >
-            Was macht David eigentlich?
+            Wie läuft ein Wissenstransfer ab?
           </button>
 
           <button
             type="button"
             class="ask-suggestion"
-            data-question-de="Was kann David für uns tun?"
-            data-question-en="How could David help us?"
+            data-question-de="Was entsteht am Ende?"
+            data-question-en="What do we get at the end?"
           >
-            Was kann David für uns tun?
+            Was entsteht am Ende?
           </button>
 
           <button
             type="button"
             class="ask-suggestion"
-            data-question-de="Welche Projekte passen zu uns?"
-            data-question-en="Which projects could be relevant to us?"
+            data-question-de="Wann lohnt sich Wissenssicherung?"
+            data-question-en="When is knowledge capture worthwhile?"
           >
-            Welche Projekte passen zu uns?
+            Wann lohnt sich Wissenssicherung?
           </button>
 
           <button
@@ -297,10 +300,10 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
   <section class="contact-section">
     <div class="contact-inner reveal">
       <h2
-        data-de="Was könnten wir gemeinsam klarer, einfacher oder besser machen?"
-        data-en="What could we make clearer, simpler or better together?"
+        data-de="Welches Wissen darf bei euch nicht verloren gehen?"
+        data-en="What knowledge can your organization not afford to lose?"
       >
-        Was könnten wir gemeinsam klarer, einfacher oder besser machen?
+        Welches Wissen darf bei euch nicht verloren gehen?
       </h2>
 
       <div class="contact-actions">
@@ -309,10 +312,10 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           href={de}
           data-mail-de={de}
           data-mail-en={en}
-          data-de="E-Mail schreiben"
-          data-en="Send an email"
+          data-de="Unverbindlich besprechen"
+          data-en="Talk it through"
         >
-          E-Mail schreiben
+          Unverbindlich besprechen
         </a>
       </div>
     </div>
@@ -340,9 +343,9 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     const askContent = {
       de: {
         david: {
-          title: "Kurz gesagt:",
+          title: "Technik verstehen. Wissen übersetzen.",
           text:
-            "David verbindet technisches Verständnis mit Produktdenken, Kommunikation, Bildung und KI. Besonders stark ist er dort, wo komplexe Inhalte strukturiert, verständlich und praktisch nutzbar werden müssen.",
+            "David verbindet technisches Verständnis mit Produktmanagement, Kommunikation, Unterricht und praktischer KI-Anwendung. Dadurch kann er Fachwissen nicht nur erfassen, sondern so strukturieren und erklären, dass andere es tatsächlich verstehen und anwenden können.",
           links: [
             ["Mehr über David", "/about"],
             ["Projekte ansehen", "/projects"]
@@ -350,30 +353,60 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         },
 
         services: {
-          title: "Dafür ist :Doppelpunked gedacht:",
+          title: "Wissen sichern, strukturieren, weitergeben.",
           text:
-            "Wenn technische Produkte erklärt, Arbeitsabläufe mit KI verbessert, Wissen verständlich vermittelt oder komplexe Informationen klar visualisiert werden sollen, kann :Doppelpunked unterstützen.",
+            ":Doppelpunked unterstützt Unternehmen dabei, wichtiges Erfahrungswissen aus den Köpfen einzelner Mitarbeitender zu holen und für andere nutzbar zu machen — zum Beispiel als SOPs, Checklisten, Prozessübersichten oder Onboarding-Material.",
           links: [
             ["Angebot ansehen", "/services"],
             ["Kontakt aufnehmen", "/contact"]
           ]
         },
 
-        projects: {
-          title: "Ein paar passende Richtungen:",
+        process: {
+          title: "So läuft es typischerweise ab:",
           text:
-            "Die Arbeit reicht von technischer Produktkommunikation und Medizintechnik über KI-Workflows bis zu Unterricht, Visualisierung und praktischen Lernprojekten.",
+            "Zuerst identifizieren wir kritisches Wissen. Dann wird es durch Gespräche, Beobachtung und vorhandene Unterlagen erfasst, strukturiert und schließlich in eine Form gebracht, mit der andere zuverlässig arbeiten oder lernen können.",
+          links: [
+            ["Wissenstransfer ansehen", "/services"],
+            ["Kontakt aufnehmen", "/contact"]
+          ]
+        },
+
+        outputs: {
+          title: "Das Ergebnis muss nutzbar sein.",
+          text:
+            "Je nach Bedarf können SOPs, Checklisten, Prozesskarten, FAQs, kurze Anleitungen, Onboarding-Unterlagen, Lernmaterialien oder eine strukturierte Wissensbasis entstehen.",
+          links: [
+            ["Angebot ansehen", "/services"],
+            ["Projekte entdecken", "/projects"]
+          ]
+        },
+
+        risk: {
+          title: "Besonders dann, wenn Wissen an Personen hängt.",
+          text:
+            "Wissenssicherung lohnt sich zum Beispiel vor Ruhestand oder Rollenwechseln, bei schwierigem Onboarding, fehlender Vertretung oder wenn wichtige Abläufe nur wenige erfahrene Mitarbeitende wirklich beherrschen.",
+          links: [
+            ["Angebot ansehen", "/services"],
+            ["Erstgespräch anfragen", "/contact"]
+          ]
+        },
+
+        projects: {
+          title: "Vom Expertenwissen zum nutzbaren Ergebnis.",
+          text:
+            "Die Beispiele reichen von technischer Dokumentation und Produktkommunikation bis zu Schulung, Visualisierung und praktischen Lernmaterialien. Der gemeinsame Nenner: komplexes Wissen wird klarer und für andere anwendbar.",
           links: [
             ["Projekte entdecken", "/projects"]
           ]
         },
 
         ai: {
-          title: "KI — aber praktisch:",
+          title: "KI hilft — Erfahrung bleibt menschlich.",
           text:
-            "Der Schwerpunkt liegt nicht auf KI um der KI willen. Interessant wird sie dort, wo sie Recherche, Kommunikation, Wissensarbeit oder wiederkehrende Abläufe tatsächlich verbessert.",
+            "KI kann bei Transkription, Strukturierung, Übersetzung, Recherche und Pflege von Wissen unterstützen. Entscheidend bleiben aber das Erfahrungswissen der Menschen, der Kontext und eine fachliche Prüfung der Ergebnisse.",
           links: [
-            ["KI & Arbeitsabläufe", "/services"],
+            ["Angebot ansehen", "/services"],
             ["Projekte ansehen", "/projects"]
           ]
         },
@@ -381,16 +414,16 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         brand: {
           title: "Der Doppelpunkt ist die Idee.",
           text:
-            "Er verbindet zwei Gedanken: Problem : Lösung. Technik : Mensch. Idee : Umsetzung. :Doppelpunked steht für genau diese Verbindung — und für das, was danach kommt.",
+            "Er verbindet zwei Seiten: Experte : Nachfolger. Erfahrung : Struktur. Wissen : Anwendung. :Doppelpunked steht für diese Verbindung — und für das, was danach weitergegeben werden kann.",
           links: [
             ["Mehr zur Idee", "/about"]
           ]
         },
 
         education: {
-          title: "Technik verstehen heißt Technik anwenden.",
+          title: "Auch Bildung ist Wissenstransfer.",
           text:
-            "David verbindet technische Inhalte mit Visualisierung, Prototyping und praktischer Anwendung. Ziel ist nicht nur Wissen, sondern echtes Verstehen und Umsetzen.",
+            "Für Bildungseinrichtungen kann :Doppelpunked Fachwissen in verständliche Lernmaterialien, Visualisierungen, Anleitungen oder praktische Lernformate übersetzen.",
           links: [
             ["Mehr erfahren", "/about"],
             ["Projekte ansehen", "/projects"]
@@ -400,19 +433,19 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         fallback: {
           title: "Das weiß : ask noch nicht.",
           text:
-            "Diese erste Version kennt nur ausgewählte Themen. Aber David wahrscheinlich schon. Schreib ihm direkt oder schau dir die Projekte an.",
+            "Diese erste Version kennt nur ausgewählte Themen. Aber David wahrscheinlich schon. Schreib ihm direkt oder schau dir das Angebot an.",
           links: [
             ["David fragen", "/contact"],
-            ["Projekte ansehen", "/projects"]
+            ["Angebot ansehen", "/services"]
           ]
         }
       },
 
       en: {
         david: {
-          title: "In short:",
+          title: "Understand technology. Translate knowledge.",
           text:
-            "David connects technical understanding with product thinking, communication, education and AI. He is particularly strong where complex information needs to become structured, understandable and practically useful.",
+            "David combines technical understanding with product management, communication, teaching and practical AI use. This allows him not only to capture expert knowledge, but to structure and explain it so that others can actually understand and apply it.",
           links: [
             ["About David", "/about"],
             ["View projects", "/projects"]
@@ -420,30 +453,60 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         },
 
         services: {
-          title: "That's what :Doppelpunked is for:",
+          title: "Capture, structure and transfer knowledge.",
           text:
-            "When technical products need explaining, workflows can benefit from AI, knowledge needs to be communicated clearly, or complex information needs structure and visualization, :Doppelpunked can help.",
+            ":Doppelpunked helps organizations capture important know-how from individual employees and make it useful for others — for example as SOPs, checklists, process overviews or onboarding materials.",
           links: [
             ["Explore services", "/services"],
             ["Get in touch", "/contact"]
           ]
         },
 
-        projects: {
-          title: "A few relevant directions:",
+        process: {
+          title: "A typical transfer looks like this:",
           text:
-            "The work ranges from technical product communication and medical technology to AI workflows, education, visualization and practical learning projects.",
+            "First, we identify critical knowledge. Then we capture it through conversations, observation and existing documents, structure it clearly and turn it into something others can reliably work or learn with.",
+          links: [
+            ["Explore knowledge transfer", "/services"],
+            ["Get in touch", "/contact"]
+          ]
+        },
+
+        outputs: {
+          title: "The result has to be usable.",
+          text:
+            "Depending on the need, the outcome might include SOPs, checklists, process maps, FAQs, short guides, onboarding materials, learning resources or a structured knowledge base.",
+          links: [
+            ["Explore services", "/services"],
+            ["View projects", "/projects"]
+          ]
+        },
+
+        risk: {
+          title: "Especially when knowledge depends on individuals.",
+          text:
+            "Knowledge capture is particularly useful before retirement or role changes, when onboarding takes too long, when there is little backup, or when only a few experienced employees truly understand an important process.",
+          links: [
+            ["Explore services", "/services"],
+            ["Start a conversation", "/contact"]
+          ]
+        },
+
+        projects: {
+          title: "From expert knowledge to something useful.",
+          text:
+            "The examples range from technical documentation and product communication to training, visualization and practical learning materials. The common thread is turning complex knowledge into something clearer and easier for others to use.",
           links: [
             ["Explore projects", "/projects"]
           ]
         },
 
         ai: {
-          title: "AI — made practical:",
+          title: "AI helps — experience stays human.",
           text:
-            "The focus isn't AI for its own sake. It becomes useful when it improves research, communication, knowledge work or repetitive workflows.",
+            "AI can support transcription, structuring, translation, research and knowledge maintenance. But the experience of the people involved, the context and expert review remain essential.",
           links: [
-            ["AI & workflows", "/services"],
+            ["Explore services", "/services"],
             ["View projects", "/projects"]
           ]
         },
@@ -451,16 +514,16 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         brand: {
           title: "The colon is the idea.",
           text:
-            "It connects two thoughts: problem : solution. Technology : people. Idea : implementation. :Doppelpunked is about that connection — and what comes next.",
+            "It connects two sides: expert : successor. Experience : structure. Knowledge : application. :Doppelpunked is about making that connection — and making knowledge transferable.",
           links: [
             ["About the idea", "/about"]
           ]
         },
 
         education: {
-          title: "Understanding technology means using it.",
+          title: "Education is knowledge transfer too.",
           text:
-            "David combines technical subjects with visualization, prototyping and practical application. The goal isn't simply knowledge, but understanding and implementation.",
+            "For educational institutions, :Doppelpunked can turn specialist knowledge into clear learning materials, visualizations, instructions or practical learning formats.",
           links: [
             ["Learn more", "/about"],
             ["View projects", "/projects"]
@@ -470,10 +533,10 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
         fallback: {
           title: ": ask doesn't know that yet.",
           text:
-            "This first version only knows selected topics. David probably knows more. Ask him directly or explore the projects.",
+            "This first version only knows selected topics. David probably knows more. Ask him directly or explore the services.",
           links: [
             ["Ask David", "/contact"],
-            ["View projects", "/projects"]
+            ["Explore services", "/services"]
           ]
         }
       }
@@ -513,10 +576,64 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
             "chatgpt",
             "automation",
             "automatisierung",
-            "workflow",
-            "workflows",
             "künstliche intelligenz",
             "artificial intelligence"
+          ]
+        },
+
+        {
+          topic: "process",
+          words: [
+            "ablauf",
+            "ablaufen",
+            "läuft",
+            "vorgehen",
+            "prozess",
+            "schritte",
+            "sprint",
+            "process",
+            "steps",
+            "how does",
+            "how do"
+          ]
+        },
+
+        {
+          topic: "outputs",
+          words: [
+            "entsteht",
+            "ergebnis",
+            "output",
+            "sop",
+            "checkliste",
+            "onboarding",
+            "material",
+            "deliverable",
+            "result",
+            "outcome",
+            "get at the end"
+          ]
+        },
+
+        {
+          topic: "risk",
+          words: [
+            "wann",
+            "lohnt",
+            "risiko",
+            "verloren",
+            "verlust",
+            "rente",
+            "ruhestand",
+            "ausscheiden",
+            "experte",
+            "nachfolger",
+            "risk",
+            "retire",
+            "retirement",
+            "leave",
+            "worthwhile",
+            "critical"
           ]
         },
 
@@ -562,6 +679,11 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
             "help",
             "company",
             "business",
+            "wissen",
+            "wissenssicherung",
+            "wissenstransfer",
+            "knowledge",
+            "transfer",
             "zusammenarbeiten",
             "collaborate"
           ]
@@ -744,4 +866,3 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     );
   </script>
 </BaseLayout>
-```
