@@ -93,69 +93,45 @@ const scoreBreakdown = [
   },
 ];
 
-const pressureIndicators = [
-  {
-    label: "Growth pressure",
-    value: "High",
-    explanation:
-      "Acquisitions, funding, partnerships, and international expansion are happening simultaneously.",
-  },
-  {
-    label: "Knowledge complexity",
-    value: "High",
-    explanation:
-      "Multiple robot platforms, software layers, applications, and newly acquired technologies increase the amount of expertise that must be shared.",
-  },
-  {
-    label: "GTM urgency",
-    value: "Medium–High",
-    explanation:
-      "Rapid expansion increases the importance of enabling commercial teams and partners without scaling expert headcount at the same rate.",
-  },
-];
-
 const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-
     <meta
       name="description"
       content="A GTM experiment exploring whether public signals can identify potential Bardin opportunities in the German industrial market."
     />
-
     <meta name="robots" content="noindex, nofollow" />
 
-    <title>Bardin × Germany — NEURA Robotics GTM Experiment</title>
+    <title>Bardin × Germany — NEURA Robotics</title>
 
     <style>
       :root {
         --bg: #f5f6f3;
         --card: #ffffff;
         --text: #10110f;
-        --muted: #62665f;
-        --border: #dfe3da;
+        --muted: #666b62;
+        --border: #dde2d8;
 
-        --bardin-green: #b7ff2a;
-        --bardin-green-soft: #efffd0;
-        --bardin-green-mid: #8fda18;
-        --bardin-green-dark: #536f10;
+        --green: #b7ff2a;
+        --green-soft: #efffd0;
+        --green-dark: #4d6908;
 
-        --dark: #11120f;
-
-        --accent: var(--bardin-green-dark);
-        --accent-soft: var(--bardin-green-soft);
+        --dark: #10110f;
       }
 
       * {
         box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
@@ -178,9 +154,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       main {
-        width: min(1100px, calc(100% - 32px));
+        width: min(1050px, calc(100% - 28px));
         margin: 0 auto;
-        padding: 56px 0 80px;
+        padding: 32px 0 70px;
       }
 
       /* HERO */
@@ -188,9 +164,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .hero {
         position: relative;
         overflow: hidden;
-        padding: 38px;
-        margin-bottom: 32px;
-        border: 1px solid var(--border);
+        padding: 34px;
         border-radius: 24px;
         background: var(--dark);
         color: white;
@@ -199,42 +173,51 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .hero::after {
         content: "";
         position: absolute;
-        width: 240px;
-        height: 240px;
-        right: -90px;
-        top: -90px;
+        width: 260px;
+        height: 260px;
+        right: -100px;
+        top: -100px;
         border-radius: 50%;
-        background: var(--bardin-green);
-        opacity: 0.14;
+        background: var(--green);
+        opacity: 0.15;
       }
 
       .eyebrow {
         display: inline-block;
-        margin-bottom: 16px;
-        padding: 7px 11px;
+        margin-bottom: 14px;
+        padding: 6px 10px;
         border-radius: 999px;
-        background: var(--bardin-green);
-        color: #10110f;
-        font-size: 13px;
+        background: var(--green);
+        color: var(--dark);
+        font-size: 12px;
         font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
 
       h1 {
         position: relative;
         z-index: 1;
         margin: 0;
-        font-size: clamp(2.4rem, 6vw, 4.5rem);
-        line-height: 0.98;
+        font-size: clamp(2.3rem, 6vw, 4.4rem);
+        line-height: 0.95;
         letter-spacing: -0.05em;
       }
 
-      .subtitle {
+      .company-name {
+        display: block;
+        margin-top: 10px;
+        color: var(--green);
+        font-size: clamp(1.25rem, 3vw, 2rem);
+        font-weight: 700;
+      }
+
+      .hero-copy {
         position: relative;
         z-index: 1;
-        max-width: 780px;
-        margin-top: 18px;
-        color: #d6dad0;
-        font-size: 1.1rem;
+        max-width: 740px;
+        margin: 18px 0 0;
+        color: #d5d9d0;
       }
 
       .meta-row {
@@ -242,115 +225,187 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         z-index: 1;
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 24px;
+        gap: 8px;
+        margin-top: 22px;
       }
 
       .meta-pill {
-        padding: 8px 12px;
-        border: 1px solid #30332c;
+        padding: 7px 11px;
+        border: 1px solid #30342e;
         border-radius: 999px;
-        background: #181a16;
-        color: #f1f2ee;
-        font-size: 14px;
+        background: #181a17;
+        font-size: 13px;
       }
 
-      /* SECTIONS */
+      /* DECISION STRIP */
 
-      section {
-        margin-top: 48px;
-      }
-
-      h2 {
-        position: relative;
-        margin: 0 0 18px;
-        padding-left: 14px;
-        font-size: 1.5rem;
-        letter-spacing: -0.025em;
-      }
-
-      h2::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.18em;
-        bottom: 0.18em;
-        width: 4px;
-        border-radius: 4px;
-        background: var(--bardin-green);
-      }
-
-      h3 {
-        letter-spacing: -0.015em;
-      }
-
-      .section-note {
-        max-width: 720px;
-        margin: -8px 0 20px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      /* AGENT FLOW */
-
-      .agent-label {
-        margin: 0 0 9px;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      .agent-flow {
+      .decision-strip {
         display: grid;
-        grid-template-columns: 1fr auto 1fr auto 1fr;
-        gap: 14px;
-        align-items: center;
-        padding: 22px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        overflow: hidden;
+        margin-top: 14px;
         border: 1px solid var(--border);
         border-radius: 18px;
+        background: var(--border);
+      }
+
+      .decision-item {
+        padding: 18px;
         background: var(--card);
       }
 
-      .flow-stat {
-        text-align: center;
-      }
-
-      .flow-number {
-        display: block;
-        font-size: 2.2rem;
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.05em;
-      }
-
-      .flow-label {
-        display: block;
-        margin-top: 7px;
+      .decision-label {
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
-      .flow-arrow {
-        color: var(--bardin-green-dark);
-        font-size: 1.6rem;
+      .decision-value {
+        display: block;
+        margin-top: 4px;
+        font-size: 1.45rem;
+        font-weight: 800;
+      }
+
+      .decision-value.green {
+        color: var(--green-dark);
+      }
+
+      /* MAIN CONCLUSION */
+
+      .main-insight {
+        margin-top: 18px;
+        padding: 22px;
+        border: 1px solid var(--border);
+        border-left: 5px solid var(--green);
+        border-radius: 16px;
+        background: var(--card);
+      }
+
+      .main-insight strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--green-dark);
+      }
+
+      .main-insight p {
+        margin: 0;
+        font-size: 1.08rem;
+      }
+
+      /* QUICK NAV */
+
+      .quick-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .quick-nav button {
+        appearance: none;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 9px 13px;
+        background: var(--card);
+        color: var(--text);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .quick-nav button:hover {
+        border-color: var(--green-dark);
+        background: var(--green-soft);
+      }
+
+      /* MODULES */
+
+      .modules {
+        margin-top: 30px;
+        display: grid;
+        gap: 12px;
+      }
+
+      details.module {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--card);
+        overflow: hidden;
+      }
+
+      details.module[open] {
+        border-color: #c8d6ae;
+      }
+
+      summary {
+        list-style: none;
+        cursor: pointer;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .module-summary {
+        display: grid;
+        grid-template-columns: 46px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 18px 20px;
+      }
+
+      .module-number {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--green-soft);
+        color: var(--green-dark);
+        font-size: 13px;
         font-weight: 900;
       }
 
-      /* GENERAL GRID */
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+      .module-title {
+        min-width: 0;
       }
 
-      .card {
-        padding: 22px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: var(--card);
+      .module-title strong {
+        display: block;
+        font-size: 1.02rem;
+      }
+
+      .module-title span {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .chevron {
+        display: inline-block;
+        font-size: 1.4rem;
+        color: var(--muted);
+        transition: transform 0.2s ease;
+      }
+
+      details[open] .chevron {
+        transform: rotate(45deg);
+      }
+
+      .module-content {
+        padding: 0 20px 22px 80px;
+      }
+
+      .module-content p:first-child {
+        margin-top: 0;
       }
 
       /* WHY NOW */
@@ -358,125 +413,99 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .pressure-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+        gap: 12px;
       }
 
       .pressure-card {
-        position: relative;
-        overflow: hidden;
-        padding: 20px;
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        background: var(--card);
+        padding: 16px;
+        border-radius: 14px;
+        background: #f8faf5;
+        border-top: 4px solid var(--green);
       }
 
-      .pressure-card::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 5px;
-        background: var(--bardin-green);
-      }
-
-      .pressure-label {
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .pressure-value {
+      .pressure-card span {
         display: block;
-        margin: 6px 0 10px;
-        font-size: 1.5rem;
-        font-weight: 800;
-      }
-
-      .pressure-explanation {
         color: var(--muted);
-        font-size: 0.92rem;
+        font-size: 12px;
       }
 
-      /* SNAPSHOT */
-
-      .snapshot-card {
-        position: relative;
-      }
-
-      .snapshot-card strong {
+      .pressure-card strong {
         display: block;
-        margin-bottom: 5px;
-        color: var(--bardin-green-dark);
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
+        margin: 4px 0 7px;
+        font-size: 1.25rem;
       }
 
-      .snapshot-card span {
-        font-size: 1.05rem;
-        font-weight: 700;
+      .pressure-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
       }
 
       /* SIGNALS */
 
-      .signal-card {
-        display: flex;
-        flex-direction: column;
+      .signals-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      details.signal {
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: #fafbf9;
+      }
+
+      .signal-summary {
+        display: grid;
+        grid-template-columns: 95px 1fr auto;
         gap: 12px;
-        transition:
-          transform 0.18s ease,
-          border-color 0.18s ease;
-      }
-
-      .signal-card:hover {
-        transform: translateY(-2px);
-        border-color: #c5d8a6;
-      }
-
-      .signal-top {
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        gap: 12px;
+        padding: 13px 14px;
       }
 
       .signal-date {
-        font-size: 13px;
         color: var(--muted);
+        font-size: 12px;
+      }
+
+      .signal-title-wrap {
+        min-width: 0;
+      }
+
+      .signal-title-wrap strong {
+        display: block;
       }
 
       .signal-category {
-        padding: 5px 8px;
+        display: inline-block;
+        margin-top: 4px;
+        padding: 3px 7px;
         border-radius: 999px;
-        background: var(--bardin-green-soft);
-        color: #40570b;
-        font-size: 11px;
+        background: var(--green-soft);
+        color: var(--green-dark);
+        font-size: 10px;
         font-weight: 800;
       }
 
-      .signal-card h3 {
-        margin: 0;
-        font-size: 1.15rem;
+      .signal-detail {
+        padding: 0 14px 15px 121px;
       }
 
-      .signal-card p {
-        margin: 0;
+      .signal-detail p {
+        margin: 0 0 12px;
       }
 
-      .why {
-        padding: 14px;
-        border-left: 3px solid var(--bardin-green);
-        border-radius: 10px;
-        background: #f8faF4;
-        font-size: 0.95rem;
+      .implication {
+        padding: 12px;
+        border-left: 3px solid var(--green);
+        border-radius: 8px;
+        background: white;
       }
 
       .source-link {
-        margin-top: auto;
-        padding-top: 4px;
-        color: var(--bardin-green-dark);
-        font-size: 14px;
+        display: inline-block;
+        margin-top: 12px;
+        color: var(--green-dark);
+        font-size: 13px;
         font-weight: 800;
         text-decoration: none;
       }
@@ -489,208 +518,187 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .score-layout {
         display: grid;
-        grid-template-columns: 260px 1fr;
-        gap: 20px;
-        align-items: start;
+        grid-template-columns: 210px 1fr;
+        gap: 16px;
       }
 
       .score-box {
-        padding: 28px;
-        border-top: 5px solid var(--bardin-green);
-        border-radius: 20px;
+        padding: 22px;
+        border-radius: 16px;
         background: var(--dark);
         color: white;
+        border-top: 5px solid var(--green);
       }
 
       .score-number {
-        display: block;
-        color: var(--bardin-green);
-        font-size: 4rem;
+        color: var(--green);
+        font-size: 3.3rem;
+        font-weight: 900;
         line-height: 1;
-        font-weight: 800;
-        letter-spacing: -0.06em;
       }
 
-      .score-label {
-        margin-top: 8px;
-        color: #c8ccd2;
+      .score-caption {
+        margin-top: 6px;
+        color: #cbd0c7;
+        font-size: 13px;
       }
 
       .score-status {
         display: inline-block;
-        margin-top: 18px;
-        padding: 7px 10px;
+        margin-top: 14px;
+        padding: 6px 9px;
         border-radius: 999px;
-        background: var(--bardin-green);
+        background: var(--green);
         color: var(--dark);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 800;
       }
 
-      .score-items {
+      .score-list {
         display: grid;
+        gap: 8px;
+      }
+
+      .score-row {
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+      }
+
+      .score-row-top {
+        display: flex;
+        justify-content: space-between;
         gap: 12px;
       }
 
-      .score-item {
-        padding: 16px;
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        background: var(--card);
-      }
-
-      .score-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 5px;
-      }
-
-      .score-top strong {
-        font-size: 0.98rem;
+      .score-row-top strong {
+        font-size: 0.92rem;
       }
 
       .score-value {
-        color: var(--bardin-green-dark);
+        color: var(--green-dark);
         font-weight: 800;
       }
 
       .score-reason {
+        margin-top: 4px;
         color: var(--muted);
-        font-size: 0.92rem;
+        font-size: 0.84rem;
       }
 
       /* HYPOTHESIS */
 
-      .hypothesis {
-        padding: 28px;
-        border-left: 5px solid var(--bardin-green);
+      .hypothesis-box {
+        padding: 20px;
         border-radius: 14px;
-        background: var(--card);
-        font-size: 1.2rem;
+        background: #f9fbf6;
+        border-left: 5px solid var(--green);
       }
 
-      .hypothesis strong {
+      .hypothesis-label {
         display: block;
-        margin-bottom: 10px;
-        color: var(--bardin-green-dark);
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-      }
-
-      /* DISCOVERY QUESTION */
-
-      .question-card {
-        padding: 30px;
-        border-radius: 18px;
-        background: var(--dark);
-        color: white;
-      }
-
-      .question-card .label {
-        margin-bottom: 12px;
-        color: var(--bardin-green);
-        font-size: 13px;
-        font-weight: 800;
+        margin-bottom: 7px;
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.06em;
       }
 
-      .question-card blockquote {
-        margin: 0;
-        font-size: 1.35rem;
-        font-weight: 700;
-        line-height: 1.4;
+      /* ACTION */
+
+      .question-box {
+        padding: 22px;
+        border-radius: 14px;
+        background: var(--dark);
+        color: white;
       }
 
-      /* ACTIONS */
+      .question-box small {
+        color: var(--green);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .question-box blockquote {
+        margin: 10px 0 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
 
       .action-list {
         display: grid;
-        gap: 12px;
-        margin: 0;
+        gap: 8px;
+        margin-top: 14px;
         padding: 0;
         list-style: none;
       }
 
       .action-list li {
-        position: relative;
-        padding: 18px 18px 18px 24px;
+        padding: 13px 14px;
         border: 1px solid var(--border);
-        border-radius: 14px;
-        background: var(--card);
+        border-left: 4px solid var(--green);
+        border-radius: 10px;
       }
 
-      .action-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        border-radius: 14px 0 0 14px;
-        background: var(--bardin-green);
-      }
-
-      /* METHOD */
-
-      .method {
-        padding: 20px;
-        border: 1px dashed #b8c49f;
-        border-radius: 14px;
-        background: #fafcf6;
-        color: var(--muted);
-        font-size: 0.92rem;
-      }
+      /* FOOTER */
 
       footer {
-        margin-top: 64px;
-        padding-top: 24px;
+        margin-top: 34px;
+        padding-top: 18px;
         border-top: 1px solid var(--border);
         color: var(--muted);
-        font-size: 13px;
+        font-size: 12px;
       }
 
       @media (max-width: 760px) {
         main {
-          width: min(100% - 22px, 1100px);
-          padding-top: 24px;
+          width: min(100% - 20px, 1050px);
+          padding-top: 18px;
         }
 
         .hero {
-          padding: 26px 22px;
+          padding: 24px 20px;
         }
 
-        .grid,
-        .score-layout,
-        .pressure-grid {
+        .decision-strip {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .module-summary {
+          grid-template-columns: 40px 1fr auto;
+          padding: 15px;
+        }
+
+        .module-content {
+          padding: 0 15px 18px;
+        }
+
+        .pressure-grid,
+        .score-layout {
           grid-template-columns: 1fr;
         }
 
-        .agent-flow {
-          grid-template-columns: 1fr;
+        .signal-summary {
+          grid-template-columns: 1fr auto;
         }
 
-        .flow-arrow {
-          transform: rotate(90deg);
-          text-align: center;
+        .signal-date {
+          grid-column: 1 / 2;
         }
 
-        .score-box {
-          padding: 22px;
+        .signal-title-wrap {
+          grid-column: 1 / 2;
         }
 
-        .score-number {
-          font-size: 3.2rem;
+        .signal-summary .chevron {
+          grid-column: 2;
+          grid-row: 1 / 3;
         }
 
-        .question-card {
-          padding: 24px;
-        }
-
-        .question-card blockquote {
-          font-size: 1.15rem;
+        .signal-detail {
+          padding: 0 14px 15px;
         }
       }
     </style>
@@ -704,286 +712,352 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       <header class="hero">
         <span class="eyebrow">Private GTM Experiment</span>
 
-        <h1>Bardin × Germany</h1>
+        <h1>
+          Bardin × Germany
+          <span class="company-name">NEURA Robotics</span>
+        </h1>
 
-        <p class="subtitle">
+        <p class="hero-copy">
           Can public market signals identify industrial companies where
           deployment complexity, technical knowledge bottlenecks, and engineering
           escalation create a strong opportunity for Bardin?
         </p>
 
         <div class="meta-row">
-          <span class="meta-pill">Pilot account: NEURA Robotics</span>
-          <span class="meta-pill">Market: Germany / DACH</span>
-          <span class="meta-pill">Last reviewed: 27 Aug 2026</span>
+          <span class="meta-pill">Germany / DACH</span>
+          <span class="meta-pill">Robotics / Physical AI</span>
+          <span class="meta-pill">Reviewed 27 Aug 2026</span>
         </div>
       </header>
 
 
-      <!-- AGENT WORKFLOW -->
+      <!-- DECISION SUMMARY -->
 
-      <section>
-        <p class="agent-label">Agent-assisted GTM research workflow</p>
+      <section class="decision-strip" aria-label="Account summary">
+        <div class="decision-item">
+          <span class="decision-label">ICP fit</span>
+          <strong class="decision-value green">{totalScore}/100</strong>
+        </div>
 
-        <div class="agent-flow">
-          <div class="flow-stat">
-            <span class="flow-number">{signals.length}</span>
-            <span class="flow-label">signals analyzed</span>
-          </div>
+        <div class="decision-item">
+          <span class="decision-label">Growth</span>
+          <strong class="decision-value">High</strong>
+        </div>
 
-          <div class="flow-arrow">→</div>
+        <div class="decision-item">
+          <span class="decision-label">Complexity</span>
+          <strong class="decision-value">High</strong>
+        </div>
 
-          <div class="flow-stat">
-            <span class="flow-number">1</span>
-            <span class="flow-label">pain hypothesis</span>
-          </div>
-
-          <div class="flow-arrow">→</div>
-
-          <div class="flow-stat">
-            <span class="flow-number">4</span>
-            <span class="flow-label">recommended actions</span>
-          </div>
+        <div class="decision-item">
+          <span class="decision-label">GTM urgency</span>
+          <strong class="decision-value">Med–High</strong>
         </div>
       </section>
 
 
-      <!-- WHY NOW -->
+      <!-- MAIN INSIGHT -->
 
-      <section>
-        <h2>Why Now?</h2>
+      <section class="main-insight">
+        <strong>Why this account stands out</strong>
 
-        <p class="section-note">
-          A quick interpretation of whether recent public signals make this
-          account especially interesting for Bardin right now.
+        <p>
+          NEURA is simultaneously expanding its product portfolio, partner ecosystem,
+          and international footprint. That combination may increase pressure on how
+          application-specific technical knowledge is distributed across commercial
+          and technical teams.
         </p>
-
-        <div class="pressure-grid">
-          {
-            pressureIndicators.map((indicator) => (
-              <article class="pressure-card">
-                <div class="pressure-label">{indicator.label}</div>
-                <span class="pressure-value">{indicator.value}</span>
-                <div class="pressure-explanation">
-                  {indicator.explanation}
-                </div>
-              </article>
-            ))
-          }
-        </div>
       </section>
 
 
-      <!-- SNAPSHOT -->
+      <!-- QUICK NAV -->
 
-      <section>
-        <h2>Account Snapshot</h2>
+      <nav class="quick-nav" aria-label="Explore account">
+        <button type="button" data-open="why-now">Why now?</button>
+        <button type="button" data-open="signals">Signals</button>
+        <button type="button" data-open="fit">ICP fit</button>
+        <button type="button" data-open="hypothesis">Hypothesis</button>
+        <button type="button" data-open="action">Action</button>
+      </nav>
 
-        <div class="grid">
-          <div class="card snapshot-card">
-            <strong>Company</strong>
-            <span>NEURA Robotics</span>
-          </div>
 
-          <div class="card snapshot-card">
-            <strong>Location</strong>
-            <span>Germany</span>
-          </div>
+      <!-- EXPANDABLE MODULES -->
 
-          <div class="card snapshot-card">
-            <strong>Industry</strong>
-            <span>Robotics / Physical AI</span>
-          </div>
+      <section class="modules">
 
-          <div class="card snapshot-card">
-            <strong>Why relevant</strong>
-            <span>
-              Complex products, application-specific engineering, rapid expansion,
-              and a growing partner ecosystem.
+
+        <!-- 01 WHY NOW -->
+
+        <details class="module" id="why-now">
+          <summary class="module-summary">
+            <span class="module-number">01</span>
+
+            <span class="module-title">
+              <strong>Why is NEURA interesting now?</strong>
+              <span>Growth, complexity, and timing</span>
             </span>
+
+            <span class="chevron">+</span>
+          </summary>
+
+          <div class="module-content">
+            <div class="pressure-grid">
+
+              <div class="pressure-card">
+                <span>Growth pressure</span>
+                <strong>High</strong>
+                <p>
+                  Acquisitions, funding, partnerships, and international expansion
+                  are happening simultaneously.
+                </p>
+              </div>
+
+              <div class="pressure-card">
+                <span>Knowledge complexity</span>
+                <strong>High</strong>
+                <p>
+                  Multiple robot platforms, software layers, applications, and
+                  newly integrated technologies increase the amount of expertise
+                  that must be shared.
+                </p>
+              </div>
+
+              <div class="pressure-card">
+                <span>GTM urgency</span>
+                <strong>Medium–High</strong>
+                <p>
+                  Rapid expansion increases the importance of enabling commercial
+                  teams and partners without scaling expert headcount at the same rate.
+                </p>
+              </div>
+
+            </div>
           </div>
-        </div>
-      </section>
+        </details>
 
 
-      <!-- SIGNALS -->
+        <!-- 02 SIGNALS -->
 
-      <section>
-        <h2>Recent Signals</h2>
+        <details class="module" id="signals">
+          <summary class="module-summary">
+            <span class="module-number">02</span>
 
-        <p class="section-note">
-          Public evidence first. Interpretation is shown separately so that
-          observable facts are not confused with inferred customer pain.
-        </p>
+            <span class="module-title">
+              <strong>What signals did the research find?</strong>
+              <span>{signals.length} recent public signals</span>
+            </span>
 
-        <div class="grid">
-          {
-            signals.map((signal) => (
-              <article class="card signal-card">
+            <span class="chevron">+</span>
+          </summary>
 
-                <div class="signal-top">
-                  <span class="signal-date">{signal.date}</span>
-                  <span class="signal-category">{signal.category}</span>
-                </div>
+          <div class="module-content">
 
-                <h3>{signal.title}</h3>
+            <div class="signals-list">
 
-                <p>{signal.summary}</p>
+              {
+                signals.map((signal) => (
+                  <details class="signal">
 
-                <div class="why">
-                  <strong>Possible GTM implication:</strong><br />
-                  {signal.why}
-                </div>
+                    <summary class="signal-summary">
 
-                <a
-                  class="source-link"
-                  href={signal.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View source ↗
-                </a>
+                      <span class="signal-date">
+                        {signal.date}
+                      </span>
 
-              </article>
-            ))
-          }
-        </div>
-      </section>
+                      <span class="signal-title-wrap">
+                        <strong>{signal.title}</strong>
+                        <span class="signal-category">
+                          {signal.category}
+                        </span>
+                      </span>
 
+                      <span class="chevron">+</span>
 
-      <!-- ICP SCORE -->
+                    </summary>
 
-      <section>
-        <h2>Bardin ICP Fit</h2>
+                    <div class="signal-detail">
 
-        <p class="section-note">
-          This score measures structural fit with Bardin's use case.
-          It is not a probability that NEURA is experiencing a confirmed problem.
-        </p>
+                      <p>
+                        {signal.summary}
+                      </p>
 
-        <div class="score-layout">
+                      <div class="implication">
+                        <strong>Possible GTM implication</strong><br />
+                        {signal.why}
+                      </div>
 
-          <div class="score-box">
-            <span class="score-number">{totalScore}</span>
-            <div class="score-label">out of 100</div>
-            <span class="score-status">Strong potential fit</span>
+                      <a
+                        class="source-link"
+                        href={signal.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View original source ↗
+                      </a>
+
+                    </div>
+
+                  </details>
+                ))
+              }
+
+            </div>
+
           </div>
+        </details>
 
-          <div class="score-items">
-            {
-              scoreBreakdown.map((item) => (
-                <div class="score-item">
 
-                  <div class="score-top">
-                    <strong>{item.label}</strong>
-                    <span class="score-value">
-                      {item.score}/{item.max}
-                    </span>
-                  </div>
+        <!-- 03 ICP FIT -->
 
-                  <div class="score-reason">
-                    {item.reason}
-                  </div>
+        <details class="module" id="fit">
+          <summary class="module-summary">
+            <span class="module-number">03</span>
 
-                </div>
-              ))
-            }
+            <span class="module-title">
+              <strong>Why does NEURA fit Bardin's ICP?</strong>
+              <span>{totalScore}/100 structural fit</span>
+            </span>
+
+            <span class="chevron">+</span>
+          </summary>
+
+          <div class="module-content">
+
+            <div class="score-layout">
+
+              <div class="score-box">
+                <div class="score-number">{totalScore}</div>
+                <div class="score-caption">out of 100</div>
+                <span class="score-status">Strong potential fit</span>
+              </div>
+
+              <div class="score-list">
+
+                {
+                  scoreBreakdown.map((item) => (
+                    <div class="score-row">
+
+                      <div class="score-row-top">
+                        <strong>{item.label}</strong>
+
+                        <span class="score-value">
+                          {item.score}/{item.max}
+                        </span>
+                      </div>
+
+                      <div class="score-reason">
+                        {item.reason}
+                      </div>
+
+                    </div>
+                  ))
+                }
+
+              </div>
+
+            </div>
+
+            <p style="margin-top:14px;color:var(--muted);font-size:0.84rem;">
+              This score measures structural fit with Bardin's use case.
+              It is not a probability that NEURA is experiencing confirmed pain.
+            </p>
+
           </div>
-
-        </div>
-      </section>
+        </details>
 
 
-      <!-- HYPOTHESIS -->
+        <!-- 04 HYPOTHESIS -->
 
-      <section>
-        <h2>Pain Hypothesis</h2>
+        <details class="module" id="hypothesis">
+          <summary class="module-summary">
+            <span class="module-number">04</span>
 
-        <div class="hypothesis">
+            <span class="module-title">
+              <strong>What pain might exist?</strong>
+              <span>Research-generated hypothesis to validate</span>
+            </span>
 
-          <strong>Hypothesis — not confirmed fact</strong>
+            <span class="chevron">+</span>
+          </summary>
 
-          NEURA's rapid portfolio, ecosystem, and international expansion may make
-          it increasingly difficult to distribute application-specific technical
-          knowledge across sales, partners, service teams, and newly integrated
-          business units without repeatedly involving scarce technical experts.
+          <div class="module-content">
 
-        </div>
-      </section>
+            <div class="hypothesis-box">
 
+              <span class="hypothesis-label">
+                Hypothesis — not confirmed fact
+              </span>
 
-      <!-- DISCOVERY QUESTION -->
+              NEURA's rapid portfolio, ecosystem, and international expansion may make
+              it increasingly difficult to distribute application-specific technical
+              knowledge across sales, partners, service teams, and newly integrated
+              business units without repeatedly involving scarce technical experts.
 
-      <section>
-        <h2>Best Discovery Question</h2>
+            </div>
 
-        <div class="question-card">
-
-          <div class="label">
-            Question to validate the hypothesis
           </div>
-
-          <blockquote>
-            “When a new customer or partner needs to configure a robot for a
-            specific application, how much of that process still depends on
-            getting one of your application engineers involved?”
-          </blockquote>
-
-        </div>
-      </section>
+        </details>
 
 
-      <!-- ACTIONS -->
+        <!-- 05 ACTION -->
 
-      <section>
-        <h2>Recommended Next Actions</h2>
+        <details class="module" id="action">
+          <summary class="module-summary">
+            <span class="module-number">05</span>
 
-        <ul class="action-list">
+            <span class="module-title">
+              <strong>What should Bardin do next?</strong>
+              <span>Validate the hypothesis before selling</span>
+            </span>
 
-          <li>
-            <strong>1. Identify the likely buyer</strong><br />
-            Find leaders responsible for Application Engineering, Sales Engineering,
-            Technical Sales, or Partner Enablement.
-          </li>
+            <span class="chevron">+</span>
+          </summary>
 
-          <li>
-            <strong>2. Validate the bottleneck</strong><br />
-            Determine whether repetitive technical questions are slowing sales,
-            partner enablement, or consuming application-engineering capacity.
-          </li>
+          <div class="module-content">
 
-          <li>
-            <strong>3. Map where technical knowledge lives</strong><br />
-            Understand whether answers currently depend on individual experts,
-            product documentation, internal systems, or informal conversations.
-          </li>
+            <div class="question-box">
 
-          <li>
-            <strong>4. Test one narrow Bardin use case</strong><br />
-            Select one product family or application area where commercial teams
-            repeatedly require engineering support and evaluate whether that
-            knowledge can become reusable.
-          </li>
+              <small>Best discovery question</small>
 
-        </ul>
-      </section>
+              <blockquote>
+                “When a new customer or partner needs to configure a robot for a
+                specific application, how much of that process still depends on
+                getting one of your application engineers involved?”
+              </blockquote>
 
+            </div>
 
-      <!-- METHOD -->
+            <ul class="action-list">
 
-      <section>
-        <h2>Research Method</h2>
+              <li>
+                <strong>1. Identify the likely buyer</strong><br />
+                Application Engineering, Sales Engineering, Technical Sales,
+                or Partner Enablement leadership.
+              </li>
 
-        <div class="method">
-          Public company signals → structured research → relevance classification →
-          ICP scoring → pain hypothesis → human review → recommended discovery action.
+              <li>
+                <strong>2. Validate the bottleneck</strong><br />
+                Determine whether repetitive technical questions are consuming
+                engineering capacity or slowing commercial teams.
+              </li>
 
-          <br /><br />
+              <li>
+                <strong>3. Map where knowledge lives</strong><br />
+                Understand whether answers depend on individual experts,
+                documentation, internal systems, or informal conversations.
+              </li>
 
-          The objective is not to claim knowledge of an internal problem, but to
-          prioritize accounts where public evidence suggests that a relevant problem
-          is worth validating.
-        </div>
+              <li>
+                <strong>4. Test one narrow use case</strong><br />
+                Select one product family or application area where commercial
+                teams repeatedly require technical support.
+              </li>
+
+            </ul>
+
+          </div>
+        </details>
+
       </section>
 
 
@@ -993,5 +1067,26 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       </footer>
 
     </main>
+
+
+    <script>
+      const buttons = document.querySelectorAll("[data-open]");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const id = button.getAttribute("data-open");
+          const target = document.getElementById(id);
+
+          if (!target) return;
+
+          target.open = true;
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
+      });
+    </script>
   </body>
 </html>
