@@ -183,7 +183,7 @@ export const companies = [
     companyType: "Robotics & Automation OEM",
     location: "Augsburg, Germany",
     reviewed: "27 Aug 2026",
-    logo: "/bardin/KUKA_logo.svg",
+    logo: "/bardin/KUKA_Logo.svg",
     logoPlaceholder: "KUKA",
     totalScore: 87,
     growth: "Med–High",
