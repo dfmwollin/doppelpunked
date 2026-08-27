@@ -1,0 +1,15 @@
+---
+import BardinCompanyPage from "../../components/BardinCompanyPage.astro";
+import { companies } from "../../data/bardinCompanies.js";
+
+export function getStaticPaths() {
+  return companies.map((company) => ({
+    params: { slug: company.slug },
+    props: { company },
+  }));
+}
+
+const { company } = Astro.props;
+---
+
+<BardinCompanyPage company={company} />
