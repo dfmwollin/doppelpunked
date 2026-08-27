@@ -157,6 +157,27 @@ const { company } = Astro.props;
         font-size: 13px;
       }
 
+      .logo-link {
+        display: block;
+        width: fit-content;
+        text-decoration: none;
+        border-radius: 24px;
+      }
+
+      .logo-link .logo-wrap {
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+
+      .logo-link:hover .logo-wrap {
+        transform: translateY(-2px);
+        border-color: var(--green);
+      }
+
+      .logo-link:focus-visible {
+        outline: 3px solid var(--green);
+        outline-offset: 4px;
+      }
+
       .logo-wrap {
         display: flex;
         align-items: center;
@@ -756,21 +777,29 @@ const { company } = Astro.props;
             </div>
           </div>
 
-          <div class="logo-wrap">
-            {
-              company.logo ? (
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  class="company-logo"
-                />
-              ) : (
-                <div class="logo-placeholder" aria-label={`${company.name} logo placeholder`}>
-                  {company.logoPlaceholder}
-                </div>
-              )
-            }
-          </div>
+          <a
+            href={company.homepage}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="logo-link"
+            aria-label={`Visit ${company.name} website`}
+          >
+            <div class="logo-wrap">
+              {
+                company.logo ? (
+                  <img
+                    src={company.logo}
+                    alt={`${company.name} logo`}
+                    class="company-logo"
+                  />
+                ) : (
+                  <div class="logo-placeholder" aria-label={`${company.name} logo placeholder`}>
+                    {company.logoPlaceholder}
+                  </div>
+                )
+              }
+            </div>
+          </a>
         </div>
       </header>
 
