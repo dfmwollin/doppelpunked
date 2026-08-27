@@ -137,15 +137,21 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
     <style>
       :root {
-        --bg: #f6f7f9;
+        --bg: #f5f6f3;
         --card: #ffffff;
-        --text: #15171a;
-        --muted: #626872;
-        --border: #dde1e7;
-        --accent: #2d5cff;
-        --accent-soft: #edf1ff;
-        --dark: #15171a;
-        --success: #17734a;
+        --text: #10110f;
+        --muted: #62665f;
+        --border: #dfe3da;
+
+        --bardin-green: #b7ff2a;
+        --bardin-green-soft: #efffd0;
+        --bardin-green-mid: #8fda18;
+        --bardin-green-dark: #536f10;
+
+        --dark: #11120f;
+
+        --accent: var(--bardin-green-dark);
+        --accent-soft: var(--bardin-green-soft);
       }
 
       * {
@@ -177,22 +183,45 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         padding: 56px 0 80px;
       }
 
+      /* HERO */
+
       .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 38px;
         margin-bottom: 32px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: var(--dark);
+        color: white;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        right: -90px;
+        top: -90px;
+        border-radius: 50%;
+        background: var(--bardin-green);
+        opacity: 0.14;
       }
 
       .eyebrow {
         display: inline-block;
-        margin-bottom: 14px;
-        padding: 6px 10px;
+        margin-bottom: 16px;
+        padding: 7px 11px;
         border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
+        background: var(--bardin-green);
+        color: #10110f;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
       h1 {
+        position: relative;
+        z-index: 1;
         margin: 0;
         font-size: clamp(2.4rem, 6vw, 4.5rem);
         line-height: 0.98;
@@ -200,35 +229,55 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .subtitle {
-        max-width: 760px;
+        position: relative;
+        z-index: 1;
+        max-width: 780px;
         margin-top: 18px;
-        color: var(--muted);
+        color: #d6dad0;
         font-size: 1.1rem;
       }
 
       .meta-row {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        margin-top: 22px;
+        margin-top: 24px;
       }
 
       .meta-pill {
         padding: 8px 12px;
-        border: 1px solid var(--border);
+        border: 1px solid #30332c;
         border-radius: 999px;
-        background: var(--card);
+        background: #181a16;
+        color: #f1f2ee;
         font-size: 14px;
       }
+
+      /* SECTIONS */
 
       section {
         margin-top: 48px;
       }
 
       h2 {
+        position: relative;
         margin: 0 0 18px;
+        padding-left: 14px;
         font-size: 1.5rem;
         letter-spacing: -0.025em;
+      }
+
+      h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.18em;
+        bottom: 0.18em;
+        width: 4px;
+        border-radius: 4px;
+        background: var(--bardin-green);
       }
 
       h3 {
@@ -242,7 +291,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-size: 0.95rem;
       }
 
-      /* Agent workflow */
+      /* AGENT FLOW */
 
       .agent-label {
         margin: 0 0 9px;
@@ -284,11 +333,12 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .flow-arrow {
-        color: var(--muted);
-        font-size: 1.4rem;
+        color: var(--bardin-green-dark);
+        font-size: 1.6rem;
+        font-weight: 900;
       }
 
-      /* General */
+      /* GENERAL GRID */
 
       .grid {
         display: grid;
@@ -303,7 +353,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         background: var(--card);
       }
 
-      /* Why now */
+      /* WHY NOW */
 
       .pressure-grid {
         display: grid;
@@ -312,10 +362,22 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .pressure-card {
+        position: relative;
+        overflow: hidden;
         padding: 20px;
         border: 1px solid var(--border);
         border-radius: 16px;
         background: var(--card);
+      }
+
+      .pressure-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 5px;
+        background: var(--bardin-green);
       }
 
       .pressure-label {
@@ -326,8 +388,8 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .pressure-value {
         display: block;
-        margin: 5px 0 10px;
-        font-size: 1.4rem;
+        margin: 6px 0 10px;
+        font-size: 1.5rem;
         font-weight: 800;
       }
 
@@ -336,15 +398,19 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-size: 0.92rem;
       }
 
-      /* Snapshot */
+      /* SNAPSHOT */
+
+      .snapshot-card {
+        position: relative;
+      }
 
       .snapshot-card strong {
         display: block;
         margin-bottom: 5px;
+        color: var(--bardin-green-dark);
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--muted);
       }
 
       .snapshot-card span {
@@ -352,12 +418,20 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-weight: 700;
       }
 
-      /* Signals */
+      /* SIGNALS */
 
       .signal-card {
         display: flex;
         flex-direction: column;
         gap: 12px;
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease;
+      }
+
+      .signal-card:hover {
+        transform: translateY(-2px);
+        border-color: #c5d8a6;
       }
 
       .signal-top {
@@ -375,10 +449,10 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .signal-category {
         padding: 5px 8px;
         border-radius: 999px;
-        background: #f1f2f4;
-        color: #555c65;
+        background: var(--bardin-green-soft);
+        color: #40570b;
         font-size: 11px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .signal-card h3 {
@@ -392,17 +466,18 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .why {
         padding: 14px;
-        border-radius: 12px;
-        background: #f7f8fa;
+        border-left: 3px solid var(--bardin-green);
+        border-radius: 10px;
+        background: #f8faF4;
         font-size: 0.95rem;
       }
 
       .source-link {
         margin-top: auto;
         padding-top: 4px;
-        color: var(--accent);
+        color: var(--bardin-green-dark);
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 800;
         text-decoration: none;
       }
 
@@ -410,7 +485,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         text-decoration: underline;
       }
 
-      /* Score */
+      /* SCORE */
 
       .score-layout {
         display: grid;
@@ -421,6 +496,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .score-box {
         padding: 28px;
+        border-top: 5px solid var(--bardin-green);
         border-radius: 20px;
         background: var(--dark);
         color: white;
@@ -428,6 +504,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .score-number {
         display: block;
+        color: var(--bardin-green);
         font-size: 4rem;
         line-height: 1;
         font-weight: 800;
@@ -444,9 +521,10 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         margin-top: 18px;
         padding: 7px 10px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--bardin-green);
+        color: var(--dark);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .score-items {
@@ -473,6 +551,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .score-value {
+        color: var(--bardin-green-dark);
         font-weight: 800;
       }
 
@@ -481,11 +560,11 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-size: 0.92rem;
       }
 
-      /* Hypothesis */
+      /* HYPOTHESIS */
 
       .hypothesis {
         padding: 28px;
-        border-left: 4px solid var(--accent);
+        border-left: 5px solid var(--bardin-green);
         border-radius: 14px;
         background: var(--card);
         font-size: 1.2rem;
@@ -494,27 +573,28 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .hypothesis strong {
         display: block;
         margin-bottom: 10px;
+        color: var(--bardin-green-dark);
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.07em;
-        color: var(--accent);
       }
 
-      /* Question */
+      /* DISCOVERY QUESTION */
 
       .question-card {
-        padding: 28px;
+        padding: 30px;
         border-radius: 18px;
-        background: var(--accent-soft);
+        background: var(--dark);
+        color: white;
       }
 
       .question-card .label {
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        color: var(--bardin-green);
         font-size: 13px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--accent);
       }
 
       .question-card blockquote {
@@ -524,7 +604,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         line-height: 1.4;
       }
 
-      /* Actions */
+      /* ACTIONS */
 
       .action-list {
         display: grid;
@@ -535,16 +615,31 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .action-list li {
-        padding: 16px 18px;
+        position: relative;
+        padding: 18px 18px 18px 24px;
         border: 1px solid var(--border);
         border-radius: 14px;
         background: var(--card);
       }
 
+      .action-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        border-radius: 14px 0 0 14px;
+        background: var(--bardin-green);
+      }
+
+      /* METHOD */
+
       .method {
-        padding: 18px;
-        border: 1px dashed var(--border);
+        padding: 20px;
+        border: 1px dashed #b8c49f;
         border-radius: 14px;
+        background: #fafcf6;
         color: var(--muted);
         font-size: 0.92rem;
       }
@@ -560,7 +655,11 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       @media (max-width: 760px) {
         main {
           width: min(100% - 22px, 1100px);
-          padding-top: 32px;
+          padding-top: 24px;
+        }
+
+        .hero {
+          padding: 26px 22px;
         }
 
         .grid,
@@ -586,6 +685,10 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
           font-size: 3.2rem;
         }
 
+        .question-card {
+          padding: 24px;
+        }
+
         .question-card blockquote {
           font-size: 1.15rem;
         }
@@ -604,8 +707,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         <h1>Bardin × Germany</h1>
 
         <p class="subtitle">
-          Can public market signals help identify industrial companies where
-          technical sales complexity may create a strong opportunity for Bardin?
+          Can public market signals identify industrial companies where
+          deployment complexity, technical knowledge bottlenecks, and engineering
+          escalation create a strong opportunity for Bardin?
         </p>
 
         <div class="meta-row">
@@ -873,7 +977,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         <div class="method">
           Public company signals → structured research → relevance classification →
           ICP scoring → pain hypothesis → human review → recommended discovery action.
+
           <br /><br />
+
           The objective is not to claim knowledge of an internal problem, but to
           prioritize accounts where public evidence suggests that a relevant problem
           is worth validating.
