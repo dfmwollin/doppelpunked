@@ -200,7 +200,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .eyebrow {
         display: inline-block;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         padding: 6px 10px;
         border-radius: 999px;
         background: var(--green);
@@ -208,27 +208,30 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-size: 12px;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.045em;
       }
 
       h1 {
         margin: 0;
         font-size: clamp(2.3rem, 6vw, 4.4rem);
-        line-height: 0.95;
-        letter-spacing: -0.05em;
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        font-weight: 800;
       }
 
       .company-name {
         display: block;
-        margin-top: 10px;
+        margin-top: 14px;
         color: var(--green);
-        font-size: clamp(1.25rem, 3vw, 2rem);
-        font-weight: 700;
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        line-height: 1.18;
+        letter-spacing: 0.005em;
+        font-weight: 750;
       }
 
       .hero-copy {
         max-width: 740px;
-        margin: 18px 0 0;
+        margin: 20px 0 0;
         color: #d5d9d0;
       }
 
@@ -295,6 +298,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         margin-top: 4px;
         font-size: 1.45rem;
         font-weight: 800;
+        letter-spacing: -0.01em;
       }
 
       .decision-value.green {
@@ -413,6 +417,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       .module-title strong {
         display: block;
         font-size: 1.02rem;
+        letter-spacing: -0.005em;
       }
 
       .module-title span {
@@ -502,6 +507,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .signal-title-wrap strong {
         display: block;
+        letter-spacing: -0.005em;
       }
 
       .signal-category {
@@ -513,6 +519,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         color: var(--green-dark);
         font-size: 10px;
         font-weight: 800;
+        letter-spacing: 0.015em;
       }
 
       .signal-detail {
@@ -564,6 +571,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         font-size: 3.3rem;
         font-weight: 900;
         line-height: 1;
+        letter-spacing: -0.02em;
       }
 
       .score-caption {
@@ -654,6 +662,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         margin: 10px 0 0;
         font-size: 1.15rem;
         font-weight: 700;
+        line-height: 1.45;
       }
 
       .action-list {
@@ -693,6 +702,19 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
         .hero-content {
           grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: clamp(2.2rem, 12vw, 3.4rem);
+          line-height: 1.04;
+          letter-spacing: -0.015em;
+        }
+
+        .company-name {
+          margin-top: 12px;
+          font-size: clamp(1.2rem, 7vw, 1.7rem);
+          line-height: 1.2;
+          letter-spacing: 0.01em;
         }
 
         .logo-wrap {
@@ -745,8 +767,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
   <body>
     <main>
 
-      <!-- HERO -->
-
       <header class="hero">
         <div class="hero-content">
 
@@ -783,8 +803,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       </header>
 
 
-      <!-- DECISION SUMMARY -->
-
       <section class="decision-strip" aria-label="Account summary">
 
         <div class="decision-item">
@@ -810,8 +828,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       </section>
 
 
-      <!-- MAIN INSIGHT -->
-
       <section class="main-insight">
         <strong>Why this account stands out</strong>
 
@@ -824,8 +840,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       </section>
 
 
-      <!-- QUICK NAV -->
-
       <nav class="quick-nav" aria-label="Explore account">
         <button type="button" data-open="why-now">Why now?</button>
         <button type="button" data-open="signals">Signals</button>
@@ -835,12 +849,8 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       </nav>
 
 
-      <!-- EXPANDABLE MODULES -->
-
       <section class="modules">
 
-
-        <!-- 01 WHY NOW -->
 
         <details class="module" id="why-now">
 
@@ -895,8 +905,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
         </details>
 
-
-        <!-- 02 SIGNALS -->
 
         <details class="module" id="signals">
 
@@ -970,8 +978,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         </details>
 
 
-        <!-- 03 ICP FIT -->
-
         <details class="module" id="fit">
 
           <summary class="module-summary">
@@ -1023,9 +1029,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
             </div>
 
-            <p
-              style="margin-top:14px;color:var(--muted);font-size:0.84rem;"
-            >
+            <p style="margin-top:14px;color:var(--muted);font-size:0.84rem;">
               This score measures structural fit with Bardin's use case.
               It is not a probability that NEURA is experiencing confirmed pain.
             </p>
@@ -1034,8 +1038,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
         </details>
 
-
-        <!-- 04 HYPOTHESIS -->
 
         <details class="module" id="hypothesis">
 
@@ -1071,8 +1073,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
         </details>
 
-
-        <!-- 05 ACTION -->
 
         <details class="module" id="action">
 
