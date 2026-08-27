@@ -73,7 +73,46 @@ const averageFit = Math.round(
       main {
         width: min(1100px, calc(100% - 28px));
         margin: 0 auto;
-        padding: 26px 0 70px;
+        padding: 22px 0 70px;
+      }
+
+      /* COMPANY SWITCHER */
+
+      .switcher {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .switcher a {
+        padding: 8px 11px;
+
+        border: 1px solid var(--border);
+        border-radius: 999px;
+
+        background: var(--card);
+        color: var(--text);
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 750;
+
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      .switcher a:hover {
+        background: var(--green-soft);
+        border-color: var(--green);
+      }
+
+      .switcher a.active {
+        background: var(--green);
+        border-color: var(--green);
+        color: var(--dark);
       }
 
       /* HERO */
@@ -93,6 +132,7 @@ const averageFit = Math.round(
         content: "";
 
         position: absolute;
+
         width: 300px;
         height: 300px;
 
@@ -111,7 +151,9 @@ const averageFit = Math.round(
 
         display: grid;
         grid-template-columns: minmax(0, 1fr) 155px;
+
         gap: 40px;
+
         align-items: center;
       }
 
@@ -536,6 +578,13 @@ const averageFit = Math.round(
         font-size: 0.86rem;
       }
 
+      .method strong {
+        margin-right: 4px;
+        color: var(--text);
+      }
+
+      /* FOOTER */
+
       footer {
         margin-top: 34px;
 
@@ -553,7 +602,7 @@ const averageFit = Math.round(
       @media (max-width: 780px) {
         main {
           width: min(100% - 20px, 1100px);
-          padding-top: 15px;
+          padding-top: 14px;
         }
 
         .hero {
@@ -599,6 +648,29 @@ const averageFit = Math.round(
   <body>
     <main>
 
+      <!-- COMPANY SWITCHER -->
+
+      <nav class="switcher" aria-label="Company switcher">
+
+        <a
+          href="/bardin"
+          class="active"
+          aria-current="page"
+        >
+          Overview
+        </a>
+
+        {
+          companies.map((company) => (
+            <a href={`/bardin/${company.slug}`}>
+              {company.shortName}
+            </a>
+          ))
+        }
+
+      </nav>
+
+
       <!-- HERO -->
 
       <header class="hero">
@@ -629,7 +701,7 @@ const averageFit = Math.round(
           <div class="bardin-logo-wrap">
 
             <img
-              src="/bardin/bardin_germany.png"
+              src="/bardin/bardin_logo.jpeg"
               alt="Bardin logo"
               class="bardin-logo"
             />
@@ -676,7 +748,9 @@ const averageFit = Math.round(
 
         <div class="section-head">
 
-          <h2>Choose an account</h2>
+          <h2>
+            Choose an account
+          </h2>
 
           <p>
             Three deliberately different Bardin customer profiles:
@@ -806,6 +880,7 @@ const averageFit = Math.round(
                     {company.shortName}
                   </span>
 
+
                   <div
                     class="compare-track"
                     aria-hidden="true"
@@ -817,6 +892,7 @@ const averageFit = Math.round(
                     />
 
                   </div>
+
 
                   <span class="compare-score">
                     {company.totalScore}
@@ -832,7 +908,7 @@ const averageFit = Math.round(
       </section>
 
 
-      <!-- PROFILE -->
+      <!-- OPPORTUNITY PROFILE -->
 
       <section>
 
@@ -912,10 +988,7 @@ const averageFit = Math.round(
 
       <section class="method">
 
-        <strong>
-          Method:
-        </strong>&nbsp;
-
+        <strong>Method:</strong>
         public company signals → structured research →
         relevance classification → five-part ICP score →
         pain hypothesis → human review → discovery question
@@ -926,6 +999,8 @@ const averageFit = Math.round(
 
       </section>
 
+
+      <!-- FOOTER -->
 
       <footer>
         AI-assisted research · Human reviewed · Public sources linked
