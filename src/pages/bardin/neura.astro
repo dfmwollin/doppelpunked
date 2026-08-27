@@ -1,25 +1,599 @@
 ---
+const signals = [
+  {
+    date: "24 Aug 2026",
+    title: "Acquisition: ADLATUS Robotics",
+    summary:
+      "NEURA acquired ADLATUS Robotics, adding hundreds of installed autonomous cleaning systems, navigation technology, and application know-how.",
+    why:
+      "More products and inherited application knowledge may increase the challenge of making technical expertise available across sales and service teams.",
+    source:
+      "https://neura-robotics.com/de/neura-ubernimmt-adlatus-robotics/",
+  },
+  {
+    date: "13 Aug 2026",
+    title: "Acquisition: Bosch Rexroth ACTIVE Shuttle",
+    summary:
+      "NEURA is integrating Bosch Rexroth's ACTIVE Shuttle into its Physical AI ecosystem.",
+    why:
+      "Expanding the product portfolio may increase configuration complexity and application-specific questions during the sales process.",
+    source:
+      "https://neura-robotics.com/de/neura-robotics-ubernimmt-active-shuttle/",
+  },
+  {
+    date: "22 Jul 2026",
+    title: "Global Training Expansion",
+    summary:
+      "NEURA expanded its Physical AI training network with a new NEURA Gym at RWTH Aachen.",
+    why:
+      "Scaling training suggests that distributing technical knowledge effectively is strategically important.",
+    source: "https://neura-robotics.com/de/news/",
+  },
+  {
+    date: "10 Jun 2026",
+    title: "Major Growth Financing",
+    summary:
+      "NEURA announced financing of up to $1.4 billion to accelerate its Physical AI platform.",
+    why:
+      "Rapid organizational and product scaling can create pressure to scale technical sales knowledge more efficiently.",
+    source: "https://neura-robotics.com/news/",
+  },
+  {
+    date: "21 Apr 2026",
+    title: "Strategic AWS Partnership",
+    summary:
+      "NEURA and AWS announced a strategic partnership around the Neuraverse, robotics training, and international market expansion.",
+    why:
+      "More partners, markets, and deployments can increase the number of people who need access to accurate technical application knowledge.",
+    source:
+      "https://neura-robotics.com/de/neura-robotics-und-amazon-web-services-starten-strategische-partnerschaft/",
+  },
+];
+
+const scoreBreakdown = [
+  {
+    label: "Technical product complexity",
+    score: 19,
+    max: 20,
+    reason: "Robotics, software, integrations, and multiple application environments.",
+  },
+  {
+    label: "Application engineering dependency",
+    score: 18,
+    max: 20,
+    reason: "Robotics deployments typically require application-specific technical expertise.",
+  },
+  {
+    label: "International / partner sales",
+    score: 17,
+    max: 20,
+    reason: "NEURA is expanding through partnerships, ecosystems, and international activity.",
+  },
+  {
+    label: "Growth and change signals",
+    score: 18,
+    max: 20,
+    reason: "Recent acquisitions, financing, partnerships, and training expansion.",
+  },
+  {
+    label: "Evidence of current pain",
+    score: 9,
+    max: 20,
+    reason:
+      "There are strong structural indicators, but no direct public evidence confirming an application-engineering bottleneck.",
+  },
+];
+
+const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 ---
 
 <html lang="en">
   <head>
-    <title>Bardin GTM Experiment</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="A GTM experiment exploring whether public signals can identify potential Bardin opportunities in the German industrial market."
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>Bardin × Germany — NEURA Robotics GTM Experiment</title>
+
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --card: #ffffff;
+        --text: #15171a;
+        --muted: #626872;
+        --border: #dde1e7;
+        --accent: #2d5cff;
+        --accent-soft: #edf1ff;
+        --success: #17734a;
+        --warning: #a86b00;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      main {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 56px 0 80px;
+      }
+
+      .hero {
+        margin-bottom: 40px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .subtitle {
+        max-width: 720px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .meta-pill {
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--card);
+        font-size: 14px;
+      }
+
+      section {
+        margin-top: 48px;
+      }
+
+      h2 {
+        margin-bottom: 18px;
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        padding: 22px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--card);
+      }
+
+      .snapshot-card strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+      }
+
+      .snapshot-card span {
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .signal-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .signal-date {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .signal-card h3 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+
+      .signal-card p {
+        margin: 0;
+      }
+
+      .why {
+        padding: 14px;
+        border-radius: 12px;
+        background: #f7f8fa;
+        font-size: 0.95rem;
+      }
+
+      .source-link {
+        margin-top: auto;
+        padding-top: 4px;
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .source-link:hover {
+        text-decoration: underline;
+      }
+
+      .score-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .score-box {
+        padding: 28px;
+        border-radius: 20px;
+        background: #15171a;
+        color: white;
+      }
+
+      .score-number {
+        display: block;
+        font-size: 4rem;
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+
+      .score-label {
+        margin-top: 8px;
+        color: #c8ccd2;
+      }
+
+      .score-status {
+        display: inline-block;
+        margin-top: 18px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .score-items {
+        display: grid;
+        gap: 12px;
+      }
+
+      .score-item {
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card);
+      }
+
+      .score-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 5px;
+      }
+
+      .score-top strong {
+        font-size: 0.98rem;
+      }
+
+      .score-value {
+        font-weight: 800;
+      }
+
+      .score-reason {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .hypothesis {
+        padding: 28px;
+        border-left: 4px solid var(--accent);
+        border-radius: 14px;
+        background: var(--card);
+        font-size: 1.2rem;
+      }
+
+      .hypothesis strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--accent);
+      }
+
+      .question-card {
+        padding: 28px;
+        border-radius: 18px;
+        background: var(--accent-soft);
+      }
+
+      .question-card .label {
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+      }
+
+      .question-card blockquote {
+        margin: 0;
+        font-size: 1.35rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .action-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .action-list li {
+        padding: 16px 18px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card);
+      }
+
+      footer {
+        margin-top: 64px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 760px) {
+        main {
+          width: min(100% - 22px, 1100px);
+          padding-top: 32px;
+        }
+
+        .grid,
+        .score-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .score-box {
+          padding: 22px;
+        }
+
+        .score-number {
+          font-size: 3.2rem;
+        }
+
+        .question-card blockquote {
+          font-size: 1.15rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <main>
-      <h1>Bardin × Germany — GTM Experiment</h1>
-      <p>Pilot account: NEURA Robotics</p>
-<section>
-  <h2>Account Snapshot</h2>
+      <header class="hero">
+        <span class="eyebrow">Private GTM Experiment</span>
 
-  <ul>
-    <li><strong>Company:</strong> NEURA Robotics</li>
-    <li><strong>Location:</strong> Germany</li>
-    <li><strong>Industry:</strong> Robotics / Physical AI</li>
-    <li><strong>Why relevant:</strong> Complex technical products, international growth, and likely strong dependence on application engineering.</li>
-  </ul>
-</section>
+        <h1>Bardin × Germany</h1>
+
+        <p class="subtitle">
+          Can publicly available market signals help identify industrial companies
+          where technical sales complexity may create a strong opportunity for Bardin?
+        </p>
+
+        <div class="meta-row">
+          <span class="meta-pill">Pilot account: NEURA Robotics</span>
+          <span class="meta-pill">Market: Germany / DACH</span>
+          <span class="meta-pill">Last reviewed: 27 Aug 2026</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Account Snapshot</h2>
+
+        <div class="grid">
+          <div class="card snapshot-card">
+            <strong>Company</strong>
+            <span>NEURA Robotics</span>
+          </div>
+
+          <div class="card snapshot-card">
+            <strong>Location</strong>
+            <span>Germany</span>
+          </div>
+
+          <div class="card snapshot-card">
+            <strong>Industry</strong>
+            <span>Robotics / Physical AI</span>
+          </div>
+
+          <div class="card snapshot-card">
+            <strong>Why relevant</strong>
+            <span>
+              Complex technical products, rapid expansion, partnerships, and strong
+              dependence on application-specific knowledge.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Recent Signals</h2>
+
+        <div class="grid">
+          {
+            signals.map((signal) => (
+              <article class="card signal-card">
+                <span class="signal-date">{signal.date}</span>
+
+                <h3>{signal.title}</h3>
+
+                <p>{signal.summary}</p>
+
+                <div class="why">
+                  <strong>Why Bardin may care:</strong><br />
+                  {signal.why}
+                </div>
+
+                <a
+                  class="source-link"
+                  href={signal.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View source ↗
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section>
+        <h2>Bardin ICP Fit</h2>
+
+        <div class="score-layout">
+          <div class="score-box">
+            <span class="score-number">{totalScore}</span>
+            <div class="score-label">out of 100</div>
+            <span class="score-status">Strong potential fit</span>
+          </div>
+
+          <div class="score-items">
+            {
+              scoreBreakdown.map((item) => (
+                <div class="score-item">
+                  <div class="score-top">
+                    <strong>{item.label}</strong>
+                    <span class="score-value">
+                      {item.score}/{item.max}
+                    </span>
+                  </div>
+
+                  <div class="score-reason">{item.reason}</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Pain Hypothesis</h2>
+
+        <div class="hypothesis">
+          <strong>Hypothesis — not confirmed fact</strong>
+
+          NEURA's rapid portfolio, ecosystem, and international expansion may make it
+          increasingly difficult to distribute application-specific technical knowledge
+          across sales, partners, service teams, and newly integrated business units
+          without repeatedly involving scarce technical experts.
+        </div>
+      </section>
+
+      <section>
+        <h2>Best Discovery Question</h2>
+
+        <div class="question-card">
+          <div class="label">Suggested question</div>
+
+          <blockquote>
+            “When a new customer or partner needs to configure a robot for a specific
+            application, how much of that process still depends on getting one of your
+            application engineers involved?”
+          </blockquote>
+        </div>
+      </section>
+
+      <section>
+        <h2>Suggested Next Actions</h2>
+
+        <ul class="action-list">
+          <li>
+            <strong>1. Identify the likely buyer</strong><br />
+            Head of Application Engineering, Sales Engineering, Technical Sales, or
+            Partner Enablement.
+          </li>
+
+          <li>
+            <strong>2. Validate the bottleneck</strong><br />
+            Determine whether repetitive technical questions are slowing sales or
+            consuming application-engineering capacity.
+          </li>
+
+          <li>
+            <strong>3. Understand where knowledge lives</strong><br />
+            Ask whether answers currently depend on individual experts, documents,
+            internal tools, or informal conversations.
+          </li>
+
+          <li>
+            <strong>4. Test one Bardin use case</strong><br />
+            Select one product family or application area where sales repeatedly needs
+            engineering support and test whether that knowledge can be made reusable.
+          </li>
+        </ul>
+      </section>
+
+      <footer>
+        AI-assisted research · Human reviewed · Public sources linked ·
+        Hypotheses are intended for validation, not presented as confirmed customer pain.
+      </footer>
     </main>
   </body>
 </html>
