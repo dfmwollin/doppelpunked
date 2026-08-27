@@ -99,14 +99,17 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
+
     <meta
       name="description"
       content="A GTM experiment exploring whether public signals can identify potential Bardin opportunities in the German industrial market."
     />
+
     <meta name="robots" content="noindex, nofollow" />
 
     <title>Bardin × Germany — NEURA Robotics</title>
@@ -182,6 +185,19 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         opacity: 0.15;
       }
 
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 150px;
+        gap: 34px;
+        align-items: center;
+      }
+
+      .hero-text {
+        min-width: 0;
+      }
+
       .eyebrow {
         display: inline-block;
         margin-bottom: 14px;
@@ -196,8 +212,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       h1 {
-        position: relative;
-        z-index: 1;
         margin: 0;
         font-size: clamp(2.3rem, 6vw, 4.4rem);
         line-height: 0.95;
@@ -213,16 +227,12 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       .hero-copy {
-        position: relative;
-        z-index: 1;
         max-width: 740px;
         margin: 18px 0 0;
         color: #d5d9d0;
       }
 
       .meta-row {
-        position: relative;
-        z-index: 1;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
@@ -235,6 +245,24 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         border-radius: 999px;
         background: #181a17;
         font-size: 13px;
+      }
+
+      .logo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        height: 150px;
+        padding: 18px;
+        border-radius: 22px;
+        background: white;
+      }
+
+      .company-logo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
 
       /* DECISION STRIP */
@@ -325,6 +353,11 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         background: var(--green-soft);
       }
 
+      .quick-nav button:focus-visible {
+        outline: 3px solid var(--green);
+        outline-offset: 2px;
+      }
+
       /* MODULES */
 
       .modules {
@@ -334,10 +367,10 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       }
 
       details.module {
+        overflow: hidden;
         border: 1px solid var(--border);
         border-radius: 18px;
         background: var(--card);
-        overflow: hidden;
       }
 
       details.module[open] {
@@ -391,21 +424,17 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .chevron {
         display: inline-block;
-        font-size: 1.4rem;
         color: var(--muted);
+        font-size: 1.4rem;
         transition: transform 0.2s ease;
       }
 
-      details[open] .chevron {
+      details[open] > summary .chevron {
         transform: rotate(45deg);
       }
 
       .module-content {
         padding: 0 20px 22px 80px;
-      }
-
-      .module-content p:first-child {
-        margin-top: 0;
       }
 
       /* WHY NOW */
@@ -418,9 +447,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .pressure-card {
         padding: 16px;
+        border-top: 4px solid var(--green);
         border-radius: 14px;
         background: #f8faf5;
-        border-top: 4px solid var(--green);
       }
 
       .pressure-card span {
@@ -524,10 +553,10 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .score-box {
         padding: 22px;
+        border-top: 5px solid var(--green);
         border-radius: 16px;
         background: var(--dark);
         color: white;
-        border-top: 5px solid var(--green);
       }
 
       .score-number {
@@ -590,9 +619,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
       .hypothesis-box {
         padding: 20px;
+        border-left: 5px solid var(--green);
         border-radius: 14px;
         background: #f9fbf6;
-        border-left: 5px solid var(--green);
       }
 
       .hypothesis-label {
@@ -662,6 +691,15 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
           padding: 24px 20px;
         }
 
+        .hero-content {
+          grid-template-columns: 1fr;
+        }
+
+        .logo-wrap {
+          width: 110px;
+          height: 110px;
+        }
+
         .decision-strip {
           grid-template-columns: repeat(2, 1fr);
         }
@@ -710,23 +748,37 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       <!-- HERO -->
 
       <header class="hero">
-        <span class="eyebrow">Private GTM Experiment</span>
+        <div class="hero-content">
 
-        <h1>
-          Bardin × Germany
-          <span class="company-name">NEURA Robotics</span>
-        </h1>
+          <div class="hero-text">
+            <span class="eyebrow">Private GTM Experiment</span>
 
-        <p class="hero-copy">
-          Can public market signals identify industrial companies where
-          deployment complexity, technical knowledge bottlenecks, and engineering
-          escalation create a strong opportunity for Bardin?
-        </p>
+            <h1>
+              Bardin × Germany
+              <span class="company-name">NEURA Robotics</span>
+            </h1>
 
-        <div class="meta-row">
-          <span class="meta-pill">Germany / DACH</span>
-          <span class="meta-pill">Robotics / Physical AI</span>
-          <span class="meta-pill">Reviewed 27 Aug 2026</span>
+            <p class="hero-copy">
+              Can public market signals identify industrial companies where
+              deployment complexity, technical knowledge bottlenecks, and engineering
+              escalation create a strong opportunity for Bardin?
+            </p>
+
+            <div class="meta-row">
+              <span class="meta-pill">Germany / DACH</span>
+              <span class="meta-pill">Robotics / Physical AI</span>
+              <span class="meta-pill">Reviewed 27 Aug 2026</span>
+            </div>
+          </div>
+
+          <div class="logo-wrap">
+            <img
+              src="/bardin/neura-logo.jfif"
+              alt="NEURA Robotics logo"
+              class="company-logo"
+            />
+          </div>
+
         </div>
       </header>
 
@@ -734,6 +786,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
       <!-- DECISION SUMMARY -->
 
       <section class="decision-strip" aria-label="Account summary">
+
         <div class="decision-item">
           <span class="decision-label">ICP fit</span>
           <strong class="decision-value green">{totalScore}/100</strong>
@@ -753,6 +806,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
           <span class="decision-label">GTM urgency</span>
           <strong class="decision-value">Med–High</strong>
         </div>
+
       </section>
 
 
@@ -789,7 +843,9 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         <!-- 01 WHY NOW -->
 
         <details class="module" id="why-now">
+
           <summary class="module-summary">
+
             <span class="module-number">01</span>
 
             <span class="module-title">
@@ -798,9 +854,11 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </span>
 
             <span class="chevron">+</span>
+
           </summary>
 
           <div class="module-content">
+
             <div class="pressure-grid">
 
               <div class="pressure-card">
@@ -832,14 +890,18 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
               </div>
 
             </div>
+
           </div>
+
         </details>
 
 
         <!-- 02 SIGNALS -->
 
         <details class="module" id="signals">
+
           <summary class="module-summary">
+
             <span class="module-number">02</span>
 
             <span class="module-title">
@@ -848,6 +910,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </span>
 
             <span class="chevron">+</span>
+
           </summary>
 
           <div class="module-content">
@@ -866,6 +929,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
                       <span class="signal-title-wrap">
                         <strong>{signal.title}</strong>
+
                         <span class="signal-category">
                           {signal.category}
                         </span>
@@ -877,9 +941,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
                     <div class="signal-detail">
 
-                      <p>
-                        {signal.summary}
-                      </p>
+                      <p>{signal.summary}</p>
 
                       <div class="implication">
                         <strong>Possible GTM implication</strong><br />
@@ -904,13 +966,16 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </div>
 
           </div>
+
         </details>
 
 
         <!-- 03 ICP FIT -->
 
         <details class="module" id="fit">
+
           <summary class="module-summary">
+
             <span class="module-number">03</span>
 
             <span class="module-title">
@@ -919,6 +984,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </span>
 
             <span class="chevron">+</span>
+
           </summary>
 
           <div class="module-content">
@@ -957,19 +1023,24 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
 
             </div>
 
-            <p style="margin-top:14px;color:var(--muted);font-size:0.84rem;">
+            <p
+              style="margin-top:14px;color:var(--muted);font-size:0.84rem;"
+            >
               This score measures structural fit with Bardin's use case.
               It is not a probability that NEURA is experiencing confirmed pain.
             </p>
 
           </div>
+
         </details>
 
 
         <!-- 04 HYPOTHESIS -->
 
         <details class="module" id="hypothesis">
+
           <summary class="module-summary">
+
             <span class="module-number">04</span>
 
             <span class="module-title">
@@ -978,6 +1049,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </span>
 
             <span class="chevron">+</span>
+
           </summary>
 
           <div class="module-content">
@@ -996,13 +1068,16 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </div>
 
           </div>
+
         </details>
 
 
         <!-- 05 ACTION -->
 
         <details class="module" id="action">
+
           <summary class="module-summary">
+
             <span class="module-number">05</span>
 
             <span class="module-title">
@@ -1011,6 +1086,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </span>
 
             <span class="chevron">+</span>
+
           </summary>
 
           <div class="module-content">
@@ -1056,6 +1132,7 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
             </ul>
 
           </div>
+
         </details>
 
       </section>
@@ -1088,5 +1165,6 @@ const totalScore = scoreBreakdown.reduce((sum, item) => sum + item.score, 0);
         });
       });
     </script>
+
   </body>
 </html>
