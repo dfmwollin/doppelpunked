@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bardin GTM AI-Navigator &amp; ROI Calculator — IMTS 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --graphite:#12151A;
+    --panel:#1B1F26;
+    --panel-2:#20252D;
+    --line:#2C323C;
+    --accent:#39FF14;
+    --steel:#4C8FB8;
+    --ok:#5CA36B;
+    --ink:#E9E7E0;
+    --ink-dim:#9BA1AC;
+    --danger:#C1554A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--graphite);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .font-display{ font-family:'Barlow Condensed',sans-serif; letter-spacing:.01em; }
+  .font-mono{ font-family:'IBM Plex Mono',monospace; }
+  .panel{ background:var(--panel); border:1px solid var(--line); }
+  .panel-2{ background:var(--panel-2); border:1px solid var(--line); }
+  .hairline{ border-color:var(--line); }
+  .accent-text{ color:var(--accent); }
+  .steel-text{ color:var(--steel); }
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:var(--graphite); }
+  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:2px; }
+
+  /* rivet / bolt corner decoration */
+  .rivet::before, .rivet::after{
+    content:''; position:absolute; width:5px; height:5px; border-radius:50%;
+    background:#3a4150; box-shadow: inset 0 1px 1px rgba(0,0,0,.6), 0 0 0 1px #0d0f13;
+  }
+  .rivet::before{ top:8px; left:8px; }
+  .rivet::after{ top:8px; right:8px; }
+
+  /* switch-style tab */
+  .switch-tab{
+    position:relative;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,#20252D,#171B21);
+    transition:all .15s ease;
+  }
+  .switch-tab[aria-selected="true"]{
+    background:linear-gradient(180deg,#132a17,#0f1c11);
+    border-color:#1f7a2e;
+    box-shadow: 0 0 0 1px #1f7a2e40, 0 4px 14px -6px rgba(57,255,20,.35);
+  }
+  .switch-tab[aria-selected="true"] .switch-led{
+    background:var(--accent);
+    box-shadow:0 0 8px 2px rgba(57,255,20,.7);
+  }
+  .switch-led{
+    width:7px; height:7px; border-radius:50%;
+    background:#3a4150;
+    transition:all .15s ease;
+  }
+
+  input[type=range]{
+    -webkit-appearance:none; appearance:none;
+    height:6px; border-radius:3px;
+    background:linear-gradient(90deg,var(--accent) var(--fill,50%), #2C323C var(--fill,50%));
+    outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none;
+    width:18px; height:18px; border-radius:3px;
+    background:#0d0f13; border:2px solid var(--accent);
+    cursor:pointer; margin-top:0;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:16px; height:16px; border-radius:3px;
+    background:#0d0f13; border:2px solid var(--accent); cursor:pointer;
+  }
+
+  select, .fake-select{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--ink);
+  }
+  select:focus, button:focus-visible, .switch-tab:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+
+  .gauge-track{ stroke:#2C323C; }
+  .gauge-fill{ stroke:var(--accent); transition:stroke-dashoffset .5s ease; }
+
+  .tick-label{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--ink-dim); text-transform:uppercase; }
+
+  .fade-in{ animation: fadeIn .35s ease both; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  @media print{
+    body{ background:#fff !important; color:#111 !important; }
+    .no-print{ display:none !important; }
+    .print-area{ display:block !important; color:#111 !important; background:#fff !important; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div id="app"></div>
+
+<script>
+/* =========================================================
+   EMBEDDED DATASET
+========================================================= */
+const DATA = {
+  imts2026: {
+    venue: "McCormick Place, Chicago, IL",
+    dates: "September 14–19, 2026",
+    metrics: {
+      exhibition_space_sqft: 1200000,
+      expected_visitors: 90000,
+      exhibitors_count: 1800,
+      us_mfg_economy_trillions: 2.95
+    },
+    sectors: [
+      {
+        id: "industrial_ai",
+        name: "Industrial AI Arena",
+        building: "North Building",
+        level: "Level 3",
+        focus: "Applied machine learning, predictive maintenance, generative toolpath design, and smart vision.",
+        key_exhibitors: ["Atomic Industries", "C-Infinity", "Ignizia", "Purchaser.ai", "Sandia National Laboratories"]
+      },
+      {
+        id: "metal_removal",
+        name: "Metal Removal Sector",
+        building: "South Building",
+        level: "Level 3",
+        focus: "Multi-axis machining centers, turning, milling, boring, and advanced wire/ram EDM systems.",
+        key_exhibitors: ["Okuma America", "Index Corporation", "Mazak", "DN Solutions", "Haas Automation"]
+      },
+      {
+        id: "additive_mfg",
+        name: "Additive Manufacturing Sector",
+        building: "South Building",
+        level: "Level 3",
+        focus: "Powder bed fusion, directed energy deposition, vat photopolymerization, and material extrusion.",
+        key_exhibitors: ["EOS", "Fives AddUp", "Velo3D", "Formlabs"]
+      },
+      {
+        id: "automation_sps",
+        name: "Automation (SPS — Smart Production Solutions)",
+        building: "North Building",
+        level: "Level 3",
+        focus: "Robotics, cobots, factory operations software, SCADA, and cloud-based innovations.",
+        key_exhibitors: ["Universal Robots", "Formic Technologies", "Standard Bots", "Gimbel Automation", "Google Cloud", "AWS"]
+      },
+      {
+        id: "quality_assurance",
+        name: "Quality Assurance Sector",
+        building: "East Building",
+        level: "Level 3",
+        focus: "Coordinate measuring machines (CMMs), vision systems, optical metrology, and in-process gaging.",
+        key_exhibitors: ["Hexagon", "Zeiss", "Lumafield", "Nikon Metrology", "High QA"]
+      }
+    ],
+    personas: {
+      c_suite: {
+        title: "C-Suite / Executive",
+        concerns: ["Global Competitiveness & ROI", "Labor Shortages", "Linear Headcount Bottlenecks"],
+        pitch: "Bardin decouples GTM capacity from engineering headcount, allowing your existing sales team to qualify, scope, and quote complex projects 5x faster.",
+        focus_sector: "industrial_ai"
+      },
+      plant_operations: {
+        title: "Plant / Operations Manager",
+        concerns: ["Throughput & Capacity Constraints", "Machine Idle Time", "Process Bottlenecks"],
+        pitch: "Transition to true 'lights-out' manufacturing. Bardin automates the engineering translation of customer RFQs directly into accurate proposals, lifting machine utilization from 8.5 to 15 hours daily.",
+        focus_sector: "automation_sps"
+      },
+      quality_engineer: {
+        title: "Quality / QA Engineer",
+        concerns: ["Defects & Scrap Rates", "Compliance Overhead (AS9100/CMMC 2.0)", "Inspection Lab Bottlenecks"],
+        pitch: "Move metrology directly onto the shop floor. Ground every GTM proposal in deterministic physics-based constraints rather than probabilistic guesses.",
+        focus_sector: "quality_assurance"
+      },
+      digital_manufacturing: {
+        title: "Digital Mfg / IT Specialist",
+        concerns: ["Data Silos & Legacy Systems", "Pragmatic Tool Deployment", "Security & Air-Gap Compliance"],
+        pitch: "Deploy a vendor-agnostic knowledge graph. Bardin connects your CAD/CAM, ERP, and CRM data in isolated, SOC 2 compliant vaults without requiring an army of consultants.",
+        focus_sector: "industrial_ai"
+      }
+    }
+  },
+  bardin_platform: {
+    rebrand_context: {
+      origin: "Founded as Folio in Tel Aviv (2024). Rebranded in Nov 2025 to honor John Bardeen.",
+      philosophy: "Like the transistor, Bardin delivers immediate utility (technical quoting tools) while building massive long-term infrastructure (enterprise knowledge graphs)."
+    },
+    pillars: {
+      vault: "Structures specs, manuals, CRM history, and PDFs into isolated, private customer vaults.",
+      chat: "Verifiable, deterministic Q&A with source citations, rejecting probabilistic internet guesses.",
+      tools_agents: "Automates pre-sales feasibility, generates accurate BOMs, application notes, and quotes.",
+      ontology: "Passively captures unwritten tribal knowledge from retiring senior application engineers."
+    },
+    quantified_impact: {
+      deal_velocity: "5x speedup (weeks to hours)",
+      onboarding_capacity: "3x capacity increase",
+      staff_utilization: "100% optimization (reclaiming senior engineers' time)",
+      ticket_resolution: "10x support resolution speedup"
+    }
+  }
+};
+
+// Automation levels + bottlenecks, used by the Gap Analyzer to route to sectors/pillars
+const AUTOMATION_LEVELS = [
+  { id: "manual", label: "Manual / Job-shop", note: "Mostly manual programming & quoting, little to no automation on the floor." },
+  { id: "partial", label: "Partially Automated", note: "Some CNC/robotics in place, but scoping and quoting are still manual and slow." },
+  { id: "advanced", label: "Advanced / Lights-Out", note: "High machine utilization, but engineering & sales capacity is now the bottleneck." }
+];
+
+const BOTTLENECKS = [
+  {
+    id: "quoting_speed",
+    label: "Quoting takes too long",
+    sector: "industrial_ai",
+    pillar: "tools_agents",
+    narrative: "Bardin Tools & Agents automate feasibility checks, BOM generation, and application notes — collapsing the RFQ-to-quote cycle from weeks to hours."
+  },
+  {
+    id: "machine_idle",
+    label: "Machines sit idle between jobs",
+    sector: "automation_sps",
+    pillar: "tools_agents",
+    narrative: "Bardin's agentic layer feeds validated jobs into the queue faster than manual scheduling ever could, pushing shops toward the 15-hour unattended-run benchmark."
+  },
+  {
+    id: "tribal_knowledge",
+    label: "Losing tribal knowledge as senior engineers retire",
+    sector: "industrial_ai",
+    pillar: "ontology",
+    narrative: "The Bardin Ontology passively captures the unwritten judgment calls of your most senior application engineers before that knowledge walks out the door."
+  },
+  {
+    id: "quality_escapes",
+    label: "Too many defects / quality escapes",
+    sector: "quality_assurance",
+    pillar: "chat",
+    narrative: "Bardin Chat grounds every answer in cited, deterministic source data instead of probabilistic guesses — critical when a wrong answer means a scrapped part."
+  },
+  {
+    id: "data_silos",
+    label: "CAD/ERP/CRM data is siloed and untrustworthy",
+    sector: "industrial_ai",
+    pillar: "vault",
+    narrative: "The Bardin Vault structures your specs, manuals, CRM history, and PDFs into an isolated, private knowledge base — no army of consultants required."
+  },
+  {
+    id: "scoping_capacity",
+    label: "Not enough engineers to scope new business",
+    sector: "automation_sps",
+    pillar: "tools_agents",
+    narrative: "Bardin lifts effective scoping capacity roughly 3x per team, so headcount stops being the ceiling on how much business you can quote."
+  }
+];
+
+/* =========================================================
+   STATE
+========================================================= */
+const state = {
+  tab: "analyzer",
+  analyzer: { persona: "c_suite", automation: "partial", bottleneck: "quoting_speed" },
+  roi: { capex: 750000, reps: 12, cycleDays: 14 }
+};
+
+const fmtUSD = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const fmtUSD2 = (n) => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+const byId = (id) => DATA.imts2026.sectors.find(s => s.id === id);
+
+/* =========================================================
+   ROI CALCULATIONS
+========================================================= */
+function computeROI({ capex, reps, cycleDays }) {
+  const softCostLow = capex * 0.5;
+  const softCostMid = capex * 1.0;
+  const softCostHigh = capex * 1.5;
+
+  const newCycleDays = Math.max(cycleDays / 5, cycleDays * (1/24)); // 5x velocity, floor near hours-scale
+  const newCycleHours = newCycleDays * 8; // approx working hours per "day"
+
+  const effectiveCapacity = reps * 3; // 3x scoping capacity multiplier
+
+  const section179Cap = 2500000;
+  const eligible = Math.min(capex, section179Cap);
+  const assumedTaxRate = 0.21; // US federal corporate rate, stated as an assumption in the UI
+  const taxShield = eligible * assumedTaxRate;
+
+  const standardSalesPerMachine = 183000;
+  const highPerfSalesPerMachine = 350000;
+  const standardHours = 8.5;
+  const highPerfHours = 15;
+
+  return {
+    softCostLow, softCostMid, softCostHigh,
+    newCycleDays, newCycleHours,
+    effectiveCapacity,
+    eligible, taxShield, assumedTaxRate, section179Cap,
+    standardSalesPerMachine, highPerfSalesPerMachine, standardHours, highPerfHours
+  };
+}
+
+/* =========================================================
+   ICONS (lucide re-render helper)
+========================================================= */
+function renderIcons(){ if (window.lucide) lucide.createIcons(); }
+
+/* =========================================================
+   HEADER
+========================================================= */
+function Header(){
+  return `
+  <header class="border-b hairline">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-sm panel-2 flex items-center justify-center shrink-0">
+          <i data-lucide="hexagon" class="w-5 h-5 steel-text"></i>
+        </div>
+        <div>
+          <div class="font-display text-2xl md:text-3xl font-bold tracking-wide leading-none">BARDIN <span class="accent-text">GTM</span> NAVIGATOR</div>
+          <div class="tick-label mt-1">IMTS 2026 · ${DATA.imts2026.venue} · ${DATA.imts2026.dates}</div>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-6 tick-label">
+        <div class="text-right">
+          <div class="text-ink" style="color:var(--ink)">${(DATA.imts2026.metrics.exhibition_space_sqft/1000000).toFixed(1)}M sqft</div>
+          <div>Show Floor</div>
+        </div>
+        <div class="w-px h-8 hairline border-l"></div>
+        <div class="text-right">
+          <div style="color:var(--ink)">${DATA.imts2026.metrics.exhibitors_count.toLocaleString()}</div>
+          <div>Exhibitors</div>
+        </div>
+        <div class="w-px h-8 hairline border-l"></div>
+        <div class="text-right">
+          <div style="color:var(--ink)">$${DATA.imts2026.metrics.us_mfg_economy_trillions}T</div>
+          <div>US Mfg Economy</div>
+        </div>
+      </div>
+    </div>
+  </header>`;
+}
+
+/* =========================================================
+   TAB NAV (switch-panel style)
+========================================================= */
+function TabNav(){
+  const tabs = [
+    { id: "analyzer", label: "Gap Analyzer", icon: "map-pinned" },
+    { id: "roi", label: "ROI Calculator", icon: "sliders-horizontal" },
+    { id: "playbook", label: "Pitch & Playbook", icon: "file-text" }
+  ];
+  return `
+  <div class="no-print border-b hairline">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 flex gap-3 pt-4">
+      ${tabs.map(t => `
+        <button
+          class="switch-tab flex items-center gap-2 px-4 py-3 rounded-t-sm text-sm font-medium tracking-wide"
+          role="tab" aria-selected="${state.tab === t.id}"
+          onclick="setTab('${t.id}')">
+          <span class="switch-led"></span>
+          <i data-lucide="${t.icon}" class="w-4 h-4"></i>
+          <span class="font-display text-base uppercase">${t.label}</span>
+        </button>
+      `).join("")}
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   TAB 1 — GAP ANALYZER
+========================================================= */
+function AnalyzerTab(){
+  const a = state.analyzer;
+  const persona = DATA.imts2026.personas[a.persona];
+  const bottleneck = BOTTLENECKS.find(b => b.id === a.bottleneck);
+  const sector = byId(bottleneck.sector);
+  const pillarText = DATA.bardin_platform.pillars[bottleneck.pillar];
+  const pillarLabel = { vault:"Bardin Vault", chat:"Bardin Chat", tools_agents:"Bardin Tools & Agents", ontology:"Bardin Ontology" }[bottleneck.pillar];
+
+  return `
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 grid lg:grid-cols-[380px_1fr] gap-6 fade-in">
+
+    <!-- INTAKE FORM -->
+    <div class="panel rounded-sm p-5 relative rivet h-fit">
+      <div class="tick-label mb-4">Live Intake — Show Floor Diagnostic</div>
+
+      <label class="block mb-4">
+        <span class="text-sm font-medium block mb-1.5">Target persona</span>
+        <select class="w-full rounded-sm px-3 py-2.5 text-sm" onchange="updateAnalyzer('persona', this.value)">
+          ${Object.entries(DATA.imts2026.personas).map(([id,p]) => `<option value="${id}" ${id===a.persona?'selected':''}>${p.title}</option>`).join("")}
+        </select>
+      </label>
+
+      <label class="block mb-4">
+        <span class="text-sm font-medium block mb-1.5">Current automation level</span>
+        <select class="w-full rounded-sm px-3 py-2.5 text-sm" onchange="updateAnalyzer('automation', this.value)">
+          ${AUTOMATION_LEVELS.map(lv => `<option value="${lv.id}" ${lv.id===a.automation?'selected':''}>${lv.label}</option>`).join("")}
+        </select>
+      </label>
+      <p class="text-xs mb-4" style="color:var(--ink-dim)">${AUTOMATION_LEVELS.find(l=>l.id===a.automation).note}</p>
+
+      <label class="block mb-2">
+        <span class="text-sm font-medium block mb-1.5">Most painful bottleneck</span>
+        <select class="w-full rounded-sm px-3 py-2.5 text-sm" onchange="updateAnalyzer('bottleneck', this.value)">
+          ${BOTTLENECKS.map(b => `<option value="${b.id}" ${b.id===a.bottleneck?'selected':''}>${b.label}</option>`).join("")}
+        </select>
+      </label>
+
+      <div class="mt-5 pt-4 border-t hairline">
+        <div class="tick-label mb-2">Persona pressure points</div>
+        <ul class="space-y-1.5">
+          ${persona.concerns.map(c => `<li class="text-sm flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 accent-text shrink-0 mt-0.5"></i>${c}</li>`).join("")}
+        </ul>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="space-y-5">
+
+      <!-- Floor location card -->
+      <div class="panel rounded-sm p-5 relative rivet">
+        <div class="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <div class="tick-label mb-1">Mapped IMTS Sector</div>
+            <div class="font-display text-3xl font-bold accent-text leading-tight">${sector.name}</div>
+            <div class="text-sm mt-1" style="color:var(--ink-dim)">${sector.focus}</div>
+          </div>
+          <div class="panel-2 rounded-sm px-4 py-3 text-right shrink-0">
+            <div class="tick-label mb-1">Physical Location</div>
+            <div class="font-mono text-lg font-semibold steel-text">${sector.building}</div>
+            <div class="font-mono text-sm" style="color:var(--ink-dim)">${sector.level}</div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t hairline">
+          <div class="tick-label mb-2">Must-see exhibitors in this sector</div>
+          <div class="flex flex-wrap gap-2">
+            ${sector.key_exhibitors.map(e => `<span class="panel-2 rounded-sm px-3 py-1.5 text-sm font-mono">${e}</span>`).join("")}
+          </div>
+        </div>
+      </div>
+
+      <!-- Bardin fit -->
+      <div class="panel rounded-sm p-5 relative rivet">
+        <div class="flex items-center gap-2 mb-3">
+          <i data-lucide="cpu" class="w-4 h-4 steel-text"></i>
+          <div class="tick-label">How ${pillarLabel} closes this gap</div>
+        </div>
+        <p class="text-base leading-relaxed">${bottleneck.narrative}</p>
+        <p class="text-sm mt-3 leading-relaxed" style="color:var(--ink-dim)">${pillarText}</p>
+      </div>
+
+      <!-- Persona pitch -->
+      <div class="panel-2 rounded-sm p-5 border-l-4" style="border-left-color:var(--accent)">
+        <div class="tick-label mb-2">Pitch angle — ${persona.title}</div>
+        <p class="text-base leading-relaxed italic">"${persona.pitch}"</p>
+      </div>
+
+      <div class="flex justify-end">
+        <button class="no-print flex items-center gap-2 px-4 py-2.5 rounded-sm text-sm font-semibold panel-2 hover:border-green-400 transition" style="border:1px solid var(--accent); color:var(--accent)" onclick="setTab('playbook')">
+          Build full playbook <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   GAUGE (small radial svg)
+========================================================= */
+function Gauge({ value, max, label, valueLabel, size=110 }){
+  const r = size/2 - 10;
+  const c = 2*Math.PI*r;
+  const pct = Math.max(0, Math.min(1, value/max));
+  const offset = c * (1-pct);
+  return `
+  <div class="flex flex-col items-center">
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+      <circle class="gauge-track" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="9"/>
+      <circle class="gauge-fill" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="9"
+        stroke-linecap="round"
+        stroke-dasharray="${c}" stroke-dashoffset="${offset}"
+        transform="rotate(-90 ${size/2} ${size/2})"/>
+      <text x="50%" y="47%" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Mono" font-size="15" font-weight="600">${valueLabel}</text>
+      <text x="50%" y="63%" text-anchor="middle" fill="var(--ink-dim)" font-family="IBM Plex Mono" font-size="8" letter-spacing="1">${label}</text>
+    </svg>
+  </div>`;
+}
+
+/* =========================================================
+   TAB 2 — ROI CALCULATOR
+========================================================= */
+function ROITab(){
+  const r = state.roi;
+  const calc = computeROI(r);
+
+  return `
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 fade-in">
+
+    <div class="grid lg:grid-cols-[380px_1fr] gap-6">
+
+      <!-- SLIDERS -->
+      <div class="panel rounded-sm p-5 relative rivet h-fit space-y-6">
+        <div class="tick-label mb-1">Soft-Cost &amp; Automation Modeler</div>
+
+        <div>
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium">Hardware CapEx budget</span>
+            <span class="font-mono text-sm accent-text">${fmtUSD(r.capex)}</span>
+          </div>
+          <input type="range" min="50000" max="10000000" step="10000" value="${r.capex}"
+            style="--fill:${((r.capex-50000)/(10000000-50000))*100}%"
+            oninput="updateROI('capex', this.value)">
+          <div class="flex justify-between tick-label mt-1"><span>$50K</span><span>$10M</span></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium">Sales engineers / reps</span>
+            <span class="font-mono text-sm accent-text">${r.reps}</span>
+          </div>
+          <input type="range" min="1" max="200" step="1" value="${r.reps}"
+            style="--fill:${((r.reps-1)/(200-1))*100}%"
+            oninput="updateROI('reps', this.value)">
+          <div class="flex justify-between tick-label mt-1"><span>1</span><span>200</span></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium">Avg. quoting cycle time</span>
+            <span class="font-mono text-sm accent-text">${r.cycleDays} day${r.cycleDays==1?'':'s'}</span>
+          </div>
+          <input type="range" min="1" max="28" step="1" value="${r.cycleDays}"
+            style="--fill:${((r.cycleDays-1)/(28-1))*100}%"
+            oninput="updateROI('cycleDays', this.value)">
+          <div class="flex justify-between tick-label mt-1"><span>1 day</span><span>4 weeks</span></div>
+        </div>
+
+        <div class="pt-4 border-t hairline">
+          <div class="tick-label mb-2">Grounding assumptions</div>
+          <ul class="text-xs space-y-1.5" style="color:var(--ink-dim)">
+            <li>Hardware ≈ 30% of project cost; soft costs ≈ 70% and rising</li>
+            <li>Soft-cost multiplier: $0.50–$1.50 per $1 of CapEx (mid = $1.00 shown as default)</li>
+            <li>Section 179 cap: ${fmtUSD(calc.section179Cap)}, 100% bonus depreciation</li>
+            <li>Tax shield assumes a ${(calc.assumedTaxRate*100).toFixed(0)}% effective rate — confirm with the prospect's tax advisor</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- OUTPUTS -->
+      <div class="space-y-5">
+
+        <!-- soft costs -->
+        <div class="panel rounded-sm p-5 relative rivet">
+          <div class="tick-label mb-3">Hidden Soft Costs — The Cost Inversion</div>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="panel-2 rounded-sm p-3 text-center">
+              <div class="tick-label mb-1">Low ($0.50/$1)</div>
+              <div class="font-mono text-lg font-semibold">${fmtUSD(calc.softCostLow)}</div>
+            </div>
+            <div class="panel-2 rounded-sm p-3 text-center border" style="border-color:var(--accent)">
+              <div class="tick-label mb-1 accent-text">Default ($1.00/$1)</div>
+              <div class="font-mono text-xl font-bold accent-text">${fmtUSD(calc.softCostMid)}</div>
+            </div>
+            <div class="panel-2 rounded-sm p-3 text-center">
+              <div class="tick-label mb-1">High ($1.50/$1)</div>
+              <div class="font-mono text-lg font-semibold">${fmtUSD(calc.softCostHigh)}</div>
+            </div>
+          </div>
+          <p class="text-xs mt-3" style="color:var(--ink-dim)">For every dollar spent on ${fmtUSD(r.capex)} of hardware, this shop is likely absorbing an equivalent (or larger) amount in manual engineering translation — scoping, custom quoting, and escalations.</p>
+        </div>
+
+        <!-- gauges -->
+        <div class="panel rounded-sm p-5 relative rivet">
+          <div class="tick-label mb-4">Bardin Backlog Acceleration</div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            ${Gauge({ value:5, max:5, label:"DEAL VELOCITY", valueLabel:"5×" })}
+            ${Gauge({ value:10, max:10, label:"TICKET RESOLUTION", valueLabel:"10×" })}
+            ${Gauge({ value:3, max:3, label:"SCOPING CAPACITY", valueLabel:"3×" })}
+            ${Gauge({ value:calc.newCycleDays, max:r.cycleDays, label:"NEW CYCLE (DAYS)", valueLabel:calc.newCycleDays<1 ? calc.newCycleHours.toFixed(1)+"h" : calc.newCycleDays.toFixed(1) })}
+          </div>
+          <div class="grid md:grid-cols-2 gap-3 mt-4 pt-4 border-t hairline text-sm">
+            <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 accent-text"></i>Quoting cycle: <span class="font-mono steel-text">${r.cycleDays}d → ${calc.newCycleDays<1 ? calc.newCycleHours.toFixed(1)+"h" : calc.newCycleDays.toFixed(1)+"d"}</span></div>
+            <div class="flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 accent-text"></i>Effective scoping capacity: <span class="font-mono steel-text">${r.reps} → ${calc.effectiveCapacity} reps-equivalent</span></div>
+          </div>
+        </div>
+
+        <!-- tax shield + OT leap -->
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="panel rounded-sm p-5 relative rivet">
+            <div class="tick-label mb-2">Section 179 Capital Shield</div>
+            <div class="font-mono text-3xl font-bold accent-text">${fmtUSD(calc.taxShield)}</div>
+            <p class="text-xs mt-2" style="color:var(--ink-dim)">Immediate depreciation savings on ${fmtUSD(calc.eligible)} of eligible CapEx at an assumed ${(calc.assumedTaxRate*100).toFixed(0)}% effective tax rate.</p>
+          </div>
+          <div class="panel rounded-sm p-5 relative rivet">
+            <div class="tick-label mb-2">OT Productivity Leap (per machine)</div>
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="tick-label">Standard shop</div>
+                <div class="font-mono text-lg">${fmtUSD(calc.standardSalesPerMachine)} / ${calc.standardHours}h</div>
+              </div>
+              <i data-lucide="arrow-right" class="w-5 h-5 steel-text"></i>
+              <div class="text-right">
+                <div class="tick-label">High-performing unattended</div>
+                <div class="font-mono text-lg accent-text">${fmtUSD(calc.highPerfSalesPerMachine)} / ${calc.highPerfHours}h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button class="no-print flex items-center gap-2 px-4 py-2.5 rounded-sm text-sm font-semibold panel-2 hover:border-green-400 transition" style="border:1px solid var(--accent); color:var(--accent)" onclick="setTab('playbook')">
+            Build full playbook <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   TAB 3 — PLAYBOOK / PITCH BRIEF
+========================================================= */
+const ROADMAP = [
+  { range: "Weeks 1–4", title: "Identify Internal Bottlenecks", detail: "Baseline the shop's \u201cPeopleware\u201d — map where scoping, quoting, and escalations actually consume engineering hours today." },
+  { range: "Weeks 5–8", title: "Map Technology Solutions", detail: "Shortlist sector exhibitors against the mapped bottleneck. Prioritize registration ahead of the Aug 1st early-bird deadline." },
+  { range: "Weeks 9–11", title: "Finalize the Game Plan", detail: "Lock the IMTS Show Planner: confirmed meetings, booth walk order, and internal owners per stop." },
+  { range: "Week 12", title: "Divide & Conquer", detail: "Assign floor tracks across the team so every sector on the map gets covered without duplicated effort." }
+];
+
+function PlaybookTab(){
+  const a = state.analyzer;
+  const r = state.roi;
+  const persona = DATA.imts2026.personas[a.persona];
+  const bottleneck = BOTTLENECKS.find(b => b.id === a.bottleneck);
+  const sector = byId(bottleneck.sector);
+  const calc = computeROI(r);
+  const pillarLabel = { vault:"Bardin Vault", chat:"Bardin Chat", tools_agents:"Bardin Tools & Agents", ontology:"Bardin Ontology" }[bottleneck.pillar];
+
+  return `
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 fade-in">
+
+    <div class="no-print flex justify-end mb-4 gap-2">
+      <button class="flex items-center gap-2 px-4 py-2.5 rounded-sm text-sm font-semibold panel-2" style="border:1px solid var(--steel); color:var(--steel)" onclick="window.print()">
+        <i data-lucide="printer" class="w-4 h-4"></i> Export to PDF
+      </button>
+    </div>
+
+    <div class="panel print-area rounded-sm p-6 md:p-10 relative rivet">
+      <div class="flex items-start justify-between flex-wrap gap-4 border-b hairline pb-5 mb-6">
+        <div>
+          <div class="tick-label mb-1">GTM Persona Pitch &amp; Playbook</div>
+          <div class="font-display text-3xl md:text-4xl font-bold">${persona.title}</div>
+        </div>
+        <div class="text-right tick-label">
+          <div>${DATA.imts2026.venue}</div>
+          <div>${DATA.imts2026.dates}</div>
+        </div>
+      </div>
+
+      <!-- pitch -->
+      <div class="mb-6">
+        <div class="tick-label mb-2">The pitch</div>
+        <p class="text-lg leading-relaxed italic panel-2 rounded-sm p-4 border-l-4" style="border-left-color:var(--accent)">"${persona.pitch}"</p>
+      </div>
+
+      <!-- gap summary -->
+      <div class="grid md:grid-cols-2 gap-5 mb-6">
+        <div class="panel-2 rounded-sm p-4">
+          <div class="tick-label mb-2">Mapped gap</div>
+          <p class="text-sm mb-2"><span class="font-semibold">Bottleneck:</span> ${bottleneck.label}</p>
+          <p class="text-sm mb-2"><span class="font-semibold">Sector:</span> ${sector.name} — ${sector.building}, ${sector.level}</p>
+          <p class="text-sm"><span class="font-semibold">Closed by:</span> ${pillarLabel}</p>
+        </div>
+        <div class="panel-2 rounded-sm p-4">
+          <div class="tick-label mb-2">Must-see exhibitors</div>
+          <div class="flex flex-wrap gap-1.5">
+            ${sector.key_exhibitors.map(e => `<span class="rounded-sm px-2 py-1 text-xs font-mono panel">${e}</span>`).join("")}
+          </div>
+        </div>
+      </div>
+
+      <!-- roi summary -->
+      <div class="mb-6">
+        <div class="tick-label mb-2">Financial model summary</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="panel-2 rounded-sm p-3 text-center">
+            <div class="tick-label mb-1">CapEx modeled</div>
+            <div class="font-mono text-base font-semibold">${fmtUSD(r.capex)}</div>
+          </div>
+          <div class="panel-2 rounded-sm p-3 text-center">
+            <div class="tick-label mb-1">Hidden soft cost</div>
+            <div class="font-mono text-base font-semibold accent-text">${fmtUSD(calc.softCostMid)}</div>
+          </div>
+          <div class="panel-2 rounded-sm p-3 text-center">
+            <div class="tick-label mb-1">Tax shield (Sec. 179)</div>
+            <div class="font-mono text-base font-semibold">${fmtUSD(calc.taxShield)}</div>
+          </div>
+          <div class="panel-2 rounded-sm p-3 text-center">
+            <div class="tick-label mb-1">Quoting cycle</div>
+            <div class="font-mono text-base font-semibold steel-text">${r.cycleDays}d → ${calc.newCycleDays<1 ? calc.newCycleHours.toFixed(1)+"h" : calc.newCycleDays.toFixed(1)+"d"}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- roadmap -->
+      <div>
+        <div class="tick-label mb-3">12-Week Preparation &amp; Implementation Roadmap</div>
+        <div class="space-y-3">
+          ${ROADMAP.map((step, i) => `
+            <div class="flex gap-4 panel-2 rounded-sm p-4">
+              <div class="font-mono text-sm shrink-0 w-24 accent-text font-semibold">${step.range}</div>
+              <div>
+                <div class="font-semibold text-sm mb-0.5">${step.title}</div>
+                <div class="text-sm" style="color:var(--ink-dim)">${step.detail}</div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="mt-8 pt-5 border-t hairline text-xs" style="color:var(--ink-dim)">
+        ${DATA.bardin_platform.rebrand_context.philosophy}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+function render(){
+  const body = state.tab === "analyzer" ? AnalyzerTab()
+             : state.tab === "roi" ? ROITab()
+             : PlaybookTab();
+  document.getElementById("app").innerHTML = Header() + TabNav() + body;
+  renderIcons();
+}
+
+function setTab(id){ state.tab = id; render(); }
+function updateAnalyzer(key, val){ state.analyzer[key] = val; render(); }
+function updateROI(key, val){ state.roi[key] = Number(val); render(); }
+
+window.setTab = setTab;
+window.updateAnalyzer = updateAnalyzer;
+window.updateROI = updateROI;
+
+render();
+</script>
+</body>
+</html>
