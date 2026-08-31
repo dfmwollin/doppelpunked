@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A practical, bilingual cheat sheet for clearer and more useful WhatsApp group chats."
+    />
+    <meta name="color-scheme" content="light" />
+    <title>WhatsApp Group Cheat Sheet | WhatsApp Gruppen-Spickzettel</title>
+
+    <style>
+      :root {
+        --ink: #10231d;
+        --muted: #5c6d66;
+        --paper: #f8f7f2;
+        --card: #ffffff;
+        --line: #dfe7e2;
+        --green: #167d53;
+        --green-dark: #075e54;
+        --green-pale: #dff7e9;
+        --lime: #c7f36f;
+        --yellow: #fff1ae;
+        --coral: #ffb8a8;
+        --blue: #cae8ff;
+        --shadow: 0 18px 55px rgba(7, 55, 43, 0.1);
+        --radius-lg: 30px;
+        --radius-md: 20px;
+        --radius-sm: 13px;
+        --max-width: 1160px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 4%, rgba(199, 243, 111, 0.24), transparent 22rem),
+          radial-gradient(circle at 95% 18%, rgba(202, 232, 255, 0.3), transparent 25rem),
+          var(--paper);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.55;
+        text-rendering: optimizeLegibility;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      a {
+        color: var(--green-dark);
+        text-decoration-thickness: 0.09em;
+        text-underline-offset: 0.18em;
+      }
+
+      a:hover {
+        color: var(--green);
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid rgba(22, 125, 83, 0.28);
+        outline-offset: 3px;
+      }
+
+      .shell {
+        width: min(calc(100% - 34px), var(--max-width));
+        margin-inline: auto;
+      }
+
+      .topbar {
+        position: sticky;
+        z-index: 20;
+        top: 0;
+        border-bottom: 1px solid rgba(223, 231, 226, 0.9);
+        background: rgba(248, 247, 242, 0.9);
+        backdrop-filter: blur(16px);
+      }
+
+      .topbar-inner {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .mini-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        width: 35px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 50% 50% 50% 12%;
+        color: white;
+        background: var(--green);
+        font-size: 18px;
+        transform: rotate(-3deg);
+      }
+
+      .top-actions,
+      .language-switch {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .language-switch {
+        padding: 4px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: white;
+      }
+
+      .language-switch button,
+      .print-button {
+        min-height: 40px;
+        border: 0;
+        border-radius: 999px;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .language-switch button {
+        min-width: 49px;
+        padding: 7px 12px;
+        color: var(--muted);
+        background: transparent;
+      }
+
+      .language-switch button[aria-pressed="true"] {
+        color: white;
+        background: var(--green-dark);
+      }
+
+      .print-button {
+        padding: 8px 16px;
+        color: var(--green-dark);
+        border: 1px solid var(--line);
+        background: white;
+      }
+
+      .print-button:hover {
+        background: var(--green-pale);
+      }
+
+      main {
+        overflow: hidden;
+      }
+
+      .hero {
+        padding: clamp(58px, 9vw, 112px) 0 58px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+        align-items: center;
+        gap: clamp(34px, 7vw, 90px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 20px;
+        color: var(--green-dark);
+        font-size: 0.79rem;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 6px var(--green-pale);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin-bottom: 24px;
+        font-size: clamp(3.2rem, 8.2vw, 7.1rem);
+        line-height: 0.91;
+        letter-spacing: -0.075em;
+      }
+
+      h1 span {
+        color: var(--green);
+      }
+
+      .hero-copy {
+        max-width: 690px;
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: clamp(1.06rem, 2vw, 1.28rem);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+
+      .chip {
+        padding: 8px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        font-size: 0.88rem;
+        font-weight: 750;
+      }
+
+      .phone-demo {
+        position: relative;
+        max-width: 370px;
+        margin-inline: auto;
+        padding: 25px 18px 20px;
+        border: 9px solid var(--ink);
+        border-radius: 42px;
+        background: #ece8df;
+        box-shadow: var(--shadow);
+        transform: rotate(2deg);
+      }
+
+      .phone-demo::before {
+        content: "";
+        position: absolute;
+        top: 9px;
+        left: 50%;
+        width: 32%;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--ink);
+        transform: translateX(-50%);
+      }
+
+      .chat-header {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 8px -18px 20px;
+        padding: 12px 18px;
+        color: white;
+        background: var(--green-dark);
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--green-dark);
+        background: var(--lime);
+        font-weight: 900;
+      }
+
+      .chat-name {
+        line-height: 1.2;
+      }
+
+      .chat-name strong,
+      .chat-name small {
+        display: block;
+      }
+
+      .chat-name small {
+        margin-top: 3px;
+        opacity: 0.74;
+      }
+
+      .bubble {
+        width: fit-content;
+        max-width: 88%;
+        margin-bottom: 11px;
+        padding: 10px 12px 8px;
+        border-radius: 6px 17px 17px 17px;
+        background: white;
+        box-shadow: 0 3px 14px rgba(28, 44, 37, 0.08);
+        font-size: 0.9rem;
+      }
+
+      .bubble.me {
+        margin-left: auto;
+        border-radius: 17px 6px 17px 17px;
+        background: #d8fdd2;
+      }
+
+      .bubble .name {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--green);
+        font-size: 0.74rem;
+        font-weight: 900;
+      }
+
+      .bubble small {
+        float: right;
+        margin: 4px 0 0 12px;
+        color: #708079;
+        font-size: 0.66rem;
+      }
+
+      .reply-quote {
+        margin-bottom: 7px;
+        padding: 7px 8px;
+        border-left: 3px solid var(--green);
+        border-radius: 6px;
+        color: #52615b;
+        background: rgba(7, 94, 84, 0.07);
+        font-size: 0.75rem;
+      }
+
+      .floating-label {
+        position: absolute;
+        right: -24px;
+        bottom: 76px;
+        padding: 9px 13px;
+        border: 3px solid var(--ink);
+        border-radius: 12px;
+        background: var(--yellow);
+        font-weight: 900;
+        transform: rotate(-4deg);
+      }
+
+      .section {
+        padding: 48px 0;
+      }
+
+      .section-heading {
+        max-width: 750px;
+        margin-bottom: 28px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 10px;
+        font-size: clamp(2rem, 4.5vw, 3.7rem);
+        line-height: 1;
+        letter-spacing: -0.055em;
+      }
+
+      .section-heading p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .chooser {
+        padding: clamp(25px, 4vw, 42px);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .chooser-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
+      .choice-button,
+      .filter-button,
+      .copy-button {
+        min-height: 48px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: white;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .choice-button {
+        padding: 10px 17px;
+      }
+
+      .choice-button:hover,
+      .choice-button[aria-pressed="true"] {
+        border-color: var(--green-dark);
+        color: white;
+        background: var(--green-dark);
+      }
+
+      .choice-result {
+        display: none;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 17px;
+        min-height: 116px;
+        padding: 19px;
+        border-radius: var(--radius-md);
+        background: var(--green-pale);
+      }
+
+      .choice-result.active {
+        display: grid;
+      }
+
+      .result-icon,
+      .card-number {
+        display: grid;
+        flex: 0 0 auto;
+        place-items: center;
+        color: white;
+        background: var(--green-dark);
+        font-weight: 900;
+      }
+
+      .result-icon {
+        width: 66px;
+        height: 66px;
+        border-radius: 18px;
+        font-size: 1.45rem;
+      }
+
+      .choice-result h3 {
+        margin-bottom: 3px;
+        font-size: 1.28rem;
+      }
+
+      .choice-result p {
+        margin-bottom: 0;
+        color: #40574e;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+
+      .filter-button {
+        min-height: 43px;
+        padding: 8px 14px;
+      }
+
+      .filter-button:hover,
+      .filter-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        color: white;
+        background: var(--ink);
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+      }
+
+      .tip-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        background: var(--card);
+        overflow: clip;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .tip-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(7, 55, 43, 0.08);
+      }
+
+      .tip-card[hidden] {
+        display: none;
+      }
+
+      .tip-card details {
+        height: 100%;
+      }
+
+      .tip-card summary {
+        min-height: 154px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: start;
+        gap: 15px;
+        padding: 22px;
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .tip-card summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .card-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+      }
+
+      .tip-card:nth-child(4n + 2) .card-number {
+        color: var(--ink);
+        background: var(--yellow);
+      }
+
+      .tip-card:nth-child(4n + 3) .card-number {
+        color: var(--ink);
+        background: var(--blue);
+      }
+
+      .tip-card:nth-child(4n + 4) .card-number {
+        color: var(--ink);
+        background: var(--coral);
+      }
+
+      .card-title h3 {
+        margin-bottom: 5px;
+        font-size: 1.15rem;
+        line-height: 1.25;
+      }
+
+      .card-title p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .expand-icon {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--green-dark);
+        font-size: 1.2rem;
+        font-weight: 900;
+        transition: transform 180ms ease;
+      }
+
+      details[open] .expand-icon {
+        transform: rotate(45deg);
+      }
+
+      .card-detail {
+        padding: 0 22px 22px 77px;
+        color: #354c43;
+      }
+
+      .card-detail ol,
+      .card-detail ul {
+        padding-left: 1.2rem;
+      }
+
+      .card-detail li + li {
+        margin-top: 6px;
+      }
+
+      .card-detail .why {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #f3f5f1;
+        font-size: 0.92rem;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+        font-weight: 800;
+      }
+
+      .divider-label {
+        display: inline-block;
+        margin: 18px 0 9px;
+        color: var(--green-dark);
+        font-size: 0.77rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .rule-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(290px, 0.95fr);
+        gap: 18px;
+      }
+
+      .rules-card,
+      .traffic-card {
+        padding: clamp(24px, 4vw, 38px);
+        border-radius: var(--radius-lg);
+      }
+
+      .rules-card {
+        color: white;
+        background: var(--green-dark);
+      }
+
+      .rules-card h2,
+      .traffic-card h2 {
+        margin-bottom: 10px;
+        font-size: clamp(1.8rem, 3vw, 2.7rem);
+        line-height: 1.05;
+        letter-spacing: -0.045em;
+      }
+
+      .rules-card > p {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .copy-box {
+        margin-top: 21px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-md);
+        color: var(--ink);
+        background: white;
+      }
+
+      .copy-box ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      .copy-box li + li {
+        margin-top: 6px;
+      }
+
+      .copy-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 17px;
+      }
+
+      .copy-button {
+        padding: 10px 17px;
+        border-color: transparent;
+        color: var(--green-dark);
+        background: var(--lime);
+      }
+
+      .copy-button:hover {
+        background: #d8ff88;
+      }
+
+      .copy-status {
+        min-height: 1.5em;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.88rem;
+      }
+
+      .traffic-card {
+        border: 1px solid var(--line);
+        background: white;
+      }
+
+      .traffic-list {
+        display: grid;
+        gap: 13px;
+        margin-top: 22px;
+      }
+
+      .traffic-item {
+        display: grid;
+        grid-template-columns: 16px 1fr;
+        gap: 13px;
+        align-items: start;
+      }
+
+      .traffic-dot {
+        width: 15px;
+        height: 15px;
+        margin-top: 5px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 5px var(--green-pale);
+      }
+
+      .traffic-item:nth-child(2) .traffic-dot {
+        background: #e4a400;
+        box-shadow: 0 0 0 5px #fff4ce;
+      }
+
+      .traffic-item:nth-child(3) .traffic-dot {
+        background: #d14e4e;
+        box-shadow: 0 0 0 5px #ffe1dd;
+      }
+
+      .traffic-item strong,
+      .traffic-item span {
+        display: block;
+      }
+
+      .traffic-item span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .sources {
+        padding: 31px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .sources h2 {
+        margin-bottom: 9px;
+        font-size: 1.55rem;
+      }
+
+      .sources > p {
+        color: var(--muted);
+      }
+
+      .source-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px 20px;
+        padding-left: 1.2rem;
+      }
+
+      footer {
+        padding: 36px 0 48px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+      }
+
+      .lang-de {
+        display: none;
+      }
+
+      body[data-language="de"] .lang-en {
+        display: none !important;
+      }
+
+      body[data-language="de"] .lang-de {
+        display: revert;
+      }
+
+      @media (max-width: 850px) {
+        .hero-grid,
+        .rule-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .phone-demo {
+          margin-top: 15px;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .source-links {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 570px) {
+        .shell {
+          width: min(calc(100% - 22px), var(--max-width));
+        }
+
+        .topbar-inner {
+          min-height: 64px;
+        }
+
+        .mini-brand .brand-text,
+        .print-label {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        .print-button {
+          width: 40px;
+          padding: 8px;
+        }
+
+        h1 {
+          font-size: clamp(3rem, 17vw, 5.4rem);
+        }
+
+        .hero {
+          padding-top: 48px;
+        }
+
+        .floating-label {
+          right: -5px;
+        }
+
+        .chooser-options {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .choice-button {
+          border-radius: 14px;
+          text-align: left;
+        }
+
+        .choice-result {
+          grid-template-columns: 1fr;
+        }
+
+        .result-icon {
+          width: 50px;
+          height: 50px;
+        }
+
+        .tip-card summary {
+          min-height: 0;
+          grid-template-columns: auto 1fr;
+        }
+
+        .expand-icon {
+          display: none;
+        }
+
+        .card-detail {
+          padding-left: 22px;
+        }
+
+        .footer-inner {
+          display: block;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+
+      @media print {
+        :root {
+          --paper: white;
+        }
+
+        body {
+          background: white;
+          font-size: 10.5pt;
+        }
+
+        .topbar,
+        .phone-demo,
+        .chooser,
+        .filters,
+        .copy-row,
+        .screen-only {
+          display: none !important;
+        }
+
+        .hero {
+          padding: 18mm 0 10mm;
+        }
+
+        .hero-grid,
+        .card-grid,
+        .rule-grid,
+        .source-links {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        h1 {
+          font-size: 44pt;
+        }
+
+        .section {
+          padding: 7mm 0;
+        }
+
+        .tip-card,
+        .rules-card,
+        .traffic-card,
+        .sources {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+
+        .tip-card .card-detail {
+          display: block !important;
+        }
+
+        .tip-card summary {
+          min-height: 0;
+        }
+
+        .expand-icon {
+          display: none;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        footer {
+          padding-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body data-language="en">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <div class="mini-brand" aria-label="WhatsApp group guide">
+          <span class="brand-mark" aria-hidden="true">✓</span>
+          <span class="brand-text">
+            <span class="lang-en">Group chat guide</span>
+            <span class="lang-de">Gruppenchat-Guide</span>
+          </span>
+        </div>
+
+        <div class="top-actions">
+          <button class="print-button" type="button" id="printButton">
+            <span aria-hidden="true">↗</span>
+            <span class="print-label lang-en"> Print / save PDF</span>
+            <span class="print-label lang-de"> Drucken / als PDF</span>
+          </button>
+          <div class="language-switch" aria-label="Choose language">
+            <button type="button" data-set-language="en" aria-pressed="true">EN</button>
+            <button type="button" data-set-language="de" aria-pressed="false">DE</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="shell hero-grid">
+          <div>
+            <p class="eyebrow">
+              <span class="lang-en">Practical cheat sheet · Updated August 2026</span>
+              <span class="lang-de">Praktischer Spickzettel · Stand August 2026</span>
+            </p>
+
+            <div class="lang-en">
+              <h1>Less noise.<br /><span>Better chats.</span></h1>
+              <p class="hero-copy">
+                Use the right WhatsApp feature for the job—and keep group conversations
+                clear, useful and kind.
+              </p>
+            </div>
+
+            <div class="lang-de">
+              <h1>Weniger Chaos.<br /><span>Bessere Chats.</span></h1>
+              <p class="hero-copy">
+                Nutze für jede Aufgabe die passende WhatsApp-Funktion – damit
+                Gruppenchats klar, nützlich und freundlich bleiben.
+              </p>
+            </div>
+
+            <div class="chips" aria-label="Useful for">
+              <span class="chip lang-en">Churches</span>
+              <span class="chip lang-en">Clubs</span>
+              <span class="chip lang-en">Teams</span>
+              <span class="chip lang-en">Families</span>
+              <span class="chip lang-de">Kirchen</span>
+              <span class="chip lang-de">Vereine</span>
+              <span class="chip lang-de">Teams</span>
+              <span class="chip lang-de">Familien</span>
+            </div>
+          </div>
+
+          <div class="phone-demo" aria-label="Example of a clear group conversation">
+            <div class="chat-header">
+              <div class="avatar">M</div>
+              <div class="chat-name">
+                <strong class="lang-en">Wednesday group</strong>
+                <strong class="lang-de">Mittwochsgruppe</strong>
+                <small class="lang-en">12 members</small>
+                <small class="lang-de">12 Mitglieder</small>
+              </div>
+            </div>
+
+            <div class="bubble">
+              <span class="name">Tim · Coordinator</span>
+              <span class="lang-en">Who can bring the meal?</span>
+              <span class="lang-de">Wer kann das Essen mitbringen?</span>
+              <small>14:08</small>
+            </div>
+
+            <div class="bubble me">
+              <div class="reply-quote">
+                <span class="lang-en">Who can bring the meal?</span>
+                <span class="lang-de">Wer kann das Essen mitbringen?</span>
+              </div>
+              <span class="lang-en">I can do it this week 👍</span>
+              <span class="lang-de">Ich kann es diese Woche machen 👍</span>
+              <small>14:10 ✓✓</small>
+            </div>
+
+            <div class="bubble">
+              <span class="name">Jonas · Teacher</span>
+              <span class="lang-en">Thanks! I reacted instead of adding five messages.</span>
+              <span class="lang-de">Danke! Eine Reaktion statt fünf neuer Nachrichten.</span>
+              <small>14:11</small>
+            </div>
+
+            <div class="floating-label">
+              <span class="lang-en">Context wins.</span>
+              <span class="lang-de">Kontext gewinnt.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="right-tool">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 class="lang-en">Choose the right tool</h2>
+            <h2 class="lang-de">Wähle das richtige Werkzeug</h2>
+            <p class="lang-en">Tap what you need to do. The shortest route appears below.</p>
+            <p class="lang-de">Tippe auf dein Ziel. Darunter erscheint der kürzeste Weg.</p>
+          </div>
+
+          <div class="chooser">
+            <div class="chooser-options" role="group" aria-label="Choose a task">
+              <button class="choice-button" type="button" data-choice="private" aria-pressed="true">
+                <span class="lang-en">Answer one person</span>
+                <span class="lang-de">Einer Person antworten</span>
+              </button>
+              <button class="choice-button" type="button" data-choice="decision" aria-pressed="false">
+                <span class="lang-en">Make a quick decision</span>
+                <span class="lang-de">Schnell entscheiden</span>
+              </button>
+              <button class="choice-button" type="button" data-choice="date" aria-pressed="false">
+                <span class="lang-en">Plan a date</span>
+                <span class="lang-de">Termin planen</span>
+              </button>
+              <button class="choice-button" type="button" data-choice="recurring" aria-pressed="false">
+                <span class="lang-en">Organize recurring roles</span>
+                <span class="lang-de">Wiederkehrende Aufgaben</span>
+              </button>
+              <button class="choice-button" type="button" data-choice="urgent" aria-pressed="false">
+                <span class="lang-en">Send an urgent update</span>
+                <span class="lang-de">Dringendes Update</span>
+              </button>
+            </div>
+
+            <div class="choice-result active" data-result="private" aria-live="polite">
+              <div class="result-icon" aria-hidden="true">↗</div>
+              <div>
+                <h3 class="lang-en">Use “Reply privately”</h3>
+                <h3 class="lang-de">„Privat antworten“ nutzen</h3>
+                <p class="lang-en">
+                  Select their group message, open More / ⋮ and choose <strong>Reply privately</strong>.
+                  The original message is quoted in your private chat.
+                </p>
+                <p class="lang-de">
+                  Gruppennachricht auswählen, Mehr / ⋮ öffnen und <strong>Privat antworten</strong>
+                  wählen. Die Ausgangsnachricht wird im privaten Chat zitiert.
+                </p>
+              </div>
+            </div>
+
+            <div class="choice-result" data-result="decision" aria-live="polite">
+              <div class="result-icon" aria-hidden="true">▦</div>
+              <div>
+                <h3 class="lang-en">Use a poll</h3>
+                <h3 class="lang-de">Eine Umfrage nutzen</h3>
+                <p class="lang-en">
+                  Best for one clear question. Set an end time, allow only one answer when needed,
+                  and summarize the decision after voting closes.
+                </p>
+                <p class="lang-de">
+                  Ideal für eine klare Frage. Endzeit setzen, bei Bedarf nur eine Antwort erlauben
+                  und das Ergebnis nach Abstimmungsende kurz zusammenfassen.
+                </p>
+              </div>
+            </div>
+
+            <div class="choice-result" data-result="date" aria-live="polite">
+              <div class="result-icon" aria-hidden="true">17</div>
+              <div>
+                <h3 class="lang-en">Create an event</h3>
+                <h3 class="lang-de">Eine Veranstaltung erstellen</h3>
+                <p class="lang-en">
+                  Add the date, time, location or call link, then set an early reminder. People can
+                  respond without creating a long message thread.
+                </p>
+                <p class="lang-de">
+                  Datum, Uhrzeit, Ort oder Anruflink ergänzen und eine frühzeitige Erinnerung setzen.
+                  Zusagen bleiben übersichtlich, ohne lange Nachrichtenkette.
+                </p>
+              </div>
+            </div>
+
+            <div class="choice-result" data-result="recurring" aria-live="polite">
+              <div class="result-icon" aria-hidden="true">∞</div>
+              <div>
+                <h3 class="lang-en">Pin one permanent sign-up link</h3>
+                <h3 class="lang-de">Einen dauerhaften Anmeldelink anheften</h3>
+                <p class="lang-en">
+                  For weekly attendance, teachers or meals, use a recurring sign-up page such as
+                  SignUpGenius. Pin one link in WhatsApp instead of creating a new poll every week.
+                </p>
+                <p class="lang-de">
+                  Für wöchentliche Teilnahme, Lehrer oder Essen eine wiederkehrende Anmeldeseite wie
+                  SignUpGenius nutzen. Einen Link anheften statt jede Woche neu abzufragen.
+                </p>
+              </div>
+            </div>
+
+            <div class="choice-result" data-result="urgent" aria-live="polite">
+              <div class="result-icon" aria-hidden="true">!</div>
+              <div>
+                <h3 class="lang-en">Use @all—sparingly</h3>
+                <h3 class="lang-de">@all – aber sparsam</h3>
+                <p class="lang-en">
+                  Reserve it for urgent, time-sensitive information. In groups over 32 members,
+                  only admins can use @all. Members can mute these alerts.
+                </p>
+                <p class="lang-de">
+                  Nur für dringende, zeitkritische Informationen. In Gruppen mit mehr als 32
+                  Mitgliedern können nur Admins @all nutzen. Mitglieder können diese Hinweise stummschalten.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cheat-sheet">
+        <div class="shell">
+          <div class="section-heading">
+            <h2 class="lang-en">The cheat sheet</h2>
+            <h2 class="lang-de">Der Spickzettel</h2>
+            <p class="lang-en">Tap a card for the “how”. Filter by what you are doing.</p>
+            <p class="lang-de">Karte antippen für die Anleitung. Nach Aufgabe filtern.</p>
+          </div>
+
+          <div class="filters" role="group" aria-label="Filter tips">
+            <button class="filter-button" type="button" data-filter="all" aria-pressed="true">
+              <span class="lang-en">All tips</span><span class="lang-de">Alle Tipps</span>
+            </button>
+            <button class="filter-button" type="button" data-filter="chat" aria-pressed="false">
+              <span class="lang-en">Clear chatting</span><span class="lang-de">Klar schreiben</span>
+            </button>
+            <button class="filter-button" type="button" data-filter="organize" aria-pressed="false">
+              <span class="lang-en">Organize</span><span class="lang-de">Organisieren</span>
+            </button>
+            <button class="filter-button" type="button" data-filter="admin" aria-pressed="false">
+              <span class="lang-en">Admin setup</span><span class="lang-de">Admin-Einstellungen</span>
+            </button>
+          </div>
+
+          <div class="card-grid">
+            <article class="tip-card" data-category="chat">
+              <details open>
+                <summary>
+                  <span class="card-number">01</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Reply to the message you mean</h3>
+                    <h3 class="lang-de">Auf die gemeinte Nachricht antworten</h3>
+                    <p class="lang-en">Preserve context when several topics overlap.</p>
+                    <p class="lang-de">Kontext behalten, wenn mehrere Themen parallel laufen.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>On a phone, swipe the message to the right—or press and hold it.</li>
+                    <li>Tap <strong>Reply</strong>, then write your answer.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li>Am Handy die Nachricht nach rechts wischen oder gedrückt halten.</li>
+                    <li><strong>Antworten</strong> wählen und Antwort schreiben.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Best practice:</strong> If your answer would be confusing without the original message, always use Reply.</p>
+                  <p class="why lang-de"><strong>Gute Praxis:</strong> Wenn die Antwort ohne Ausgangsnachricht unklar wäre, immer die Antwortfunktion nutzen.</p>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="chat">
+              <details open>
+                <summary>
+                  <span class="card-number">02</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Reply privately</h3>
+                    <h3 class="lang-de">Privat antworten</h3>
+                    <p class="lang-en">Move one-to-one matters out of the group.</p>
+                    <p class="lang-de">Persönliches aus der Gruppe heraushalten.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Select the person’s message.</li>
+                    <li>Open <strong>More / ⋮ → Reply privately</strong>.</li>
+                    <li>The message is quoted in a private chat, so the context travels with you.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li>Nachricht der Person auswählen.</li>
+                    <li><strong>Mehr / ⋮ → Privat antworten</strong> öffnen.</li>
+                    <li>Die Nachricht wird im privaten Chat zitiert – der Kontext bleibt erhalten.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Use it for:</strong> personal questions, corrections, pastoral matters or anything only one person needs.</p>
+                  <p class="why lang-de"><strong>Nutzen für:</strong> persönliche Fragen, Korrekturen, seelsorgerliche Themen oder Inhalte für nur eine Person.</p>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="chat">
+              <details>
+                <summary>
+                  <span class="card-number">03</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">React instead of adding noise</h3>
+                    <h3 class="lang-de">Reagieren statt mehr Nachrichten</h3>
+                    <p class="lang-en">A 👍, ❤️ or ✅ is often enough.</p>
+                    <p class="lang-de">Ein 👍, ❤️ oder ✅ reicht oft völlig.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <p class="lang-en">
+                    Press and hold a message, then choose a reaction. Use 👍 for acknowledgement,
+                    ❤️ for appreciation and ✅ when a task is complete.
+                  </p>
+                  <p class="lang-de">
+                    Nachricht gedrückt halten und Reaktion wählen. 👍 für „gesehen“, ❤️ für
+                    Wertschätzung und ✅ für „erledigt“.
+                  </p>
+                  <p class="why lang-en"><strong>Avoid:</strong> five separate “Thanks!”, “Me too” or “Okay” messages after a simple announcement.</p>
+                  <p class="why lang-de"><strong>Vermeiden:</strong> fünf einzelne „Danke!“, „Ich auch“ oder „Okay“-Nachrichten nach einer einfachen Info.</p>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="chat">
+              <details>
+                <summary>
+                  <span class="card-number">04</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Write one useful message</h3>
+                    <h3 class="lang-de">Eine vollständige Nachricht schreiben</h3>
+                    <p class="lang-en">Lead with the point; group related details.</p>
+                    <p class="lang-de">Mit dem Kern beginnen; Zusammengehöriges bündeln.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <p class="lang-en"><strong>Good:</strong> “Wednesday, 19:00 at IBC. Please vote by Monday. Details: …”</p>
+                  <p class="lang-de"><strong>Gut:</strong> „Mittwoch, 19:00 Uhr bei IBC. Bitte bis Montag abstimmen. Details: …“</p>
+                  <p class="lang-en"><strong>Avoid:</strong> sending “Hi” … “quick question” … “about Wednesday” … as separate messages.</p>
+                  <p class="lang-de"><strong>Vermeiden:</strong> „Hallo“ … „kurze Frage“ … „wegen Mittwoch“ … als einzelne Nachrichten.</p>
+                  <p class="why lang-en"><strong>Make it scannable:</strong> action first, date and deadline next, detail last.</p>
+                  <p class="why lang-de"><strong>Schnell erfassbar:</strong> Aufgabe zuerst, dann Termin und Frist, Details zuletzt.</p>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="organize">
+              <details open>
+                <summary>
+                  <span class="card-number">05</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Use polls for quick choices</h3>
+                    <h3 class="lang-de">Umfragen für schnelle Entscheidungen</h3>
+                    <p class="lang-en">One question, clear options, a deadline.</p>
+                    <p class="lang-de">Eine Frage, klare Optionen, eine Frist.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Tap <strong>Attach / + → Poll</strong>.</li>
+                    <li>Use short, non-overlapping options.</li>
+                    <li>Disable multiple answers when only one choice is allowed.</li>
+                    <li>Set an end time and post the final decision.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li><strong>Anhang / + → Umfrage</strong> wählen.</li>
+                    <li>Kurze, eindeutige Optionen verwenden.</li>
+                    <li>Mehrfachantworten ausschalten, wenn nur eine Wahl erlaubt ist.</li>
+                    <li>Endzeit setzen und die Entscheidung anschließend mitteilen.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>New in 2026:</strong> polls can have an end time, hidden voter names and a short editing window.</p>
+                  <p class="why lang-de"><strong>Neu 2026:</strong> Umfragen können eine Endzeit, anonyme Abstimmung und ein kurzes Bearbeitungsfenster haben.</p>
+                  <a class="card-link" href="https://blog.whatsapp.com/your-group-chats-upgraded-introducing-better-polls-all-and-more?lang=en" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Official WhatsApp update ↗</span>
+                    <span class="lang-de">Offizielles WhatsApp-Update ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="organize">
+              <details open>
+                <summary>
+                  <span class="card-number">06</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Use Events for real dates</h3>
+                    <h3 class="lang-de">Veranstaltungen für feste Termine</h3>
+                    <p class="lang-en">Keep time, place, RSVP and reminders together.</p>
+                    <p class="lang-de">Zeit, Ort, Zusagen und Erinnerung zusammenhalten.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Tap <strong>Attach / + → Event</strong>.</li>
+                    <li>Add a precise title, date, time, location and useful description.</li>
+                    <li>Add a call link for an online meeting.</li>
+                    <li>Set a custom early reminder.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li><strong>Anhang / + → Veranstaltung</strong> wählen.</li>
+                    <li>Klaren Titel, Datum, Uhrzeit, Ort und Beschreibung ergänzen.</li>
+                    <li>Für Online-Termine einen Anruflink hinzufügen.</li>
+                    <li>Eine passende frühzeitige Erinnerung setzen.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Best for:</strong> a meeting or outing. A poll asks what people prefer; an Event records what was decided.</p>
+                  <p class="why lang-de"><strong>Ideal für:</strong> Treffen oder Ausflüge. Eine Umfrage fragt nach Präferenzen; eine Veranstaltung hält die Entscheidung fest.</p>
+                  <a class="card-link" href="https://blog.whatsapp.com/level-up-your-whatsapp-group-chats-with-new-member-tags-text-stickers-and-more?lang=en" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Official WhatsApp update ↗</span>
+                    <span class="lang-de">Offizielles WhatsApp-Update ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="organize">
+              <details>
+                <summary>
+                  <span class="card-number">07</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Pin what everyone needs</h3>
+                    <h3 class="lang-de">Wichtiges anheften</h3>
+                    <p class="lang-en">Keep the current date, link or decision visible.</p>
+                    <p class="lang-de">Termin, Link oder Entscheidung sichtbar halten.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <p class="lang-en">
+                    Press and hold the message, then choose <strong>Pin</strong>. Pin only information
+                    that the whole group will need again. Star a message when only you need to find it later.
+                  </p>
+                  <p class="lang-de">
+                    Nachricht gedrückt halten und <strong>Anheften</strong> wählen. Nur Informationen
+                    anheften, die alle erneut brauchen. Eine Nachricht mit Stern markieren, wenn nur du sie wiederfinden musst.
+                  </p>
+                  <p class="why lang-en"><strong>Good pinned items:</strong> the next event, current sign-up link, group rules or emergency update.</p>
+                  <p class="why lang-de"><strong>Gute angeheftete Inhalte:</strong> nächster Termin, aktueller Anmeldelink, Gruppenregeln oder dringendes Update.</p>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="organize">
+              <details>
+                <summary>
+                  <span class="card-number">08</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Move recurring sign-ups outside chat</h3>
+                    <h3 class="lang-de">Wiederkehrende Anmeldungen auslagern</h3>
+                    <p class="lang-en">One permanent link beats a new weekly poll.</p>
+                    <p class="lang-de">Ein dauerhafter Link ist besser als wöchentliche Umfragen.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <p class="lang-en">
+                    For recurring attendance and responsibilities, create recurring dates in a dedicated
+                    sign-up tool, then pin the same link in WhatsApp.
+                  </p>
+                  <p class="lang-de">
+                    Für regelmäßige Teilnahme und Aufgaben wiederkehrende Termine in einem Anmeldetool
+                    erstellen und denselben Link in WhatsApp anheften.
+                  </p>
+                  <span class="divider-label lang-en">Example options</span>
+                  <span class="divider-label lang-de">Beispieloptionen</span>
+                  <p class="lang-en">I’ll be there · Maybe · I can teach · I can bring the meal</p>
+                  <p class="lang-de">Ich bin dabei · Vielleicht · Ich kann lehren · Ich kann das Essen mitbringen</p>
+                  <p class="why lang-en"><strong>Why:</strong> future dates remain visible, gaps are obvious, and an organizer can enter information received in person.</p>
+                  <p class="why lang-de"><strong>Warum:</strong> künftige Termine bleiben sichtbar, Lücken fallen auf und der Organisator kann mündliche Rückmeldungen eintragen.</p>
+                  <a class="card-link" href="https://www.signupgenius.com/" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Example: SignUpGenius ↗</span>
+                    <span class="lang-de">Beispiel: SignUpGenius ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="admin">
+              <details open>
+                <summary>
+                  <span class="card-number">09</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Give yourself a member tag</h3>
+                    <h3 class="lang-de">Eigenes Mitgliedslabel setzen</h3>
+                    <p class="lang-en">Add useful context such as Coordinator or Parent.</p>
+                    <p class="lang-de">Eine hilfreiche Rolle wie Koordinator oder Elternteil ergänzen.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Open the group and tap its name.</li>
+                    <li>Find and tap your own name in the member list.</li>
+                    <li>Choose <strong>Add member tag</strong> and enter your role.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li>Gruppe öffnen und auf den Gruppennamen tippen.</li>
+                    <li>Den eigenen Namen in der Mitgliederliste auswählen.</li>
+                    <li><strong>Mitgliedslabel hinzufügen</strong> wählen und Rolle eintragen.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Examples:</strong> Coordinator, Teacher, Anna’s dad, Meal team. Tags are self-assigned and can differ by group.</p>
+                  <p class="why lang-de"><strong>Beispiele:</strong> Koordinator, Lehrer, Annas Papa, Essens-Team. Labels werden selbst gesetzt und können je Gruppe variieren.</p>
+                  <a class="card-link" href="https://blog.whatsapp.com/level-up-your-whatsapp-group-chats-with-new-member-tags-text-stickers-and-more?lang=en" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Official WhatsApp update ↗</span>
+                    <span class="lang-de">Offizielles WhatsApp-Update ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="admin">
+              <details>
+                <summary>
+                  <span class="card-number">10</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Invite with a link or QR code</h3>
+                    <h3 class="lang-de">Per Link oder QR-Code einladen</h3>
+                    <p class="lang-en">Make joining easy—without losing control.</p>
+                    <p class="lang-de">Beitritt vereinfachen – ohne Kontrolle zu verlieren.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Open <strong>Group info → Invite via link</strong>.</li>
+                    <li>Share the link or show the QR code to people you want to invite.</li>
+                    <li>Enable admin approval where appropriate.</li>
+                    <li>Reset the link if it was posted publicly or shared too widely.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li><strong>Gruppeninfo → Mit Link einladen</strong> öffnen.</li>
+                    <li>Link teilen oder gewünschten Personen den QR-Code zeigen.</li>
+                    <li>Bei Bedarf Admin-Freigabe für neue Mitglieder aktivieren.</li>
+                    <li>Link zurücksetzen, wenn er öffentlich oder zu weit verbreitet wurde.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Privacy:</strong> a group invite should be treated like a key, not like a public flyer.</p>
+                  <p class="why lang-de"><strong>Datenschutz:</strong> Einen Gruppenlink wie einen Schlüssel behandeln, nicht wie einen öffentlichen Flyer.</p>
+                  <a class="card-link" href="https://faq.whatsapp.com/3242937609289432/?cms_platform=web&amp;locale=en_US" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Official help page ↗</span>
+                    <span class="lang-de">Offizielle Hilfeseite ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="admin">
+              <details>
+                <summary>
+                  <span class="card-number">11</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Use WhatsApp Web</h3>
+                    <h3 class="lang-de">WhatsApp Web nutzen</h3>
+                    <p class="lang-en">Type faster and manage links or files on a computer.</p>
+                    <p class="lang-de">Schneller tippen und Links oder Dateien am PC verwalten.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <ol class="lang-en">
+                    <li>Open <strong>web.whatsapp.com</strong> on your computer.</li>
+                    <li>On your phone, open <strong>Linked devices → Link a device</strong>.</li>
+                    <li>Scan the QR code shown on the computer.</li>
+                  </ol>
+                  <ol class="lang-de">
+                    <li><strong>web.whatsapp.com</strong> am Computer öffnen.</li>
+                    <li>Am Handy <strong>Verknüpfte Geräte → Gerät hinzufügen</strong> öffnen.</li>
+                    <li>Den QR-Code auf dem Computer scannen.</li>
+                  </ol>
+                  <p class="why lang-en"><strong>Security:</strong> link only devices you trust and remove old sessions from Linked devices.</p>
+                  <p class="why lang-de"><strong>Sicherheit:</strong> Nur vertrauenswürdige Geräte verknüpfen und alte Sitzungen unter „Verknüpfte Geräte“ entfernen.</p>
+                  <a class="card-link" href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer">web.whatsapp.com ↗</a>
+                </div>
+              </details>
+            </article>
+
+            <article class="tip-card" data-category="admin">
+              <details>
+                <summary>
+                  <span class="card-number">12</span>
+                  <span class="card-title">
+                    <h3 class="lang-en">Structure larger communities</h3>
+                    <h3 class="lang-de">Größere Communities strukturieren</h3>
+                    <p class="lang-en">Announcements at the top; focused groups below.</p>
+                    <p class="lang-de">Ankündigungen oben; thematische Gruppen darunter.</p>
+                  </span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="card-detail">
+                  <p class="lang-en">
+                    For a church, school or club, use a Community with one announcement group and
+                    smaller groups for teams, events or topics. Keep an admin coordination chat separate.
+                  </p>
+                  <p class="lang-de">
+                    Für Kirche, Schule oder Verein eine Community mit einer Ankündigungsgruppe und
+                    kleineren Gruppen für Teams, Termine oder Themen nutzen. Admin-Absprachen separat halten.
+                  </p>
+                  <p class="why lang-en"><strong>Rule of thumb:</strong> if most messages are irrelevant to most members, the group is too broad.</p>
+                  <p class="why lang-de"><strong>Faustregel:</strong> Wenn die meisten Nachrichten für die meisten Mitglieder irrelevant sind, ist die Gruppe zu breit.</p>
+                  <a class="card-link" href="https://faq.whatsapp.com/768544097924262?locale=en_US" target="_blank" rel="noopener noreferrer">
+                    <span class="lang-en">Official community guidance ↗</span>
+                    <span class="lang-de">Offizielle Community-Hinweise ↗</span>
+                  </a>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="group-rules">
+        <div class="shell rule-grid">
+          <article class="rules-card">
+            <h2 class="lang-en">Copy-ready group note</h2>
+            <h2 class="lang-de">Gruppenhinweis zum Kopieren</h2>
+            <p class="lang-en">Paste this into the group description or a welcome message.</p>
+            <p class="lang-de">In die Gruppenbeschreibung oder Begrüßungsnachricht einfügen.</p>
+
+            <div class="copy-box" id="rulesText">
+              <div class="lang-en">
+                <strong>Welcome! A few simple group habits:</strong>
+                <ul>
+                  <li>Reply directly to the message you mean.</li>
+                  <li>Use reactions for simple acknowledgements.</li>
+                  <li>Reply privately when only one person needs the answer.</li>
+                  <li>Use @all only for urgent group-wide updates.</li>
+                  <li>Keep personal or sensitive matters out of the group.</li>
+                  <li>Check the pinned message for current dates and links.</li>
+                </ul>
+              </div>
+              <div class="lang-de">
+                <strong>Willkommen! Ein paar einfache Gruppenregeln:</strong>
+                <ul>
+                  <li>Direkt auf die gemeinte Nachricht antworten.</li>
+                  <li>Für einfache Bestätigungen Reaktionen nutzen.</li>
+                  <li>Privat antworten, wenn nur eine Person die Antwort braucht.</li>
+                  <li>@all nur für dringende Informationen an alle nutzen.</li>
+                  <li>Persönliche oder sensible Themen aus der Gruppe heraushalten.</li>
+                  <li>Aktuelle Termine und Links in der angehefteten Nachricht prüfen.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="copy-row">
+              <button class="copy-button" type="button" id="copyRules">
+                <span class="lang-en">Copy group note</span>
+                <span class="lang-de">Gruppenhinweis kopieren</span>
+              </button>
+              <span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span>
+            </div>
+          </article>
+
+          <article class="traffic-card">
+            <h2 class="lang-en">Before you send</h2>
+            <h2 class="lang-de">Vor dem Senden</h2>
+            <p class="lang-en">A ten-second traffic-light check.</p>
+            <p class="lang-de">Der Zehn-Sekunden-Ampelcheck.</p>
+
+            <div class="traffic-list">
+              <div class="traffic-item">
+                <span class="traffic-dot" aria-hidden="true"></span>
+                <div>
+                  <strong class="lang-en">Green: useful to everyone</strong>
+                  <strong class="lang-de">Grün: für alle nützlich</strong>
+                  <span class="lang-en">Send it to the group—with a clear action or date.</span>
+                  <span class="lang-de">An die Gruppe senden – mit klarer Aufgabe oder Termin.</span>
+                </div>
+              </div>
+
+              <div class="traffic-item">
+                <span class="traffic-dot" aria-hidden="true"></span>
+                <div>
+                  <strong class="lang-en">Yellow: useful to a few</strong>
+                  <strong class="lang-de">Gelb: für wenige nützlich</strong>
+                  <span class="lang-en">Mention the relevant people or start a small side group.</span>
+                  <span class="lang-de">Relevante Personen erwähnen oder kleine Seitengruppe starten.</span>
+                </div>
+              </div>
+
+              <div class="traffic-item">
+                <span class="traffic-dot" aria-hidden="true"></span>
+                <div>
+                  <strong class="lang-en">Red: personal, sensitive or corrective</strong>
+                  <strong class="lang-de">Rot: persönlich, sensibel oder korrigierend</strong>
+                  <span class="lang-en">Reply privately—or call. Do not process it in public.</span>
+                  <span class="lang-de">Privat antworten oder anrufen. Nicht öffentlich klären.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="sources">
+        <div class="shell sources">
+          <h2 class="lang-en">Official help & feature notes</h2>
+          <h2 class="lang-de">Offizielle Hilfe & Funktionshinweise</h2>
+          <p class="lang-en">
+            Features may roll out gradually and menu names can vary by device. Keep WhatsApp updated.
+          </p>
+          <p class="lang-de">
+            Funktionen werden teils schrittweise freigeschaltet; Menünamen können je Gerät abweichen. WhatsApp aktuell halten.
+          </p>
+          <ul class="source-links">
+            <li>
+              <a href="https://blog.whatsapp.com/level-up-your-whatsapp-group-chats-with-new-member-tags-text-stickers-and-more?lang=en" target="_blank" rel="noopener noreferrer">
+                <span class="lang-en">Member tags & event reminders</span>
+                <span class="lang-de">Mitgliedslabel & Terminerinnerungen</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://blog.whatsapp.com/your-group-chats-upgraded-introducing-better-polls-all-and-more?lang=en" target="_blank" rel="noopener noreferrer">
+                <span class="lang-en">Improved polls, @all & side groups</span>
+                <span class="lang-de">Bessere Umfragen, @all & Seitengruppen</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://faq.whatsapp.com/3242937609289432/?cms_platform=web&amp;locale=en_US" target="_blank" rel="noopener noreferrer">
+                <span class="lang-en">Group links & QR invitations</span>
+                <span class="lang-de">Gruppenlinks & QR-Einladungen</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer">WhatsApp Web</a>
+            </li>
+            <li>
+              <a href="https://faq.whatsapp.com/768544097924262?locale=en_US" target="_blank" rel="noopener noreferrer">
+                <span class="lang-en">Communities guidance</span>
+                <span class="lang-de">Hinweise zu Communities</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://faq.whatsapp.com/" target="_blank" rel="noopener noreferrer">
+                <span class="lang-en">WhatsApp Help Center</span>
+                <span class="lang-de">WhatsApp-Hilfebereich</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span class="lang-en">Independent practical guide · Not affiliated with WhatsApp LLC.</span>
+        <span class="lang-de">Unabhängiger Praxisleitfaden · Keine Verbindung zu WhatsApp LLC.</span>
+        <span class="lang-en">Last checked: 31 August 2026</span>
+        <span class="lang-de">Zuletzt geprüft: 31. August 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const body = document.body;
+        const languageButtons = [...document.querySelectorAll("[data-set-language]")];
+        const choiceButtons = [...document.querySelectorAll("[data-choice]")];
+        const choiceResults = [...document.querySelectorAll("[data-result]")];
+        const filterButtons = [...document.querySelectorAll("[data-filter]")];
+        const tipCards = [...document.querySelectorAll("[data-category]")];
+        const copyButton = document.getElementById("copyRules");
+        const copyStatus = document.getElementById("copyStatus");
+        const printButton = document.getElementById("printButton");
+
+        function setLanguage(language) {
+          const nextLanguage = language === "de" ? "de" : "en";
+          body.dataset.language = nextLanguage;
+          document.documentElement.lang = nextLanguage;
+          languageButtons.forEach((button) => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.setLanguage === nextLanguage),
+            );
+          });
+          document.title =
+            nextLanguage === "de"
+              ? "WhatsApp Gruppen-Spickzettel"
+              : "WhatsApp Group Cheat Sheet";
+          copyStatus.textContent = "";
+          try {
+            localStorage.setItem("whatsapp-cheat-sheet-language", nextLanguage);
+          } catch (_) {
+            // The page still works when storage is unavailable.
+          }
+        }
+
+        languageButtons.forEach((button) => {
+          button.addEventListener("click", () => setLanguage(button.dataset.setLanguage));
+        });
+
+        choiceButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const chosen = button.dataset.choice;
+            choiceButtons.forEach((item) => {
+              item.setAttribute("aria-pressed", String(item === button));
+            });
+            choiceResults.forEach((result) => {
+              result.classList.toggle("active", result.dataset.result === chosen);
+            });
+          });
+        });
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const filter = button.dataset.filter;
+            filterButtons.forEach((item) => {
+              item.setAttribute("aria-pressed", String(item === button));
+            });
+            tipCards.forEach((card) => {
+              card.hidden = filter !== "all" && card.dataset.category !== filter;
+            });
+          });
+        });
+
+        async function copyGroupNote() {
+          const language = body.dataset.language;
+          const text =
+            language === "de"
+              ? [
+                  "Willkommen! Ein paar einfache Gruppenregeln:",
+                  "• Direkt auf die gemeinte Nachricht antworten.",
+                  "• Für einfache Bestätigungen Reaktionen nutzen.",
+                  "• Privat antworten, wenn nur eine Person die Antwort braucht.",
+                  "• @all nur für dringende Informationen an alle nutzen.",
+                  "• Persönliche oder sensible Themen aus der Gruppe heraushalten.",
+                  "• Aktuelle Termine und Links in der angehefteten Nachricht prüfen.",
+                ].join("\n")
+              : [
+                  "Welcome! A few simple group habits:",
+                  "• Reply directly to the message you mean.",
+                  "• Use reactions for simple acknowledgements.",
+                  "• Reply privately when only one person needs the answer.",
+                  "• Use @all only for urgent group-wide updates.",
+                  "• Keep personal or sensitive matters out of the group.",
+                  "• Check the pinned message for current dates and links.",
+                ].join("\n");
+
+          try {
+            await navigator.clipboard.writeText(text);
+            copyStatus.textContent = language === "de" ? "Kopiert ✓" : "Copied ✓";
+          } catch (_) {
+            copyStatus.textContent =
+              language === "de"
+                ? "Bitte den Text oben manuell kopieren."
+                : "Please copy the text above manually.";
+          }
+        }
+
+        copyButton.addEventListener("click", copyGroupNote);
+        printButton.addEventListener("click", () => window.print());
+
+        let preferredLanguage = "en";
+        try {
+          const storedLanguage = localStorage.getItem("whatsapp-cheat-sheet-language");
+          if (storedLanguage === "de" || storedLanguage === "en") {
+            preferredLanguage = storedLanguage;
+          } else if (navigator.language.toLowerCase().startsWith("de")) {
+            preferredLanguage = "de";
+          }
+        } catch (_) {
+          if (navigator.language.toLowerCase().startsWith("de")) {
+            preferredLanguage = "de";
+          }
+        }
+        setLanguage(preferredLanguage);
+      })();
+    </script>
+  </body>
+</html>
