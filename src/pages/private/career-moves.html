@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Public-web-only professional profile and career move recommendations for David Wollin.">
+<title>David Wollin — Public Profile & Career Moves</title>
+<style>
+:root{
+  --bg:#f4f5f2;
+  --surface:#ffffff;
+  --surface2:#eef1ec;
+  --ink:#172019;
+  --muted:#657168;
+  --line:#dbe0da;
+  --accent:#173d2a;
+  --accent2:#cfe0d4;
+  --gold:#a36c1b;
+  --blue:#315f83;
+  --red:#8a493f;
+  --radius:22px;
+  --shadow:0 14px 44px rgba(20,32,24,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 8% 3%,rgba(23,61,42,.08),transparent 24rem),
+    var(--bg);
+  color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+}
+a{color:inherit}
+button,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(219,224,218,.9);
+  background:rgba(244,245,242,.92);
+  backdrop-filter:blur(14px);
+}
+.nav{
+  min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em}
+.mark{
+  width:34px;height:34px;border-radius:12px;background:var(--accent);
+  display:grid;place-items:center;color:#fff;font-size:13px;letter-spacing:.04em
+}
+.navlinks{display:flex;gap:7px;flex-wrap:wrap}
+.navbtn{
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  padding:9px 13px;border-radius:12px;font-weight:650
+}
+.navbtn:hover,.navbtn.active{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.hero{padding:70px 0 32px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;
+  background:var(--accent2);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(42px,7vw,84px);line-height:.94;letter-spacing:-.065em;margin:20px 0 18px;max-width:890px}
+.lead{font-size:clamp(18px,2vw,23px);max-width:800px;color:var(--muted);margin:0}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:end}
+.identity{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)
+}
+.identity-row{display:flex;gap:16px;align-items:center}
+.avatar{
+  width:64px;height:64px;border-radius:19px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800
+}
+.identity strong{font-size:19px}
+.small{font-size:13px;color:var(--muted)}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}
+.pill{font-size:12px;padding:7px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface2)}
+.page{display:none;padding:18px 0 70px}
+.page.active{display:block}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:18px 0}
+.section-head h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin:0}
+.section-head p{margin:6px 0 0;color:var(--muted);max-width:700px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:23px}
+.card h3{margin:0 0 9px;font-size:19px;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted)}
+.kicker{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.metric{background:var(--surface2);border-radius:15px;padding:13px;min-width:0}
+.metric b{display:block;font-size:16px}
+.metric span{font-size:11px;color:var(--muted)}
+.timeline{display:grid;gap:10px}
+.timeline-card{
+  border:1px solid var(--line);background:var(--surface);border-radius:17px;overflow:hidden;
+  transition:border-color .16s ease,background .16s ease
+}
+.timeline-card:hover,.timeline-card.open{border-color:#9cad9f;background:#fbfcfa}
+.timeline-row{
+  display:grid;grid-template-columns:90px minmax(0,1fr) 46px;gap:14px;align-items:center;
+  padding:16px
+}
+.timeline-year{font-weight:850}
+.timeline-main{min-width:0}
+.timeline-title{
+  font-weight:750;text-decoration:none;color:var(--ink);display:inline;
+}
+.timeline-title:hover{text-decoration:underline}
+.timeline-meta{font-size:13px;color:var(--muted);display:inline}
+.timeline-toggle{
+  width:40px;height:40px;border:0;border-radius:11px;background:transparent;color:var(--muted);
+  font-size:22px;display:grid;place-items:center
+}
+.timeline-toggle:hover{background:var(--surface2);color:var(--ink)}
+.timeline-toggle span{display:block;transition:transform .18s ease}
+.timeline-card.open .timeline-toggle span{transform:rotate(90deg)}
+.timeline-detail{
+  display:none;border-top:1px solid var(--line);background:var(--surface2);
+  padding:15px 16px 16px 120px;color:var(--muted);font-size:14px
+}
+.timeline-card.open .timeline-detail{display:block}
+.timeline-detail a{font-weight:750;text-decoration:underline;text-underline-offset:2px}
+.source-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.source{
+  border:1px solid var(--line);background:var(--surface);border-radius:17px;padding:17px;text-decoration:none;
+  transition:transform .16s ease,border-color .16s ease
+}
+.source:hover{transform:translateY(-2px);border-color:#9cad9f}
+.source b{display:block;margin-bottom:5px}
+.source span{font-size:13px;color:var(--muted)}
+.career-intro{
+  border-radius:var(--radius);padding:26px;background:var(--ink);color:#fff;
+  display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center
+}
+.career-intro p{color:#c9d0cb;margin:7px 0 0;max-width:740px}
+.score-big{font-size:50px;font-weight:850;letter-spacing:-.06em;line-height:1}
+.score-big small{font-size:13px;font-weight:600;letter-spacing:0;color:#c9d0cb}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.filter{
+  padding:9px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-weight:700
+}
+.filter.active{background:var(--accent);border-color:var(--accent);color:white}
+.roles{display:grid;gap:13px}
+.role{
+  background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;
+  display:grid;grid-template-columns:65px minmax(0,1fr) 200px;gap:18px;align-items:start
+}
+.rank{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+  background:var(--surface2);font-size:20px;font-weight:850
+}
+.role h3{margin:0 0 3px;font-size:21px;letter-spacing:-.025em}
+.role-sub{font-size:13px;color:var(--muted);margin-bottom:11px}
+.role-copy{color:var(--muted);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-size:11px;border-radius:999px;padding:5px 8px;background:var(--surface2)}
+.role-right{border-left:1px solid var(--line);padding-left:18px}
+.role-score{font-size:28px;font-weight:850;letter-spacing:-.04em}
+.role-score span{font-size:11px;color:var(--muted);font-weight:650;letter-spacing:0}
+.bar{height:7px;background:#e8ebe7;border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.gap{font-size:12px;color:var(--muted)}
+.gap b{color:var(--ink)}
+.role-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.more{
+  border:1px solid var(--line);background:transparent;padding:8px 10px;border-radius:10px;font-weight:700;font-size:12px
+}
+.role-detail{
+  grid-column:2/-1;background:var(--surface2);border-radius:15px;padding:14px 16px;display:none;font-size:13px;color:var(--muted)
+}
+.role.open .role-detail{display:block}
+.path{
+  margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px
+}
+.stage{border:1px solid var(--line);border-radius:18px;padding:18px;background:var(--surface)}
+.stage-no{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:800}
+.stage h3{font-size:18px;margin:7px 0}
+.stage ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:13px}
+.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.job{
+  display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:20px
+}
+.job-top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.job h3{font-size:18px;margin:0}
+.job h3 a{text-decoration:none}
+.job h3 a:hover{text-decoration:underline;text-underline-offset:2px}
+.job .company{font-size:13px;color:var(--muted)}
+.badge{white-space:nowrap;font-size:11px;padding:5px 8px;border-radius:999px;background:var(--surface2)}
+.job p{font-size:13px;color:var(--muted);margin:0}
+.job a{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;background:var(--ink);color:white;padding:10px 12px;font-weight:750;font-size:13px}
+.note{border-left:4px solid var(--gold);background:#fff9ee;padding:15px 17px;border-radius:0 15px 15px 0;font-size:13px;color:#6c5b3f;margin-top:15px}
+.disclosure{font-size:12px;color:var(--muted);margin-top:24px}
+.compare-panel{
+  display:none;margin-top:16px;border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:20px
+}
+.compare-panel.active{display:block}
+.compare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.compare-card{background:var(--surface2);border-radius:15px;padding:15px}
+.compare-card h4{margin:0 0 7px}
+.compare-card p{font-size:13px;color:var(--muted);margin:0}
+.footer{border-top:1px solid var(--line);padding:24px 0 50px;color:var(--muted);font-size:12px}
+.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:850px){
+  .hero-grid,.grid-2,.career-intro{grid-template-columns:1fr}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .source-grid,.market-grid{grid-template-columns:1fr}
+  .role{grid-template-columns:55px minmax(0,1fr)}
+  .role-right{grid-column:2;border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:13px}
+  .role-detail{grid-column:1/-1}
+  .path{grid-template-columns:1fr}
+  .score-big{display:none}
+}
+@media(max-width:560px){
+  .wrap{width:min(100% - 20px,1180px)}
+  .nav{align-items:flex-start;padding:11px 0;flex-direction:column}
+  .navlinks{width:100%}.navbtn{flex:1}
+  .hero{padding-top:46px}
+  h1{font-size:48px}
+  .timeline-row{grid-template-columns:64px minmax(0,1fr) 42px;gap:8px}
+  .timeline-detail{padding:14px 14px 15px}
+  .compare-grid{grid-template-columns:1fr}
+}
+@media print{
+  .topbar,.controls,.more{display:none!important}
+  body{background:white}
+  .page{display:block!important;padding-bottom:20px}
+  .hero{padding-top:20px}
+  .role-detail{display:block!important}
+  .card,.role,.job,.stage{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <div class="brand"><div class="mark">DW</div><span>Public Profile</span></div>
+    <div class="navlinks">
+      <button class="navbtn active" data-page="profile">Profile</button>
+      <button class="navbtn" data-page="career">Career moves</button>
+      <button class="navbtn" data-page="market">Live market</button>
+      <button class="navbtn" data-page="sources">Sources</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Public-web-only assessment · 31 Aug 2026</div>
+      <h1>David Wollin</h1>
+      <p class="lead">A cross-functional profile spanning engineering, technical education, medical technology, commercial work and emerging AI-enabled execution.</p>
+    </div>
+    <aside class="identity">
+      <div class="identity-row">
+        <div class="avatar">DW</div>
+        <div><strong>Hybrid builder / translator</strong><div class="small">Stuttgart region · Germany</div></div>
+      </div>
+      <div class="pills">
+        <span class="pill">Engineering</span>
+        <span class="pill">STEAM teaching</span>
+        <span class="pill">MedTech</span>
+        <span class="pill">Marketing</span>
+        <span class="pill">Accounting</span>
+        <span class="pill">AI curiosity</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="profile" class="page active">
+<div class="wrap">
+  <div class="section-head">
+    <div><h2>What the public web says</h2><p>The strongest story is not one job title. It is the repeated ability to move between technical, educational and commercial contexts.</p></div>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <div class="kicker">Current public signal</div>
+      <h3><a href="https://de.linkedin.com/company/amt-medica" target="_blank" rel="noopener" style="text-decoration:none">Medical technology + business execution ↗</a></h3>
+      <p>A public LinkedIn snapshot describes marketing and accounting work at AMT Medica alongside work as a Technik teacher. AMT Medica's own public LinkedIn activity independently names David Wollin as part of its 2026 Bremen trade-show team.</p>
+      <div class="metric-grid">
+        <div class="metric"><b>MedTech</b><span>industry context</span></div>
+        <div class="metric"><b>GTM</b><span>marketing signal</span></div>
+        <div class="metric"><b>Finance</b><span>accounting signal</span></div>
+        <div class="metric"><b>B2B</b><span>trade-show exposure</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="kicker">Technical foundation</div>
+      <h3><a href="https://www.cla-stuttgart.org/david-wollin.html" target="_blank" rel="noopener" style="text-decoration:none">Engineering → technical education ↗</a></h3>
+      <p>Christian Life Academy Stuttgart lists an M.S. in Bauingenieurwesen from Universität Stuttgart, a B.S. in Architectural Engineering from Cal Poly San Luis Obispo, and a STEAM teaching role. Cal Poly independently records the architectural-engineering background.</p>
+      <div class="metric-grid">
+        <div class="metric"><b>M.S.</b><span>civil engineering</span></div>
+        <div class="metric"><b>B.S.</b><span>architectural engineering</span></div>
+        <div class="metric"><b>STEAM</b><span>technical teaching</span></div>
+        <div class="metric"><b>EN + DE</b><span>public language signal</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="section-head" style="margin-top:32px">
+    <div><h2>Public timeline</h2><p>Click an entry to expand the supporting context.</p></div>
+  </div>
+
+  <div class="timeline">
+    <article class="timeline-card">
+      <div class="timeline-row">
+        <span class="timeline-year">2009</span>
+        <div class="timeline-main">
+          <a class="timeline-title" href="https://arce.calpoly.edu/kpff-consulting-engineers-scholarship" target="_blank" rel="noopener">Cal Poly scholarship</a>&nbsp;
+          <span class="timeline-meta">Architectural Engineering</span>
+        </div>
+        <button class="timeline-toggle" type="button" aria-expanded="false" aria-label="Show details for Cal Poly scholarship"><span>›</span></button>
+      </div>
+      <div class="timeline-detail">
+        Cal Poly's Architectural Engineering department lists David F. Wollin as the 2009 recipient of the KPFF Consulting Engineers Scholarship.
+        <a href="https://arce.calpoly.edu/kpff-consulting-engineers-scholarship" target="_blank" rel="noopener">Open source ↗</a>
+      </div>
+    </article>
+
+    <article class="timeline-card">
+      <div class="timeline-row">
+        <span class="timeline-year">2018</span>
+        <div class="timeline-main">
+          <a class="timeline-title" href="https://magazine.calpoly.edu/spring-summer-2018/college-of-architecture-and-environmental-design/" target="_blank" rel="noopener">Engineering career in Stuttgart</a>&nbsp;
+          <span class="timeline-meta">Ingenieurgesellschaft Tompert</span>
+        </div>
+        <button class="timeline-toggle" type="button" aria-expanded="false" aria-label="Show details for engineering career in Stuttgart"><span>›</span></button>
+      </div>
+      <div class="timeline-detail">
+        A 2018 Cal Poly Magazine alumni update states that David Wollin (Architectural Engineering '10) earned a master's degree in Stuttgart and was working at Ingenieurgesellschaft Tompert.
+        <a href="https://magazine.calpoly.edu/spring-summer-2018/college-of-architecture-and-environmental-design/" target="_blank" rel="noopener">Open source ↗</a>
+      </div>
+    </article>
+
+    <article class="timeline-card">
+      <div class="timeline-row">
+        <span class="timeline-year">Later</span>
+        <div class="timeline-main">
+          <a class="timeline-title" href="https://www.cla-stuttgart.org/david-wollin.html" target="_blank" rel="noopener">STEAM / technical teaching</a>&nbsp;
+          <span class="timeline-meta">Science · Technology · Engineering · Arts · Music</span>
+        </div>
+        <button class="timeline-toggle" type="button" aria-expanded="false" aria-label="Show details for STEAM and technical teaching"><span>›</span></button>
+      </div>
+      <div class="timeline-detail">
+        Christian Life Academy Stuttgart publicly identifies David Wollin as a STEAM teacher and lists his engineering degrees.
+        <a href="https://www.cla-stuttgart.org/david-wollin.html" target="_blank" rel="noopener">Open source ↗</a>
+      </div>
+    </article>
+
+    <article class="timeline-card">
+      <div class="timeline-row">
+        <span class="timeline-year">2024</span>
+        <div class="timeline-main">
+          <a class="timeline-title" href="https://buergerstiftung-sindelfingen.de/wp-content/uploads/2024/01/Flyer_SchlauSchau_2024.pdf" target="_blank" rel="noopener">Generative AI in education</a>&nbsp;
+          <span class="timeline-meta">DALL-E 3 public credit</span>
+        </div>
+        <button class="timeline-toggle" type="button" aria-expanded="false" aria-label="Show details for generative AI in education"><span>›</span></button>
+      </div>
+      <div class="timeline-detail">
+        A 2024 Schlau-Schau flyer for Sindelfingen schools includes the credit “David Wollin mit der Unterstützung von DALL-E 3”, providing a public trace of generative-AI use in an educational context.
+        <a href="https://buergerstiftung-sindelfingen.de/wp-content/uploads/2024/01/Flyer_SchlauSchau_2024.pdf" target="_blank" rel="noopener">Open source ↗</a>
+      </div>
+    </article>
+
+    <article class="timeline-card">
+      <div class="timeline-row">
+        <span class="timeline-year">2026</span>
+        <div class="timeline-main">
+          <a class="timeline-title" href="https://de.linkedin.com/company/amt-medica" target="_blank" rel="noopener">AMT Medica commercial signal</a>&nbsp;
+          <span class="timeline-meta">Marketing · accounting · events</span>
+        </div>
+        <button class="timeline-toggle" type="button" aria-expanded="false" aria-label="Show details for AMT Medica commercial signal"><span>›</span></button>
+      </div>
+      <div class="timeline-detail">
+        Public LinkedIn material connects David Wollin with AMT Medica marketing/accounting and names him as a member of the company's 2026 Bremen trade-show team.
+        <a href="https://de.linkedin.com/company/amt-medica" target="_blank" rel="noopener">Open source ↗</a>
+      </div>
+    </article>
+  </div>
+</div>
+</section>
+
+<section id="career" class="page">
+<div class="wrap">
+  <div class="career-intro">
+    <div>
+      <div class="kicker" style="color:#aab7ae">Career recommendation</div>
+      <h2 style="margin:0;font-size:32px;letter-spacing:-.04em">Move toward the intersection, not back into a silo.</h2>
+      <p>The strongest upward path is a role where technical understanding, communication, commercial thinking and AI-enabled building are all assets. A conventional single-function move would underuse the public profile.</p>
+    </div>
+    <div class="score-big">6 <small>priority paths</small></div>
+  </div>
+
+  <div class="controls" aria-label="Rank job recommendations">
+    <button class="filter active" data-sort="fit">Best overall fit</button>
+    <button class="filter" data-sort="speed">Fastest transition</button>
+    <button class="filter" data-sort="upside">Highest upside</button>
+    <button class="filter" data-sort="code">Less coding</button>
+  </div>
+
+  <div class="roles" id="roles">
+    <article class="role" data-fit="88" data-speed="86" data-upside="91" data-code="66">
+      <div class="rank">1</div>
+      <div>
+        <h3>AI Solutions Consultant</h3>
+        <div class="role-sub">Best immediate bridge · AI / enterprise transformation / industrial tech</div>
+        <div class="role-copy">A natural use of engineering depth plus teaching and business communication: discover a business problem, translate it into a technically credible AI solution, explain it, and help implement it.</div>
+        <div class="tags"><span class="tag">AI</span><span class="tag">Consulting</span><span class="tag">Workshops</span><span class="tag">Transformation</span><span class="tag">Bilingual</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">88 <span>/ 100 fit</span></div><div class="bar"><i style="width:88%"></i></div><div class="gap"><b>Gap:</b> medium — stronger public proof of deployed AI/data solutions and formal consulting delivery.</div></div>
+      <div class="role-detail"><b>What to prove next:</b> 2–3 business-facing AI case studies showing problem → workflow → implementation → measurable result. Current Stuttgart postings show demand for people who bridge business problems and technically feasible AI solutions, but senior corporate roles can expect Python/data-science depth and consulting experience.</div>
+    </article>
+
+    <article class="role" data-fit="86" data-speed="72" data-upside="96" data-code="38">
+      <div class="rank">2</div>
+      <div>
+        <h3>GTM Engineer / Revenue Automation Engineer</h3>
+        <div class="role-sub">Highest asymmetric upside · AI-native startups and scaleups</div>
+        <div class="role-copy">This combines business context with building: research signals, enrichment, CRM workflows, AI agents, APIs, internal tools and automated revenue processes.</div>
+        <div class="tags"><span class="tag">GTM</span><span class="tag">Automation</span><span class="tag">n8n / Make</span><span class="tag">APIs</span><span class="tag">LLMs</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">86 <span>/ 100 fit</span></div><div class="bar"><i style="width:86%"></i></div><div class="gap"><b>Gap:</b> medium-high — public proof of production automation, Python/API fluency and GTM systems.</div></div>
+      <div class="role-detail"><b>Why it is compelling:</b> current 2026 GTM Engineer postings explicitly ask people to build LLM pipelines, custom integrations, web apps, data enrichment and automation across Sales, Marketing and CS. The public profile already supplies the unusual cross-functional base; the missing piece is a visible portfolio proving the builder side.</div>
+    </article>
+
+    <article class="role" data-fit="84" data-speed="79" data-upside="90" data-code="82">
+      <div class="rank">3</div>
+      <div>
+        <h3>Technical Product Marketing Manager</h3>
+        <div class="role-sub">Strong translation path · AI, industrial software, MedTech</div>
+        <div class="role-copy">Turns complex technical products into positioning, messaging, launch strategy, sales material, technical content and market insight — a direct blend of engineering understanding and communication.</div>
+        <div class="tags"><span class="tag">Product marketing</span><span class="tag">Technical storytelling</span><span class="tag">GTM strategy</span><span class="tag">Content</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">84 <span>/ 100 fit</span></div><div class="bar"><i style="width:84%"></i></div><div class="gap"><b>Gap:</b> medium — formal product-marketing portfolio, launch ownership and quantified pipeline/adoption outcomes.</div></div>
+      <div class="role-detail"><b>Market validation:</b> current Brave and Canonical roles explicitly value people who understand technology under the hood and can translate it for technical and business audiences. This profile has the translation ingredients; it would need stronger evidence of positioning, launches, analytics and product-led growth.</div>
+    </article>
+
+    <article class="role" data-fit="82" data-speed="77" data-upside="88" data-code="58">
+      <div class="rank">4</div>
+      <div>
+        <h3>Solutions Engineer / Technical Presales</h3>
+        <div class="role-sub">Strong industrial path · robotics, AI, MedTech, automation</div>
+        <div class="role-copy">A customer-facing technical role built around discovery, demonstrations, solution design, integration and translating product capability into customer value.</div>
+        <div class="tags"><span class="tag">Presales</span><span class="tag">Demos</span><span class="tag">Customer discovery</span><span class="tag">Technical sales</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">82 <span>/ 100 fit</span></div><div class="bar"><i style="width:82%"></i></div><div class="gap"><b>Gap:</b> medium — presales track record, technical demos, integrations and closing support.</div></div>
+      <div class="role-detail"><b>Best version of this move:</b> target technically complex products where engineering credibility matters — industrial automation, robotics, AI platforms or MedTech — rather than generic SaaS. That preserves the value of the engineering background while moving closer to revenue and leadership.</div>
+    </article>
+
+    <article class="role" data-fit="79" data-speed="75" data-upside="87" data-code="74">
+      <div class="rank">5</div>
+      <div>
+        <h3>AI Enablement / Automation Program Manager</h3>
+        <div class="role-sub">Transformation path · internal AI adoption and workflow redesign</div>
+        <div class="role-copy">Owns practical AI adoption across teams: use-case discovery, training, governance, workflow redesign, pilots, vendor selection and measurable implementation.</div>
+        <div class="tags"><span class="tag">Enablement</span><span class="tag">Change</span><span class="tag">AI adoption</span><span class="tag">Program management</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">79 <span>/ 100 fit</span></div><div class="bar"><i style="width:79%"></i></div><div class="gap"><b>Gap:</b> medium — enterprise change ownership, governance and quantified adoption results.</div></div>
+      <div class="role-detail"><b>Why it can move upward:</b> the teaching signal becomes a strategic asset when companies need employees to actually adopt AI, not merely buy tools. Build evidence around repeatable training, workflows adopted, hours saved and quality improvements.</div>
+    </article>
+
+    <article class="role" data-fit="78" data-speed="92" data-upside="82" data-code="90">
+      <div class="rank">6</div>
+      <div>
+        <h3>Technical GTM / Commercial Lead — MedTech or Industrial</h3>
+        <div class="role-sub">Safest step-up · preserves existing domain credibility</div>
+        <div class="role-copy">A broader commercial role spanning product positioning, events, customer insight, enablement, partnerships and AI-supported GTM — ideally at a smaller growth company where breadth is rewarded.</div>
+        <div class="tags"><span class="tag">MedTech</span><span class="tag">Industrial</span><span class="tag">GTM lead</span><span class="tag">Partnerships</span></div>
+        <div class="role-actions"><button class="more">Why this fits</button></div>
+      </div>
+      <div class="role-right"><div class="role-score">78 <span>/ 100 fit</span></div><div class="bar"><i style="width:78%"></i></div><div class="gap"><b>Gap:</b> lower — biggest need is measurable commercial ownership and leadership scope.</div></div>
+      <div class="role-detail"><b>Why it ranks lower overall:</b> it is easier to justify from the current public footprint, but it may be less transformative. The best version would explicitly include AI/automation ownership so it becomes a platform for a later Head of GTM, GTM Engineering or product-marketing leadership move.</div>
+    </article>
+  </div>
+
+  <div class="section-head" style="margin-top:34px">
+    <div><h2>A practical upward sequence</h2><p>Rather than choosing one forever-role, use the next move to create stronger evidence for the move after it.</p></div>
+  </div>
+  <div class="path">
+    <article class="stage"><div class="stage-no">0–6 months</div><h3>Land at the intersection</h3><ul><li>Target AI Solutions Consultant, Solutions Engineer or technical GTM roles.</li><li>Prefer AI, robotics, industrial technology or MedTech.</li><li>Package 3 public case studies before applying broadly.</li></ul></article>
+    <article class="stage"><div class="stage-no">6–18 months</div><h3>Become the builder</h3><ul><li>Own automations, APIs, AI workflows and internal tools.</li><li>Quantify revenue, time saved, conversion or adoption impact.</li><li>Build a visible GTM-engineering portfolio.</li></ul></article>
+    <article class="stage"><div class="stage-no">18–36 months</div><h3>Own the system</h3><ul><li>Move toward GTM Engineering Lead, AI Transformation Lead or Technical GTM Lead.</li><li>Own roadmap and cross-functional priorities.</li><li>Shift from executing projects to designing the operating model.</li></ul></article>
+  </div>
+  <div class="note"><b>Key decision:</b> if you enjoy building workflows, integrations and lightweight software, GTM Engineering has the strongest upside. If you prefer workshops, customer conversations and solution design, AI Solutions Consulting / Solutions Engineering is the cleaner immediate move.</div>
+</div>
+</section>
+
+<section id="market" class="page">
+<div class="wrap">
+  <div class="section-head">
+    <div><h2>Current market examples</h2><p>These are not presented as “the only jobs to apply for.” They demonstrate that the recommended role families are active in the 2026 market. Openings can change or expire.</p></div>
+  </div>
+
+  <div class="market-grid">
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://www.stepstone.de/stellenangebote--AI-Solutions-Consultant-Mercedes-Benz-Management-Consulting-d-m-f-x-Stuttgart-Mercedes-Benz-AG--14067181-inline.html" target="_blank" rel="noopener">AI Solutions Consultant ↗</a></h3><div class="company">Mercedes-Benz Management Consulting · Stuttgart</div></div><span class="badge">Hybrid</span></div>
+      <p>Connects business and technology, identifies AI opportunities, advises management and helps implement AI / analytics solutions. The listing expects substantial technical and consulting proof, so this exact opening is a stretch benchmark rather than an automatic fit.</p>
+      <a href="https://www.stepstone.de/stellenangebote--AI-Solutions-Consultant-Mercedes-Benz-Management-Consulting-d-m-f-x-Stuttgart-Mercedes-Benz-AG--14067181-inline.html" target="_blank" rel="noopener">View current listing ↗</a>
+    </article>
+
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://www.xing.com/jobs/muenchen-gtm-engineer-157009890" target="_blank" rel="noopener">GTM Engineer ↗</a></h3><div class="company">Alasco · Munich</div></div><span class="badge">Hybrid</span></div>
+      <p>Builds lead signals, scoring, enrichment, LLM pipelines and custom integrations across GTM. Explicitly mentions n8n / Make, Python, APIs and German + English.</p>
+      <a href="https://www.xing.com/jobs/muenchen-gtm-engineer-157009890" target="_blank" rel="noopener">View current listing ↗</a>
+    </article>
+
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://job-boards.greenhouse.io/brave/jobs/7603697" target="_blank" rel="noopener">Technical Product Marketing Manager ↗</a></h3><div class="company">Brave Search APIs · Remote Europe</div></div><span class="badge">Remote EU</span></div>
+      <p>Owns technical positioning, GTM strategy, content and growth for an AI/search API product, translating developer workflows into business value.</p>
+      <a href="https://job-boards.greenhouse.io/brave/jobs/7603697" target="_blank" rel="noopener">View current listing ↗</a>
+    </article>
+
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://canonical.com/careers/6793868" target="_blank" rel="noopener">Technical Product Marketing Manager ↗</a></h3><div class="company">Canonical · EMEA</div></div><span class="badge">Remote EMEA</span></div>
+      <p>Describes the ideal candidate as a technologist who can work at the intersection of product and marketing, understand products under the hood and build scalable marketing systems.</p>
+      <a href="https://canonical.com/careers/6793868" target="_blank" rel="noopener">View current listing ↗</a>
+    </article>
+
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://jobs.ashbyhq.com/robco/c721d262-c120-485f-87e8-c14c6746d4c6/" target="_blank" rel="noopener">(Senior) Field Solutions Engineer ↗</a></h3><div class="company">RobCo · Munich</div></div><span class="badge">Industrial robotics</span></div>
+      <p>A customer-facing robotics role involving commissioning, technical project ownership and integration. Useful as evidence that industrial/robotics companies value technically credible customer-facing solution roles.</p>
+      <a href="https://jobs.ashbyhq.com/robco/c721d262-c120-485f-87e8-c14c6746d4c6/" target="_blank" rel="noopener">View current listing ↗</a>
+    </article>
+
+    <article class="job">
+      <div class="job-top"><div><h3><a href="https://careers.adyen.com/vacancies/7413976-gtm-engineer" target="_blank" rel="noopener">GTM Engineer — market benchmark ↗</a></h3><div class="company">Adyen · New York</div></div><span class="badge">Benchmark</span></div>
+      <p>Not geographically recommended here, but the description is a useful benchmark: custom web apps, AI/system integration, automation, APIs, webhooks and cross-functional commercial problem-solving.</p>
+      <a href="https://careers.adyen.com/vacancies/7413976-gtm-engineer" target="_blank" rel="noopener">View role benchmark ↗</a>
+    </article>
+  </div>
+  <div class="note"><b>Market takeaway:</b> “technical + commercial + AI” is no longer a vague hybrid profile. Employers are explicitly hiring for it under several titles. The main bottleneck is not the background; it is producing visible proof that you can build and ship the modern AI/automation layer.</div>
+</div>
+</section>
+
+<section id="sources" class="page">
+<div class="wrap">
+  <div class="section-head">
+    <div><h2>Public sources</h2><p>The profile section intentionally excludes private/local context. Identity matches are based on the Stuttgart-region cluster and corroborating education/employment details.</p></div>
+  </div>
+  <div class="source-grid">
+    <a class="source" href="https://de.linkedin.com/in/dfmwollin" target="_blank" rel="noopener"><b>LinkedIn — David Wollin</b><span>Stuttgart-region public profile snapshot: AMT Medica, teaching, languages and recent professional activity.</span></a>
+    <a class="source" href="https://de.linkedin.com/company/amt-medica" target="_blank" rel="noopener"><b>AMT Medica — LinkedIn</b><span>Company information and public 2026 Bremen trade-show post naming David Wollin.</span></a>
+    <a class="source" href="https://www.cla-stuttgart.org/david-wollin.html" target="_blank" rel="noopener"><b>Christian Life Academy Stuttgart</b><span>STEAM teacher profile and listed engineering degrees.</span></a>
+    <a class="source" href="https://arce.calpoly.edu/kpff-consulting-engineers-scholarship" target="_blank" rel="noopener"><b>Cal Poly Architectural Engineering</b><span>2009 KPFF Consulting Engineers Scholarship recipient record.</span></a>
+    <a class="source" href="https://magazine.calpoly.edu/spring-summer-2018/college-of-architecture-and-environmental-design/" target="_blank" rel="noopener"><b>Cal Poly Magazine — 2018</b><span>Alumni note linking the master's degree in Stuttgart and engineering work at Ingenieurgesellschaft Tompert.</span></a>
+    <a class="source" href="https://buergerstiftung-sindelfingen.de/wp-content/uploads/2024/01/Flyer_SchlauSchau_2024.pdf" target="_blank" rel="noopener"><b>Schlau-Schau 2024 flyer</b><span>Public credit connecting David Wollin with DALL-E 3 support in a school exhibition.</span></a>
+  </div>
+
+  <div class="section-head" style="margin-top:34px">
+    <div><h2>Role-market sources</h2><p>Current examples used to check whether the recommended role families match real 2026 hiring patterns.</p></div>
+  </div>
+  <div class="source-grid">
+    <a class="source" href="https://www.xing.com/jobs/muenchen-gtm-engineer-157009890" target="_blank" rel="noopener"><b>Alasco — GTM Engineer</b><span>AI + GTM automation, external data signals, n8n/Make, Python, LLM pipelines and integrations.</span></a>
+    <a class="source" href="https://www.stepstone.de/stellenangebote--AI-Solutions-Consultant-Mercedes-Benz-Management-Consulting-d-m-f-x-Stuttgart-Mercedes-Benz-AG--14067181-inline.html" target="_blank" rel="noopener"><b>Mercedes-Benz — AI Solutions Consultant</b><span>Stuttgart role bridging AI, management consulting, implementation and analytics.</span></a>
+    <a class="source" href="https://job-boards.greenhouse.io/brave/jobs/7603697" target="_blank" rel="noopener"><b>Brave — Technical Product Marketing</b><span>Remote EU role connecting technical understanding, positioning, GTM, APIs and AI.</span></a>
+    <a class="source" href="https://canonical.com/careers/6793868" target="_blank" rel="noopener"><b>Canonical — Technical Product Marketing</b><span>Remote EMEA role explicitly seeking a technologist at the intersection of product and marketing.</span></a>
+    <a class="source" href="https://jobs.ashbyhq.com/robco/c721d262-c120-485f-87e8-c14c6746d4c6/" target="_blank" rel="noopener"><b>RobCo — Field Solutions Engineer</b><span>Industrial robotics example combining technical implementation, customer work and project delivery.</span></a>
+    <a class="source" href="https://careers.adyen.com/vacancies/7413976-gtm-engineer" target="_blank" rel="noopener"><b>Adyen — GTM Engineer</b><span>Role benchmark for AI-assisted apps, integration, automation and GTM tooling.</span></a>
+  </div>
+  <p class="disclosure">Recommendation scores are editorial judgments based on the public evidence above, not employer assessments or psychometric results. Live listings were checked on 31 August 2026 and may subsequently change or close.</p>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+<div class="wrap footer-grid">
+  <span>David Wollin · public-web-only profile</span>
+  <span>Interactive standalone HTML · no external scripts required</span>
+</div>
+</footer>
+
+<script>
+(() => {
+  const navButtons=[...document.querySelectorAll('.navbtn')];
+  const pages=[...document.querySelectorAll('.page')];
+  function showPage(id){
+    pages.forEach(p=>p.classList.toggle('active',p.id===id));
+    navButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  navButtons.forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+  document.querySelectorAll('.timeline-card').forEach(card=>{
+    const toggle=card.querySelector('.timeline-toggle');
+    if(!toggle) return;
+    toggle.addEventListener('click',()=>{
+      const isOpen=card.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',isOpen?'true':'false');
+    });
+  });
+
+document.querySelectorAll('.more').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const role=btn.closest('.role');
+      role.classList.toggle('open');
+      btn.textContent=role.classList.contains('open')?'Hide detail':'Why this fits';
+    });
+  });
+
+  const roles=document.getElementById('roles');
+  const roleCards=[...roles.querySelectorAll('.role')];
+  const sortMap={fit:'fit',speed:'speed',upside:'upside',code:'code'};
+  function sortRoles(key){
+    roleCards.sort((a,b)=>Number(b.dataset[sortMap[key]])-Number(a.dataset[sortMap[key]]));
+    roleCards.forEach((r,i)=>{
+      r.querySelector('.rank').textContent=i+1;
+      roles.appendChild(r);
+    });
+  }
+  document.querySelectorAll('.filter').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      sortRoles(btn.dataset.sort);
+    });
+  });
+
+  const hash=location.hash.replace('#','');
+  if(['profile','career','market','sources'].includes(hash)) showPage(hash);
+})();
+</script>
+</body>
+</html>
