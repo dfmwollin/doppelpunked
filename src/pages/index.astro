@@ -332,15 +332,21 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
   >
     <div class="mail-fallback-inner">
       <div class="mail-fallback-copy">
-        <strong id="mail-fallback-title">E-Mail-Adresse kopiert</strong>
-        <span id="mail-fallback-text">
-          david@doppelpunked.com wurde in die Zwischenablage kopiert.
-        </span>
+        <strong id="mail-fallback-title">Kein E-Mail-Programm geöffnet</strong>
+        <div class="mail-fallback-email-row">
+          <a
+            class="mail-fallback-email"
+            href="mailto:david@doppelpunked.com"
+          >
+            david@doppelpunked.com
+          </a>
+          <span id="mail-fallback-text"></span>
+        </div>
       </div>
 
       <div class="mail-fallback-actions">
         <button class="mail-fallback-copy-button" id="mail-copy-button" type="button">
-          Nochmals kopieren
+          E-Mail kopieren
         </button>
 
         <button
@@ -400,9 +406,29 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
       line-height: 1.25;
     }
 
-    .mail-fallback-copy span {
+    .mail-fallback-email-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 5px 8px;
       font-size: 0.86rem;
       line-height: 1.35;
+    }
+
+    .mail-fallback-email {
+      color: #fff;
+      font-weight: 650;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      overflow-wrap: anywhere;
+    }
+
+    .mail-fallback-email:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .mail-fallback-copy span {
       color: rgba(255, 255, 255, 0.76);
       overflow-wrap: anywhere;
     }
@@ -435,6 +461,7 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
       background: #f0f0f0;
     }
 
+    .mail-fallback-email:focus-visible,
     .mail-fallback-copy-button:focus-visible,
     .mail-fallback-close:focus-visible {
       outline: 2px solid #fff;
@@ -624,8 +651,8 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           : "No email app opened";
 
         mailFallbackText.textContent = copied
-          ? `${contactEmail} was copied to your clipboard.`
-          : `You can reach me at ${contactEmail}.`;
+          ? "Copied to your clipboard."
+          : "";
 
         mailCopyButton.textContent = copied
           ? "Copy again"
@@ -643,8 +670,8 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           : "Kein E-Mail-Programm geöffnet";
 
         mailFallbackText.textContent = copied
-          ? `${contactEmail} wurde in die Zwischenablage kopiert.`
-          : `Du erreichst mich unter ${contactEmail}.`;
+          ? "In die Zwischenablage kopiert."
+          : "";
 
         mailCopyButton.textContent = copied
           ? "Nochmals kopieren"
@@ -766,19 +793,17 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
           // If the page stays active, we use this as a best-effort fallback.
           fallbackTimer =
             window.setTimeout(
-              async () => {
+              () => {
                 cleanupHandoffListeners();
 
                 if (handoffDetected) {
                   return;
                 }
 
-                const copied =
-                  await copyContactEmail();
-
-                showMailFallback(
-                  copied
-                );
+                // Do not access the clipboard here. Delayed clipboard
+                // writes may be blocked because this is no longer the
+                // user's direct click. Show the explicit copy action instead.
+                showMailFallback(false);
               },
               1600
             );
