@@ -321,7 +321,473 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     </div>
   </section>
 
+  <!-- Mail fallback: shown only when no likely hand-off to a mail app is detected. -->
+  <div
+    class="mail-fallback"
+    id="mail-fallback"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    hidden
+  >
+    <div class="mail-fallback-inner">
+      <div class="mail-fallback-copy">
+        <strong id="mail-fallback-title">E-Mail-Adresse kopiert</strong>
+        <span id="mail-fallback-text">
+          david@doppelpunked.com wurde in die Zwischenablage kopiert.
+        </span>
+      </div>
+
+      <div class="mail-fallback-actions">
+        <button class="mail-fallback-copy-button" id="mail-copy-button" type="button">
+          Nochmals kopieren
+        </button>
+
+        <button
+          class="mail-fallback-close"
+          id="mail-fallback-close"
+          type="button"
+          aria-label="Hinweis schließen"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style is:inline>
+    .mail-fallback {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 9999;
+      width: min(92vw, 620px);
+      transform: translate(-50%, 18px);
+      opacity: 0;
+      transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+    }
+
+    .mail-fallback.is-visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .mail-fallback-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 14px 14px 18px;
+      color: #fff;
+      background: rgba(20, 20, 20, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .mail-fallback-copy {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .mail-fallback-copy strong {
+      font-size: 0.95rem;
+      line-height: 1.25;
+    }
+
+    .mail-fallback-copy span {
+      font-size: 0.86rem;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.76);
+      overflow-wrap: anywhere;
+    }
+
+    .mail-fallback-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .mail-fallback-copy-button,
+    .mail-fallback-close {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .mail-fallback-copy-button {
+      padding: 9px 12px;
+      color: #111;
+      background: #fff;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .mail-fallback-copy-button:hover {
+      background: #f0f0f0;
+    }
+
+    .mail-fallback-copy-button:focus-visible,
+    .mail-fallback-close:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .mail-fallback-close {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      color: #fff;
+      background: transparent;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .mail-fallback-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 620px) {
+      .mail-fallback {
+        bottom: 14px;
+      }
+
+      .mail-fallback-inner {
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .mail-fallback-actions {
+        align-items: flex-end;
+        flex-direction: column-reverse;
+      }
+
+      .mail-fallback-copy-button {
+        white-space: normal;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mail-fallback {
+        transition: none;
+      }
+    }
+  </style>
+
   <script is:inline>
+    const contactEmail = "david@doppelpunked.com";
+
+    const mailLinks =
+      document.querySelectorAll(".language-mail-link");
+
+    const mailFallback =
+      document.querySelector("#mail-fallback");
+
+    const mailFallbackTitle =
+      document.querySelector("#mail-fallback-title");
+
+    const mailFallbackText =
+      document.querySelector("#mail-fallback-text");
+
+    const mailCopyButton =
+      document.querySelector("#mail-copy-button");
+
+    const mailFallbackClose =
+      document.querySelector("#mail-fallback-close");
+
+    let mailFallbackHideTimer;
+
+    function getPageLanguage() {
+      return document.documentElement.lang === "en"
+        ? "en"
+        : "de";
+    }
+
+    function updateMailLinks() {
+      const language =
+        getPageLanguage();
+
+      mailLinks.forEach((link) => {
+        const mailto =
+          language === "en"
+            ? link.dataset.mailEn
+            : link.dataset.mailDe;
+
+        if (mailto) {
+          link.setAttribute("href", mailto);
+        }
+      });
+    }
+
+    async function copyContactEmail() {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(
+            contactEmail
+          );
+
+          return true;
+        } catch {
+          // Continue to the legacy fallback below.
+        }
+      }
+
+      try {
+        const textarea =
+          document.createElement("textarea");
+
+        textarea.value =
+          contactEmail;
+
+        textarea.setAttribute(
+          "readonly",
+          ""
+        );
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.left =
+          "-9999px";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+        textarea.setSelectionRange(
+          0,
+          textarea.value.length
+        );
+
+        const copied =
+          document.execCommand("copy");
+
+        textarea.remove();
+
+        return copied;
+      } catch {
+        return false;
+      }
+    }
+
+    function hideMailFallback() {
+      if (!mailFallback) {
+        return;
+      }
+
+      window.clearTimeout(
+        mailFallbackHideTimer
+      );
+
+      mailFallback.classList.remove(
+        "is-visible"
+      );
+
+      window.setTimeout(() => {
+        if (!mailFallback.classList.contains("is-visible")) {
+          mailFallback.hidden = true;
+        }
+      }, 200);
+    }
+
+    function showMailFallback(copied) {
+      if (
+        !mailFallback ||
+        !mailFallbackTitle ||
+        !mailFallbackText ||
+        !mailCopyButton
+      ) {
+        return;
+      }
+
+      const language =
+        getPageLanguage();
+
+      if (language === "en") {
+        mailFallbackTitle.textContent = copied
+          ? "Email address copied"
+          : "No email app opened";
+
+        mailFallbackText.textContent = copied
+          ? `${contactEmail} was copied to your clipboard.`
+          : `You can reach me at ${contactEmail}.`;
+
+        mailCopyButton.textContent = copied
+          ? "Copy again"
+          : "Copy email";
+
+        if (mailFallbackClose) {
+          mailFallbackClose.setAttribute(
+            "aria-label",
+            "Close message"
+          );
+        }
+      } else {
+        mailFallbackTitle.textContent = copied
+          ? "E-Mail-Adresse kopiert"
+          : "Kein E-Mail-Programm geöffnet";
+
+        mailFallbackText.textContent = copied
+          ? `${contactEmail} wurde in die Zwischenablage kopiert.`
+          : `Du erreichst mich unter ${contactEmail}.`;
+
+        mailCopyButton.textContent = copied
+          ? "Nochmals kopieren"
+          : "E-Mail kopieren";
+
+        if (mailFallbackClose) {
+          mailFallbackClose.setAttribute(
+            "aria-label",
+            "Hinweis schließen"
+          );
+        }
+      }
+
+      window.clearTimeout(
+        mailFallbackHideTimer
+      );
+
+      mailFallback.hidden = false;
+
+      window.requestAnimationFrame(() => {
+        mailFallback.classList.add(
+          "is-visible"
+        );
+      });
+
+      mailFallbackHideTimer =
+        window.setTimeout(() => {
+          hideMailFallback();
+        }, 7000);
+    }
+
+    mailCopyButton?.addEventListener(
+      "click",
+      async () => {
+        const copied =
+          await copyContactEmail();
+
+        showMailFallback(copied);
+      }
+    );
+
+    mailFallbackClose?.addEventListener(
+      "click",
+      hideMailFallback
+    );
+
+    mailLinks.forEach((link) => {
+      link.addEventListener(
+        "click",
+        (event) => {
+          // Keep the normal href as progressive enhancement if JS is disabled.
+          event.preventDefault();
+
+          const mailto =
+            link.getAttribute("href");
+
+          if (!mailto?.startsWith("mailto:")) {
+            return;
+          }
+
+          hideMailFallback();
+
+          let handoffDetected = false;
+          let fallbackTimer;
+
+          const cleanupHandoffListeners = () => {
+            window.removeEventListener(
+              "blur",
+              markHandoff
+            );
+
+            window.removeEventListener(
+              "pagehide",
+              markHandoff
+            );
+
+            document.removeEventListener(
+              "visibilitychange",
+              handleVisibilityChange
+            );
+          };
+
+          const markHandoff = () => {
+            handoffDetected = true;
+
+            window.clearTimeout(
+              fallbackTimer
+            );
+
+            cleanupHandoffListeners();
+          };
+
+          const handleVisibilityChange = () => {
+            if (document.hidden) {
+              markHandoff();
+            }
+          };
+
+          window.addEventListener(
+            "blur",
+            markHandoff
+          );
+
+          window.addEventListener(
+            "pagehide",
+            markHandoff
+          );
+
+          document.addEventListener(
+            "visibilitychange",
+            handleVisibilityChange
+          );
+
+          // Ask the browser/OS to open the configured email handler.
+          window.location.href =
+            mailto;
+
+          // Browsers do not expose a reliable "mailto succeeded" result.
+          // If the page stays active, we use this as a best-effort fallback.
+          fallbackTimer =
+            window.setTimeout(
+              async () => {
+                cleanupHandoffListeners();
+
+                if (handoffDetected) {
+                  return;
+                }
+
+                const copied =
+                  await copyContactEmail();
+
+                showMailFallback(
+                  copied
+                );
+              },
+              1600
+            );
+        }
+      );
+    });
+
+    updateMailLinks();
+
     const askForm =
       document.querySelector("#ask-form");
 
@@ -855,6 +1321,7 @@ const en = `mailto:${email}?subject=${encodeURIComponent(
     const askLanguageObserver =
       new MutationObserver(() => {
         updateAskLanguage();
+        updateMailLinks();
       });
 
     askLanguageObserver.observe(
