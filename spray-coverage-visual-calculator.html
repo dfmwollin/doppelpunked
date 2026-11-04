@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="An interactive, self-contained spray coverage geometry calculator with draggable handles and a live SVG illustration.">
+  <title>Spray Geometry Studio — Interactive Coverage Calculator</title>
+  <style>
+    :root {
+      --ink: #102c43;
+      --muted: #627789;
+      --blue: #006b9b;
+      --deep: #06334e;
+      --aqua: #00a9c8;
+      --mint: #0f806f;
+      --border: #d9e5ec;
+      --page: #f3f8fb;
+      --shadow: 0 18px 50px rgba(10, 48, 72, .08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, label:focus-within { outline: 3px solid #72cee4; outline-offset: 3px; }
+    .masthead { background: linear-gradient(110deg, #052f49, #075a79); color: white; padding: 28px max(26px, calc((100vw - 1320px) / 2)); }
+    .mastrow { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .eyebrow { text-transform: uppercase; font-size: 11px; letter-spacing: .19em; color: #91e4ee; font-weight: 800; }
+    h1 { margin: 5px 0 4px; font-weight: 760; font-size: clamp(28px, 3.4vw, 42px); letter-spacing: -.045em; line-height: 1.16; }
+    .masthead p { margin: 8px 0 0; max-width: 700px; color: #cfebf3; font-size: 14px; }
+    .concept { border: 1px solid #5ba3b4; border-radius: 999px; color: #d0faff; padding: 7px 13px; font-size: 11px; text-transform: uppercase; letter-spacing: .065em; white-space: nowrap; }
+    main { max-width: 1370px; padding: 27px 24px 40px; margin: 0 auto; }
+    .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .topbar > p { margin: 0; font-size: 14px; color: var(--muted); }
+    .actions { display: flex; align-items: center; gap: 9px; }
+    .unitset { display: flex; align-items: center; background: white; border: 1px solid var(--border); padding: 4px; border-radius: 13px; gap: 3px; }
+    .unitset button { padding: 7px 13px; background: transparent; color: var(--muted); border: 0; border-radius: 9px; font-size: 13px; font-weight: 700; }
+    .unitset button[aria-pressed="true"] { background: var(--deep); color: white; }
+    .reset { background: white; border: 1px solid var(--border); color: var(--ink); border-radius: 12px; font-weight: 700; padding: 11px 14px; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr); gap: 18px; align-items: start; }
+    .panel { border: 1px solid var(--border); box-shadow: var(--shadow); background: #fff; border-radius: 20px; overflow: hidden; }
+    .paneltitle { display: flex; justify-content: space-between; align-items: center; padding: 17px 23px 0; gap: 10px; }
+    .paneltitle h2 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+    .livepill { font-size: 11px; font-weight: 800; letter-spacing: .05em; color: var(--mint); background: #ddf6ee; padding: 5px 10px; border-radius: 30px; white-space: nowrap; }
+    .vizbox { padding: 0 13px; background: linear-gradient(180deg,#fff 0%,#f4fbfe 100%); }
+    svg { display: block; width: 100%; height: auto; aspect-ratio: 900 / 530; user-select: none; -webkit-user-select: none; touch-action: none; }
+    .scene-caption { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e8f0f3; color: #607a89; gap: 12px; font-size: 12px; padding: 14px 22px; background: #f8fcfe; }
+    .scene-caption strong { color: var(--blue); }
+    .scene-caption span:last-child { text-align: right; }
+    .visual-result { margin-top: 15px; padding: 21px 24px; border-radius: 18px; color: white; background: linear-gradient(110deg, #064c70, #007fa5); box-shadow: 0 14px 28px rgba(0,83,125,.15); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .visual-result small { display: block; color: #c4edfb; font-size: 12px; text-transform: uppercase; font-weight: 780; letter-spacing: .11em; }
+    .visual-result strong { font-size: clamp(29px, 3.5vw, 42px); letter-spacing: -.04em; line-height: 1.15; font-weight: 780; }
+    .visual-result .formula { color: #d3ebf2; font-size: 12px; text-align: right; max-width: 260px; }
+    .controls-head { padding: 23px 24px 9px; }
+    .controls-head h2 { font-size: 18px; margin: 0 0 4px; }
+    .controls-head p { color: var(--muted); font-size: 13px; margin: 0; }
+    .modes { margin: 0 20px; padding: 0; border: 0; }
+    .mode { display: flex; align-items: center; gap: 11px; padding: 11px 12px; border: 1px solid var(--border); border-radius: 11px; margin-top: 8px; cursor: pointer; color: #445f70; line-height: 1.32; font-size: 13px; transition: background .2s,border-color .2s; }
+    .mode:has(input:checked) { border-color: #74bfd1; background: #ebf9fb; color: var(--deep); font-weight: 700; }
+    .mode input { accent-color: var(--blue); width: 17px; height: 17px; flex: none; margin: 0; }
+    .control-fields { padding: 17px 24px 24px; }
+    .field { border-top: 1px solid #ecf2f6; padding: 15px 0 5px; }
+    .labelrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .labelrow label { font-weight: 750; color: var(--ink); }
+    .tag { font-size: 10px; text-transform: uppercase; letter-spacing: .045em; background: #e3f7fb; color: #116c87; padding: 5px 8px; font-weight: 750; border-radius: 999px; }
+    .tag.output { background: #e5f6ed; color: #1b7850; }
+    .inputrow { display: flex; align-items: center; gap: 10px; }
+    .field input[type="range"] { appearance: none; -webkit-appearance: none; width: 100%; min-width: 0; height: 7px; border-radius: 30px; background: linear-gradient(to right,#008db2 var(--pct,25%),#e1ebf0 var(--pct,25%)); cursor: pointer; }
+    .field input[type="range"]::-webkit-slider-thumb { appearance: none; width: 19px; height: 19px; border: 4px solid white; background: #007b9d; border-radius: 100%; box-shadow: 0 1px 8px #0d536a88; }
+    .field input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border: 4px solid white; background: #007b9d; border-radius: 100%; box-shadow: 0 1px 8px #0d536a88; }
+    .field input[type="range"]:disabled { opacity: .35; cursor: not-allowed; }
+    .numberbox { display: flex; align-items: center; gap: 6px; border: 1px solid #cddfe7; border-radius: 10px; padding: 5px 9px; min-width: 119px; }
+    .numberbox:has(input[readonly]) { background: #f2f9f5; border-color: #cbe6d8; }
+    .numberbox input { background: transparent; min-width: 0; width: 66px; padding: 3px 1px; color: var(--ink); font-weight: 750; border: 0; outline: none; font-variant-numeric: tabular-nums; text-align: right; }
+    .numberbox span { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .field-hint { margin: 8px 0 0; font-size: 11px; color: #8496a2; }
+    .presets { margin: 0 24px 22px; border-top: 1px solid #eaf0f4; padding-top: 15px; }
+    .presets b { font-size: 12px; display: block; margin-bottom: 8px; }
+    .presetrow { display: flex; flex-wrap: wrap; gap: 7px; }
+    .presetrow button { font-size: 12px; background: #f6fafd; color: #28536b; border: 1px solid #d8e8ef; padding: 7px 10px; border-radius: 8px; }
+    .presetrow button:hover { background: #e6f5fa; }
+    .notes { margin-top: 18px; padding: 15px 19px; color: #607482; background: #eaf2f6; border-radius: 13px; font-size: 12px; }
+    .notes strong { color: #274d64; }
+    .handle { fill: white; stroke: #007c9e; stroke-width: 4; cursor: grab; transition: r .15s; }
+    .handle:hover { fill: #d7faff; }
+    .handle.inactive { stroke: #9bb0bc; fill: #f2f6f8; cursor: default; }
+    .handle:active { cursor: grabbing; }
+    .handle-halo { fill: #08a6be; opacity: .13; pointer-events: none; }
+    .handle-halo.inactive { opacity: .05; }
+    .svgtext { fill: #27566f; font-family: system-ui,-apple-system,"Segoe UI",sans-serif; font-weight: 750; }
+    .svglabel { fill: #7a94a5; font: 600 14px system-ui,-apple-system,"Segoe UI",sans-serif; }
+    #sprayParticles { pointer-events: none; }
+    @media(max-width: 980px) { .workspace { grid-template-columns: 1fr; } .control-fields { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; } .field { min-width: 0; } .inputrow { flex-wrap: wrap; } .numberbox { width: 100%; justify-content: flex-end; } .controls-head { padding-bottom: 12px; } }
+    @media(max-width: 610px) { .masthead { padding: 23px 20px; } .mastrow { align-items: flex-start; } .concept { display: none; } main { padding: 14px 10px 24px; } .topbar { padding: 4px 5px; } .topbar > p { font-size: 12px; } .panel { border-radius: 15px; } .paneltitle { padding: 14px 15px 2px; } .scene-caption { flex-direction: column; align-items: flex-start; padding: 11px 14px; gap: 4px; } .scene-caption span:last-child { text-align: left; } .visual-result { margin-top: 10px; padding: 19px 16px; } .visual-result .formula { font-size: 10px; max-width: 110px; } .control-fields { grid-template-columns: 1fr; padding: 13px 18px; gap: 0; } .inputrow { flex-wrap: nowrap; } .numberbox { width: auto; } .modes { margin: 0 14px; } .controls-head { padding: 17px 18px 9px; } .presets { margin: 0 18px 18px; } }
+    @media(prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="mastrow">
+      <div>
+        <div class="eyebrow">Interactive engineering tools</div>
+        <h1>Spray Geometry Studio<span style="color:#49d6e9">.</span></h1>
+        <p>Move the nozzle. Open the spray. Drag the coverage markers. Understand the geometry instantly.</p>
+      </div>
+      <span class="concept">Independent concept demo</span>
+    </div>
+  </header>
+  <main>
+    <div class="topbar">
+      <p>Explore the <strong>ideal geometric spray footprint</strong> on a flat surface.</p>
+      <div class="actions">
+        <div class="unitset" aria-label="Measurement units" role="group">
+          <button id="metricBtn" aria-pressed="true" type="button">cm</button>
+          <button id="imperialBtn" aria-pressed="false" type="button">inches</button>
+        </div>
+        <button id="resetBtn" type="button" class="reset">↺ Reset</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <section aria-label="Interactive spray illustration">
+        <div class="panel">
+          <div class="paneltitle">
+            <h2>Live spray preview</h2>
+            <span class="livepill">● INTERACTIVE</span>
+          </div>
+          <div class="vizbox">
+            <svg id="scene" viewBox="0 0 900 530" role="img" aria-label="A nozzle sprays downward onto a flat surface. Drag the highlighted nozzle, angle, or floor handles to change spray geometry.">
+              <defs>
+                <linearGradient id="coneGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#50c9e0" stop-opacity=".22" />
+                  <stop offset="58%" stop-color="#18abc9" stop-opacity=".17" />
+                  <stop offset="100%" stop-color="#0086ae" stop-opacity=".32" />
+                </linearGradient>
+                <linearGradient id="coreGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ecfdff" stop-opacity=".5"/>
+                  <stop offset="1" stop-color="#c3eef8" stop-opacity=".1"/>
+                </linearGradient>
+                <linearGradient id="floorGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#dfeef4" stop-opacity=".9" />
+                  <stop offset="1" stop-color="#f5fafc" stop-opacity=".2" />
+                </linearGradient>
+                <filter id="blur"><feGaussianBlur stdDeviation="10"/></filter>
+              </defs>
+              <g id="backgroundGrid" opacity=".7"></g>
+              <rect x="42" y="420" width="816" height="84" rx="7" fill="url(#floorGradient)"/>
+              <line x1="42" y1="420" x2="858" y2="420" stroke="#759aaf" stroke-width="2" />
+              <text x="52" y="453" class="svglabel">TARGET SURFACE</text>
+              <ellipse id="sprayShadow" cx="450" cy="422" rx="70" ry="8" fill="#03a4c9" opacity=".2" filter="url(#blur)" />
+              <path id="sprayCone" fill="url(#coneGradient)" stroke="none"/>
+              <path id="sprayCore" fill="url(#coreGradient)" stroke="none" />
+              <g id="sprayParticles"></g>
+              <path id="leftBoundary" fill="none" stroke="#22a8c5" stroke-width="2.5" stroke-dasharray="7 8" opacity=".9"/>
+              <path id="rightBoundary" fill="none" stroke="#22a8c5" stroke-width="2.5" stroke-dasharray="7 8" opacity=".9"/>
+              <path id="centerAxis" stroke="#9dcbd8" stroke-width="1.5" stroke-dasharray="5 7"/>
+              <g id="angleArcGroup">
+                <path id="angleArc" fill="none" stroke="#007da3" stroke-width="2.8" stroke-linecap="round"/>
+                <text id="angleLabel" class="svgtext" font-size="20" text-anchor="start">32°</text>
+              </g>
+              <g id="heightMeasure" stroke="#7f98a8" fill="none" stroke-width="1.4">
+                <line id="heightLine" stroke-dasharray="4 5"/>
+                <path id="heightTopTick"/><path id="heightBottomTick"/>
+                <text id="heightText" class="svgtext" font-size="19" fill="#25576c" stroke="none" text-anchor="middle">45 cm</text>
+              </g>
+              <g id="coverageMeasure" stroke="#007fa7" fill="none" stroke-width="2">
+                <line id="widthLine"/>
+                <path id="widthLeftTick"/><path id="widthRightTick"/>
+                <text id="widthText" class="svgtext" font-size="22" stroke="none" fill="#006b90" text-anchor="middle">25.8 cm</text>
+              </g>
+              <g id="nozzleAssembly">
+                <rect id="nozzlePipe" width="18" height="35" rx="4" fill="#54778b"/>
+                <rect id="nozzleTop" width="60" height="18" rx="7" fill="#234d66"/>
+                <path id="nozzleBody" fill="#125a7b" stroke="#073951" stroke-width="1.2"/>
+                <path id="nozzleTip" fill="#009fc1"/>
+              </g>
+              <g id="handleElements">
+                <circle id="nozzleHalo" class="handle-halo" r="25" />
+                <circle id="nozzleHandle" class="handle" data-handle="height" r="13"><title>Drag vertically to change nozzle height</title></circle>
+                <circle id="angleHalo" class="handle-halo" r="24" />
+                <circle id="angleHandle" class="handle" data-handle="angle" r="12"><title>Drag to change the spray angle</title></circle>
+                <circle id="leftWidthHalo" class="handle-halo" r="23" />
+                <circle id="rightWidthHalo" class="handle-halo" r="23" />
+                <circle id="leftWidthHandle" class="handle" data-handle="coverage" r="12"><title>Drag to change the footprint width</title></circle>
+                <circle id="rightWidthHandle" class="handle" data-handle="coverage" r="12"><title>Drag to change the footprint width</title></circle>
+              </g>
+            </svg>
+          </div>
+          <div class="scene-caption">
+            <span><strong>Try it:</strong> Drag the blue-ringed points, or use the sliders.</span>
+            <span id="scaleNote">Illustrative scale · top-down cross-section</span>
+          </div>
+        </div>
+        <div class="visual-result" aria-live="polite" aria-atomic="true">
+          <div>
+            <small id="resultTitle">Calculated spray coverage</small>
+            <strong id="resultValue">25.8 cm</strong>
+          </div>
+          <div class="formula" id="formulaText">Width = 2 × height × tan(angle ÷ 2)</div>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Calculator controls">
+        <div class="controls-head">
+          <h2>What would you like to calculate?</h2>
+          <p>Choose the unknown. The other two measurements stay adjustable.</p>
+        </div>
+        <fieldset class="modes" aria-label="Variable to calculate">
+          <label class="mode"><input type="radio" name="mode" value="coverage" checked> Spray coverage from height and angle</label>
+          <label class="mode"><input type="radio" name="mode" value="angle"> Spray angle from height and desired coverage</label>
+          <label class="mode"><input type="radio" name="mode" value="height"> Nozzle height from angle and desired coverage</label>
+        </fieldset>
+        <div class="control-fields">
+          <div class="field" data-param="height">
+            <div class="labelrow"><label for="heightInput">Nozzle height</label><span class="tag" id="heightTag">↕ Drag nozzle</span></div>
+            <div class="inputrow"><input id="heightSlider" aria-label="Nozzle height slider" type="range" min="2" max="130" step="0.5" value="45"><div class="numberbox"><input id="heightInput" type="number" min="0.1" step="any" value="45" inputmode="decimal" aria-label="Nozzle height"><span id="heightUnit">cm</span></div></div>
+            <p class="field-hint" id="heightHint">Vertical distance to the target surface.</p>
+          </div>
+          <div class="field" data-param="angle">
+            <div class="labelrow"><label for="angleInput">Spray angle</label><span class="tag" id="angleTag">⌁ Drag angle</span></div>
+            <div class="inputrow"><input id="angleSlider" aria-label="Spray angle slider" type="range" min="3" max="120" step="1" value="32"><div class="numberbox"><input id="angleInput" type="number" min="3" max="120" step="any" value="32" inputmode="decimal" aria-label="Spray angle"><span>°</span></div></div>
+            <p class="field-hint" id="angleHint">Full included spray angle, not the half-angle.</p>
+          </div>
+          <div class="field" data-param="coverage">
+            <div class="labelrow"><label for="coverageInput">Spray coverage</label><span class="tag output" id="coverageTag">Calculated</span></div>
+            <div class="inputrow"><input id="coverageSlider" aria-label="Spray coverage slider" type="range" min="1" max="180" step="0.5" value="25.8" disabled><div class="numberbox"><input id="coverageInput" type="number" min="0.1" step="any" value="25.8" inputmode="decimal" aria-label="Spray coverage" readonly><span id="coverageUnit">cm</span></div></div>
+            <p class="field-hint" id="coverageHint">Full width of the spray footprint.</p>
+          </div>
+        </div>
+        <div class="presets">
+          <b>Quick examples</b>
+          <div class="presetrow">
+            <button type="button" data-preset="narrow">Narrow · 18°</button>
+            <button type="button" data-preset="reference">Reference · 32°</button>
+            <button type="button" data-preset="wide">Wide · 70°</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <aside class="notes"><strong>Engineering note:</strong> This is an illustrative geometric calculator, not a prediction of real spray performance. The formula assumes an ideal symmetric cone or fan cross-section, a flat surface perpendicular to the nozzle axis, and no effects from pressure, flow rate, spray distribution, nozzle type, air resistance, or spray pattern. Independent demonstration; not affiliated with Spraying Systems Co.</aside>
+  </main>
+  <script>
+  (() => {
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const RAD = Math.PI / 180;
+    const state = { mode: 'coverage', unit: 'cm', height: 45, angle: 32, coverage: 0 };
+    state.coverage = 2 * state.height * Math.tan(state.angle * RAD / 2);
+    const CX = 450, GROUND = 420;
+    let lastGeom = null;
+    let activeDrag = null;
+    const clamp = (v,min,max) => Math.min(max,Math.max(min,v));
+    const toUnit = (value) => state.unit === 'cm' ? value : value / 2.54;
+    const fromUnit = (value) => state.unit === 'cm' ? value : value * 2.54;
+    const unitName = () => state.unit;
+    const fmt = (value,places=1) => Number(value.toFixed(places)).toLocaleString('en-US',{maximumFractionDigits:places});
+    const quantityLabel = (cm) => fmt(toUnit(cm),1) + ' ' + unitName();
+    function calculate() {
+      let { height, angle, coverage, mode } = state;
+      if (mode === 'coverage') coverage = 2 * height * Math.tan(angle * RAD / 2);
+      else if (mode === 'angle') angle = 2 * Math.atan(coverage / (2 * height)) / RAD;
+      else height = coverage / (2 * Math.tan(angle * RAD / 2));
+      return { height, angle, coverage };
+    }
+    function useGeometryAsInputs() {
+      const g = calculate();
+      state.height = g.height;
+      state.angle = g.angle;
+      state.coverage = g.coverage;
+    }
+    function setMode(nextMode) {
+      if (!['coverage','angle','height'].includes(nextMode)) return;
+      useGeometryAsInputs();
+      state.mode = nextMode;
+      render();
+    }
+    function changeInput(name,value) {
+      if (name === state.mode || !Number.isFinite(value)) return;
+      if (name === 'height') state.height = clamp(value, 0.1, 2000);
+      else if (name === 'angle') state.angle = clamp(value, 3, 120);
+      else if (name === 'coverage') state.coverage = clamp(value, 0.1, 3000);
+      render();
+    }
+    function setAttrs(element,attrs) { for (const [key,val] of Object.entries(attrs)) element.setAttribute(key,String(val)); }
+    function setPos(id,x,y) { setAttrs($(id),{cx:x,cy:y}); }
+    function setLine(id,x1,y1,x2,y2) { setAttrs($(id),{x1,y1,x2,y2}); }
+    const baseRanges = { height:[2,130], angle:[3,120], coverage:[1,180] };
+    function renderFields(g) {
+      for (const name of ['height','angle','coverage']) {
+        const output = state.mode === name;
+        const value = name === 'angle' ? g.angle : toUnit(g[name]);
+        const input = $(name+'Input');
+        const slider = $(name+'Slider');
+        const unit = name === 'angle' ? '°' : unitName();
+        const shown = Number(value.toFixed(name === 'angle' ? 1 : (state.unit === 'in' ? 2 : 1)));
+        if (document.activeElement !== input || output) input.value = shown;
+        input.readOnly = output;
+        input.setAttribute('aria-readonly',output ? 'true' : 'false');
+        slider.disabled = output;
+        const [baseMin,baseMax] = baseRanges[name];
+        const min = name === 'angle' ? baseMin : toUnit(baseMin);
+        const max = name === 'angle' ? baseMax : Math.max(toUnit(baseMax), value * 1.22);
+        slider.min = Math.min(min, value);
+        slider.max = max;
+        slider.step = name === 'angle' ? 0.5 : (state.unit === 'in' ? 0.1 : 0.5);
+        slider.value = value;
+        slider.style.setProperty('--pct', clamp((value - Number(slider.min)) / (Number(slider.max) - Number(slider.min)) * 100,0,100)+'%');
+        if(name !== 'angle') $(name+'Unit').textContent = unit;
+        const tag = $(name+'Tag');
+        tag.classList.toggle('output',output);
+        tag.textContent = output ? '✓ Calculated' : (name === 'height' ? '↕ Drag nozzle' : name === 'angle' ? '↗ Drag angle' : '↔ Drag edges');
+      }
+    }
+    function renderDiagram(g) {
+      const half = g.coverage / 2;
+      const scale = Math.min(4.8, 291 / Math.max(.1,g.height), 315 / Math.max(.1,half));
+      const h = g.height * scale, w = half * scale;
+      const top = GROUND - h, left = CX - w, right = CX + w;
+      const arcR = Math.min(68,Math.max(18,h*.35));
+      const a = g.angle * RAD / 2;
+      const arcL = { x:CX-arcR*Math.sin(a), y:top+arcR*Math.cos(a) };
+      const arcRPoint = { x:CX+arcR*Math.sin(a), y:top+arcR*Math.cos(a) };
+      const coreW = w*.47;
+      $('sprayCone').setAttribute('d',`M ${CX} ${top} L ${right} ${GROUND} Q ${CX} ${GROUND+5} ${left} ${GROUND} Z`);
+      $('sprayCore').setAttribute('d',`M ${CX} ${top} L ${CX+coreW} ${GROUND} L ${CX-coreW} ${GROUND} Z`);
+      $('leftBoundary').setAttribute('d',`M ${CX} ${top} L ${left} ${GROUND}`);
+      $('rightBoundary').setAttribute('d',`M ${CX} ${top} L ${right} ${GROUND}`);
+      setLine('centerAxis',CX,top,CX,GROUND);
+      setAttrs($('sprayShadow'),{cx:CX,rx:Math.max(10,w*.85)});
+      $('angleArc').setAttribute('d',`M ${arcL.x} ${arcL.y} A ${arcR} ${arcR} 0 0 0 ${arcRPoint.x} ${arcRPoint.y}`);
+      setAttrs($('angleLabel'),{x:CX + Math.max(20,arcR*.32),y:top+Math.min(arcR+27,h*.5+18)});
+      $('angleLabel').textContent = fmt(g.angle,1) + '°';
+
+      // The nozzle consists of a fixed geometry that follows the spray origin.
+      setAttrs($('nozzlePipe'),{x:CX-9,y:top-60});
+      setAttrs($('nozzleTop'),{x:CX-30,y:top-36});
+      $('nozzleBody').setAttribute('d',`M ${CX-23} ${top-18} L ${CX+23} ${top-18} L ${CX+13} ${top-3} L ${CX-13} ${top-3} Z`);
+      $('nozzleTip').setAttribute('d',`M ${CX-13} ${top-3} L ${CX+13} ${top-3} L ${CX+6} ${top+5} L ${CX-6} ${top+5} Z`);
+
+      // Height measure is offset so it doesn't obstruct the spray.
+      const dimX = 175;
+      setLine('heightLine',dimX,top,dimX,GROUND);
+      $('heightTopTick').setAttribute('d',`M ${dimX-10} ${top} h 20`);
+      $('heightBottomTick').setAttribute('d',`M ${dimX-10} ${GROUND} h 20`);
+      setAttrs($('heightText'),{x:dimX-23,y:(top+GROUND)/2,transform:`rotate(-90 ${dimX-23} ${(top+GROUND)/2})`});
+      $('heightText').textContent = quantityLabel(g.height);
+
+      // Coverage measurement is always the full width between the surface endpoints.
+      const widthY = GROUND+46;
+      setLine('widthLine',left,widthY,right,widthY);
+      $('widthLeftTick').setAttribute('d',`M ${left} ${widthY-9} v 18`);
+      $('widthRightTick').setAttribute('d',`M ${right} ${widthY-9} v 18`);
+      setAttrs($('widthText'),{x:CX,y:widthY+30});
+      $('widthText').textContent = quantityLabel(g.coverage);
+
+      setPos('nozzleHandle',CX,top-34); setPos('nozzleHalo',CX,top-34);
+      setPos('angleHandle',arcRPoint.x,arcRPoint.y); setPos('angleHalo',arcRPoint.x,arcRPoint.y);
+      setPos('leftWidthHandle',left,GROUND); setPos('leftWidthHalo',left,GROUND);
+      setPos('rightWidthHandle',right,GROUND); setPos('rightWidthHalo',right,GROUND);
+      for(const key of ['height','angle','coverage']) {
+        const permitted = state.mode !== key;
+        const ids = key === 'height' ? ['nozzleHandle','nozzleHalo'] : key === 'angle' ? ['angleHandle','angleHalo'] : ['leftWidthHandle','leftWidthHalo','rightWidthHandle','rightWidthHalo'];
+        for(const id of ids) $(id).classList.toggle('inactive',!permitted);
+        for(const id of ids.filter(i=>i.toLowerCase().includes('handle'))) $(id).setAttribute('aria-disabled',!permitted ? 'true' : 'false');
+      }
+      $('scaleNote').textContent = scale < 4.79 ? 'View automatically scales to fit the spray' : 'Idealized cross-section · scale held constant';
+      lastGeom = { g, top, left, right, halfWidthPixels:w, heightPixels:h, scale };
+      if (reducedMotion) renderParticles(performance.now());
+    }
+    function render() {
+      const g = calculate();
+      renderFields(g);
+      renderDiagram(g);
+      const isAngle = state.mode === 'angle';
+      const isHeight = state.mode === 'height';
+      $('resultTitle').textContent = isAngle ? 'Calculated spray angle' : isHeight ? 'Required nozzle height' : 'Calculated spray coverage';
+      $('resultValue').textContent = isAngle ? fmt(g.angle,1) + '°' : quantityLabel(isHeight ? g.height : g.coverage);
+      $('formulaText').textContent = isAngle ? 'Angle = 2 × arctan(coverage ÷ (2 × height))' : isHeight ? 'Height = coverage ÷ (2 × tan(angle ÷ 2))' : 'Coverage = 2 × height × tan(angle ÷ 2)';
+    }
+    // Input bindings. Sliders respond live; text entry commits on change/Enter/blur.
+    for(const param of ['height','angle','coverage']) {
+      $(param+'Slider').addEventListener('input',(e)=>changeInput(param,param==='angle'?Number(e.target.value):fromUnit(Number(e.target.value))));
+      $(param+'Input').addEventListener('change',(e)=>{
+        const v = Number(e.target.value);
+        if(!e.target.value.trim() || !Number.isFinite(v) || v <= 0){ render(); return; }
+        changeInput(param,param==='angle'?v:fromUnit(v));
+      });
+      $(param+'Input').addEventListener('blur',render);
+    }
+    document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener('change',e=>setMode(e.target.value)));
+    $('metricBtn').addEventListener('click',()=>setUnits('cm'));
+    $('imperialBtn').addEventListener('click',()=>setUnits('in'));
+    function setUnits(next) {
+      state.unit=next;
+      $('metricBtn').setAttribute('aria-pressed',String(next==='cm'));
+      $('imperialBtn').setAttribute('aria-pressed',String(next==='in'));
+      render();
+    }
+    function reset() {
+      state.mode='coverage'; state.height=45; state.angle=32;
+      state.coverage=2*state.height*Math.tan(state.angle*RAD/2);
+      document.querySelector('input[name="mode"][value="coverage"]').checked=true;
+      render();
+    }
+    $('resetBtn').addEventListener('click',reset);
+    document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+      const preset=b.dataset.preset;
+      state.mode='coverage';
+      state.height = preset==='narrow'?65:preset==='wide'?55:45;
+      state.angle = preset==='narrow'?18:preset==='wide'?70:32;
+      document.querySelector('input[name="mode"][value="coverage"]').checked=true;
+      render();
+    }));
+
+    const svg=$('scene');
+    function coords(event) {
+      const r=svg.getBoundingClientRect();
+      return { x:(event.clientX-r.left)*900/r.width, y:(event.clientY-r.top)*530/r.height };
+    }
+    svg.addEventListener('pointerdown',event=>{
+      const el=event.target.closest('[data-handle]');
+      if(!el || !lastGeom || event.button>0) return;
+      const handle=el.dataset.handle;
+      if(state.mode===handle) return;
+      activeDrag={type:handle,pointerId:event.pointerId,initialTop:lastGeom.top};
+      svg.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+    svg.addEventListener('pointermove',event=>{
+      if(!activeDrag || event.pointerId!==activeDrag.pointerId || !lastGeom) return;
+      const p=coords(event); const scale=lastGeom.scale;
+      if(activeDrag.type==='height') changeInput('height',clamp((GROUND-p.y-34)/scale,0.1,2000));
+      else if(activeDrag.type==='coverage') changeInput('coverage',clamp(2*Math.abs(p.x-CX)/scale,0.1,3000));
+      else if(activeDrag.type==='angle') {
+        const dx=Math.max(0,p.x-CX), dy=Math.max(4,p.y-activeDrag.initialTop);
+        changeInput('angle',clamp(2*Math.atan2(dx,dy)/RAD,3,120));
+      }
+      event.preventDefault();
+    });
+    for(const end of ['pointerup','pointercancel','lostpointercapture']) svg.addEventListener(end,()=>activeDrag=null);
+
+    // Animated droplets are deterministic visual accents and not a physical simulation.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const particles=[];
+    for(let i=0;i<76;i++) {
+      const seed=(n)=>{const x=Math.sin((i+1)*n)*43758.5453;return x-Math.floor(x);};
+      const el=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      const p={ el, across:(seed(13.4)*2-1)*.95, phase:seed(45.3), speed:.12+.11*seed(33.7), radius:1.1+2.2*seed(21.7), alpha:.17+.55*seed(17.4) };
+      setAttrs(el,{r:p.radius,fill:seed(27.6)>.34?'#059ab8':'#7de2f0'});
+      $('sprayParticles').appendChild(el); particles.push(p);
+    }
+    function renderParticles(time) {
+      if(!lastGeom) return;
+      const {top,halfWidthPixels,heightPixels}=lastGeom;
+      for(const p of particles) {
+        const travel=reducedMotion ? p.phase : (p.phase+time*.00035*p.speed)%1;
+        const t=.035+.955*travel;
+        const jitter=Math.sin(time*.001+p.phase*22)*.6;
+        setAttrs(p.el,{cx:CX+p.across*halfWidthPixels*t+jitter,cy:top+heightPixels*t,opacity:(p.alpha*Math.min(1,t*5)*Math.min(1,(1-t)*7)).toFixed(3)});
+      }
+    }
+    function animate(time) { renderParticles(time); if(!reducedMotion) requestAnimationFrame(animate); }
+    // Background guide lines are decorative and independent of the zoom.
+    for(let i=0;i<5;i++) {
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+      setAttrs(line,{x1:70,x2:830,y1:94+i*66,y2:94+i*66,stroke:'#e3eff4','stroke-width':1,'stroke-dasharray':'3 8'});
+      $('backgroundGrid').appendChild(line);
+    }
+    render();
+    if(!reducedMotion) requestAnimationFrame(animate);
+  })();
+  </script>
+</body>
+</html>
