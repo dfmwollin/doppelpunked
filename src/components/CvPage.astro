@@ -1,0 +1,250 @@
+---
+/**
+ * Shared, fully localized CV landing page. Routes:
+ *   German: /cv/
+ *   English: /en/cv/
+ * Documents remain available on either route.
+ */
+interface Props {
+  locale: 'de' | 'en';
+}
+const { locale } = Astro.props;
+const isEnglish = locale === 'en';
+
+const messages = {
+  de: {
+    metaTitle: 'Lebenslauf – David Wollin | :Doppelpunked',
+    metaDescription: 'Lebenslauf von David Wollin auf Deutsch und Englisch: Technisches B2B-Marketing, Produktkommunikation, Vertriebsunterstützung und Engineering.',
+    navLabel: 'Hauptnavigation',
+    navHome: 'Start',
+    navAbout: 'Über mich',
+    navProjects: 'Projekte',
+    navContact: 'Kontakt',
+    languageLabel: 'Sprache auswählen',
+    eyebrow: 'DAVID F. M. WOLLIN · PROFIL',
+    heading: 'Lebenslauf & Erfahrung',
+    intro: 'Technisches B2B-Marketing, Produktkommunikation und Vertriebsunterstützung – mit Erfahrung in Engineering, Design und Wissensvermittlung.',
+    filesLabel: 'DOKUMENTE',
+    filesHeading: 'Lebensläufe als PDF',
+    fileInfo: 'Deutsch oder Englisch – direkt ansehen oder herunterladen.',
+    view: 'PDF ansehen',
+    download: 'Herunterladen',
+    deTitle: 'Lebenslauf',
+    enTitle: 'English CV',
+    deSummary: 'Technisches B2B-Marketing · Produktkommunikation · Vertriebsunterstützung',
+    enSummary: 'Technical B2B Marketing · Product Communications · Sales Support',
+    contactKicker: 'KONTAKT',
+    contactTitle: 'Lassen Sie uns in Kontakt bleiben.',
+    contactText: 'Für berufliche Möglichkeiten, Projekte oder einen fachlichen Austausch.',
+    email: 'E-Mail schreiben',
+    legal: 'Impressum',
+    privacy: 'Datenschutz',
+  },
+  en: {
+    metaTitle: 'Resume & CV – David Wollin | :Doppelpunked',
+    metaDescription: 'David Wollin’s CV in English and German: Technical B2B marketing, product communications, sales support and engineering.',
+    navLabel: 'Main navigation',
+    navHome: 'Home',
+    navAbout: 'About',
+    navProjects: 'Projects',
+    navContact: 'Contact',
+    languageLabel: 'Choose language',
+    eyebrow: 'DAVID F. M. WOLLIN · PROFILE',
+    heading: 'Resume & experience',
+    intro: 'Technical B2B marketing, product communications and sales support — with a background in engineering, design and technical education.',
+    filesLabel: 'DOCUMENTS',
+    filesHeading: 'Download my CV',
+    fileInfo: 'English or German — view or download either PDF.',
+    view: 'View PDF',
+    download: 'Download',
+    deTitle: 'German CV',
+    enTitle: 'Curriculum Vitae',
+    deSummary: 'Technisches B2B-Marketing · Produktkommunikation · Vertriebsunterstützung',
+    enSummary: 'Technical B2B Marketing · Product Communications · Sales Support',
+    contactKicker: 'CONTACT',
+    contactTitle: 'Let’s connect.',
+    contactText: 'For career opportunities, projects or a professional conversation.',
+    email: 'Email David',
+    legal: 'Legal notice',
+    privacy: 'Privacy policy',
+  },
+} as const;
+const t = messages[locale];
+const currentUrl = `https://doppelpunked.com${isEnglish ? '/en/cv/' : '/cv/'}`;
+
+const documents = [
+  {
+    key: 'en',
+    language: 'English',
+    title: t.enTitle,
+    summary: t.enSummary,
+    url: '/cv/Master_CV_EN_David_Wollin.pdf',
+    download: 'David_Wollin_CV_EN.pdf',
+  },
+  {
+    key: 'de',
+    language: 'Deutsch',
+    title: t.deTitle,
+    summary: t.deSummary,
+    url: '/cv/Master_Lebenslauf_DE_David_Wollin.pdf',
+    download: 'David_Wollin_Lebenslauf_DE.pdf',
+  },
+];
+const orderedDocuments = isEnglish ? documents : [...documents].reverse();
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f3" />
+    <meta name="description" content={t.metaDescription} />
+    <title>{t.metaTitle}</title>
+    <link rel="canonical" href={currentUrl} />
+    <link rel="alternate" hreflang="de" href="https://doppelpunked.com/cv/" />
+    <link rel="alternate" hreflang="en" href="https://doppelpunked.com/en/cv/" />
+    <link rel="alternate" hreflang="x-default" href="https://doppelpunked.com/cv/" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label=":Doppelpunked — home"><span class="brand-mark">:</span>Doppelpunked</a>
+        <nav class="main-nav" aria-label={t.navLabel}>
+          <a href="/">{t.navHome}</a>
+          <a href="/about/">{t.navAbout}</a>
+          <a href="/projects/">{t.navProjects}</a>
+          <a href="/contact/">{t.navContact}</a>
+        </nav>
+        <nav class="language-switch" aria-label={t.languageLabel}>
+          <a href="/cv/" lang="de" hreflang="de" aria-current={!isEnglish ? 'page' : undefined}>DE</a>
+          <span aria-hidden="true">/</span>
+          <a href="/en/cv/" lang="en" hreflang="en" aria-current={isEnglish ? 'page' : undefined}>EN</a>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <section class="intro-block" aria-labelledby="page-title">
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>{t.eyebrow}</p>
+          <h1 id="page-title">{t.heading}</h1>
+          <p class="intro">{t.intro}</p>
+        </section>
+
+        <section class="documents" aria-labelledby="documents-title">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">{t.filesLabel}</p>
+              <h2 id="documents-title">{t.filesHeading}</h2>
+            </div>
+            <p class="files-note">{t.fileInfo}</p>
+          </div>
+          <div class="document-grid">
+            {orderedDocuments.map((doc, index) => (
+              <article class="document-card" lang={doc.key}>
+                <div class="card-topline">
+                  <span class="card-label">0{index + 1} / PDF</span>
+                  <span class="language-tag">{doc.key.toUpperCase()}</span>
+                </div>
+                <div class="card-content">
+                  <h3>{doc.title}</h3>
+                  <p class="card-summary">{doc.summary}</p>
+                </div>
+                <div class="card-actions">
+                  <a class="primary-link" href={doc.url} target="_blank" rel="noopener noreferrer">
+                    {t.view}<span aria-hidden="true">↗</span>
+                  </a>
+                  <a class="secondary-link" href={doc.url} download={doc.download}>
+                    {t.download}<span aria-hidden="true">↓</span>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="contact-strip" aria-labelledby="contact-title">
+          <div>
+            <p class="section-kicker">{t.contactKicker}</p>
+            <h2 id="contact-title">{t.contactTitle}</h2>
+            <p>{t.contactText}</p>
+          </div>
+          <div class="contact-actions">
+            <a href="mailto:david@doppelpunked.com">{t.email}<span aria-hidden="true">↗</span></a>
+            <a href="https://www.linkedin.com/in/dfmwollin" target="_blank" rel="noopener noreferrer">LinkedIn<span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>© {new Date().getFullYear()} David Wollin · <a href="/">:Doppelpunked</a></span>
+        <div><a href="/impressum/">{t.legal}</a><a href="/datenschutz/">{t.privacy}</a></div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html) { scroll-behavior: smooth; }
+  :global(body) { margin: 0; background: #f7f7f3; color: #252a29; font-family: Inter, 'Segoe UI', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  :global(a) { color: inherit; }
+  :global(a:focus-visible) { outline: 3px solid #2b6f61; outline-offset: 4px; border-radius: 3px; }
+  .site-shell { max-width: 1260px; min-height: 100vh; margin: auto; padding: 0 clamp(20px, 4vw, 56px); }
+  .site-header { display: flex; justify-content: space-between; align-items: center; gap: clamp(16px, 2vw, 28px); min-height: 68px; border-bottom: 1px solid #dce0d8; }
+  .brand { text-decoration: none; font-size: 1.24rem; font-weight: 800; letter-spacing: -.065em; white-space: nowrap; }
+  .brand-mark { color: #438776; font-weight: 900; }
+  .main-nav { display: flex; flex-wrap: wrap; gap: clamp(12px, 1.6vw, 22px); align-items: center; margin-left: auto; }
+  .main-nav a { text-decoration: none; color: #53615b; font-size: .84rem; font-weight: 600; }
+  .main-nav a:hover, .site-footer a:hover { color: #216b5d; }
+  .language-switch { flex: 0 0 auto; display: flex; align-items: center; gap: 3px; border: 1px solid #d4ded6; background: white; padding: 4px; border-radius: 9px; }
+  .language-switch a { text-decoration: none; min-width: 39px; padding: 7px 9px; text-align: center; border-radius: 6px; color: #536a5e; font-size: .78rem; font-weight: 800; }
+  .language-switch a[aria-current='page'] { color: white; background: #2a715e; }
+  .language-switch span { font-size: .7rem; color: #a1aca5; }
+  .intro-block { padding: clamp(22px, 3vw, 36px) 0 18px; }
+  .eyebrow, .section-kicker, .card-label { color: #4e756a; font-size: .68rem; letter-spacing: .13em; font-weight: 800; }
+  .eyebrow { display: flex; gap: 10px; align-items: center; margin: 0 0 9px; }
+  .eyebrow-line { display: inline-block; width: 21px; height: 1px; background: #4e756a; }
+  h1 { font-size: clamp(2.0rem, 4vw, 3.55rem); line-height: 1.1; letter-spacing: -.058em; font-weight: 700; margin: 0 0 10px; }
+  .intro { max-width: 860px; font-size: clamp(.94rem, 1.18vw, 1.08rem); line-height: 1.5; color: #525e58; margin: 0; }
+  .documents { padding: 14px 0 37px; }
+  .section-header { display: flex; align-items: end; justify-content: space-between; gap: 22px; margin-bottom: 15px; }
+  .section-kicker { margin: 0 0 5px; }
+  h2 { font-size: clamp(1.37rem, 2vw, 1.72rem); margin: 0; font-weight: 680; letter-spacing: -.035em; }
+  .files-note { color: #76837a; font-size: .82rem; line-height: 1.4; max-width: 260px; text-align: right; margin: 0; }
+  .document-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+  .document-card { border: 1px solid #d9dfd8; background: #fff; border-radius: 13px; min-height: 235px; padding: clamp(18px, 2vw, 24px); display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
+  .document-card:hover { border-color: #6c9c8e; transform: translateY(-2px); }
+  .card-topline { display: flex; justify-content: space-between; align-items: center; }
+  .card-label { color: #92a09a; }
+  .language-tag { background: #e9f2ed; color: #2f705e; display: inline-flex; padding: 5px 9px; font-size: .7rem; font-weight: 800; border-radius: 6px; letter-spacing: .07em; }
+  .card-content { flex: 1; margin-top: 13px; }
+  .document-card h3 { margin: 0 0 6px; font-size: clamp(1.45rem, 2vw, 1.75rem); line-height: 1.15; letter-spacing: -.04em; }
+  .card-summary { color: #66776c; font-size: .88rem; line-height: 1.45; max-width: 450px; margin: 0 0 13px; }
+  .card-actions { border-top: 1px solid #e6ebe7; padding-top: 13px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+  .card-actions a { display: inline-flex; align-items: center; justify-content: space-between; gap: 13px; text-decoration: none; font-size: .87rem; font-weight: 700; border-radius: 7px; padding: 10px 13px; }
+  .primary-link { background: #2a715e; color: #fff; }
+  .primary-link:hover { background: #225b4d; }
+  .secondary-link { border: 1px solid #dce3dd; color: #4e6558; }
+  .secondary-link:hover { background: #f2f7f3; }
+  .contact-strip { border-top: 1px solid #cfd8d0; border-bottom: 1px solid #cfd8d0; padding: 27px 0; display: flex; gap: 22px; justify-content: space-between; align-items: center; }
+  .contact-strip p:not(.section-kicker) { color: #728178; line-height: 1.5; margin: 6px 0 0; font-size: .88rem; }
+  .contact-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .contact-actions a { border-radius: 7px; border: 1px solid #cedbd3; padding: 10px 13px; text-decoration: none; font-weight: 650; white-space: nowrap; font-size: .85rem; }
+  .contact-actions a:hover { background: #eaf2ec; }
+  .site-footer { min-height: 64px; display: flex; justify-content: space-between; gap: 20px; align-items: center; font-size: .78rem; color: #839088; }
+  .site-footer a { text-decoration: none; }
+  .site-footer div { display: flex; gap: 20px; }
+  @media (max-width: 850px) {
+    .main-nav { display: none; }
+    .site-header { min-height: 62px; }
+  }
+  @media (max-width: 650px) {
+    .intro-block { padding-top: 20px; }
+    .section-header { align-items: flex-start; }
+    .files-note { display: none; }
+    .document-grid { grid-template-columns: 1fr; gap: 12px; }
+    .document-card { min-height: 208px; }
+    .contact-strip { flex-direction: column; align-items: flex-start; }
+    .site-footer { padding: 20px 0; align-items: flex-start; flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) { .document-card { transition: none; } }
+</style>
