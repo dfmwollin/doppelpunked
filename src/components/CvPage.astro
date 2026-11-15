@@ -150,7 +150,7 @@ const orderedDocuments = isEnglish ? documents : [...documents].reverse();
                 </div>
                 <div class="card-actions">
                   <!-- Same-tab navigation avoids Firefox iOS blank new-tab failures. -->
-                  <a class="primary-link" href={doc.url} type="application/pdf">
+                  <a class="primary-link" href={`/cv/view/?file=${doc.key}&lang=${locale}`}>
                     {t.view}<span aria-hidden="true">→</span>
                   </a>
                   <!-- Download attribute is a hint; mobile browsers may still open the PDF. -->
