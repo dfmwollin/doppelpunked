@@ -1,0 +1,140 @@
+---
+/**
+ * Place at src/pages/cv/view/index.astro
+ * View PDF pages as HTML canvas via PDF.js, avoiding native Firefox iOS preview.
+ * Install dependency: npm install pdfjs-dist
+ */
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>CV PDF Viewer | David Wollin</title>
+  </head>
+  <body>
+    <header class="toolbar">
+      <a id="back" href="/cv/" class="back">← <span id="back-text">Back to CV</span></a>
+      <strong id="title">Curriculum Vitae</strong>
+      <a id="download" class="download" href="/cv/Master_CV_EN_David_Wollin.pdf" download="David_Wollin_CV_EN.pdf">Download PDF ↓</a>
+    </header>
+    <main>
+      <p id="status" role="status" aria-live="polite">Loading PDF…</p>
+      <div id="pages" aria-label="PDF pages"></div>
+      <div id="error" hidden role="alert">
+        <p id="error-message"></p>
+        <a id="fallback" href="/cv/Master_CV_EN_David_Wollin.pdf" download>Download the PDF instead</a>
+      </div>
+    </main>
+    <script>
+      import * as pdfjsLib from 'pdfjs-dist';
+      import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+
+      const files = {
+        en: { url: '/cv/Master_CV_EN_David_Wollin.pdf', name: 'David_Wollin_CV_EN.pdf' },
+        de: { url: '/cv/Master_Lebenslauf_DE_David_Wollin.pdf', name: 'David_Wollin_Lebenslauf_DE.pdf' },
+      };
+      const params = new URLSearchParams(window.location.search);
+      const fileKey = params.get('file') === 'de' ? 'de' : 'en';
+      const language = params.get('lang') === 'de' ? 'de' : 'en';
+      const doc = files[fileKey];
+      const texts = language === 'de'
+        ? { back: 'Zurück zum Lebenslauf', download: 'PDF herunterladen ↓', loading: 'PDF wird geladen…', page: 'Seite', error: 'Das PDF konnte nicht angezeigt werden.', fallback: 'PDF stattdessen herunterladen' }
+        : { back: 'Back to CV', download: 'Download PDF ↓', loading: 'Loading PDF…', page: 'Page', error: 'The PDF could not be displayed.', fallback: 'Download PDF instead' };
+
+      document.documentElement.lang = language;
+      document.querySelector('#back').href = language === 'de' ? '/cv/' : '/en/cv/';
+      document.querySelector('#back-text').textContent = texts.back;
+      document.querySelector('#title').textContent = fileKey === 'de' ? 'Lebenslauf · Deutsch' : 'Curriculum Vitae · English';
+      document.querySelector('#download').textContent = texts.download;
+      document.querySelector('#status').textContent = texts.loading;
+      document.querySelector('#fallback').textContent = texts.fallback;
+      document.querySelector('#download').href = doc.url;
+      document.querySelector('#download').download = doc.name;
+      document.querySelector('#fallback').href = doc.url;
+      document.querySelector('#fallback').download = doc.name;
+
+      const pages = document.querySelector('#pages');
+      const status = document.querySelector('#status');
+      const error = document.querySelector('#error');
+      let pdf;
+      let activeRender = 0;
+
+      async function render() {
+        const renderId = ++activeRender;
+        pages.replaceChildren();
+        const availableWidth = Math.max(240, Math.min(900, window.innerWidth - 24));
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        try {
+          for (let num = 1; num <= pdf.numPages; num++) {
+            if (renderId !== activeRender) return;
+            const page = await pdf.getPage(num);
+            const baseViewport = page.getViewport({ scale: 1 });
+            const scale = availableWidth / baseViewport.width;
+            const viewport = page.getViewport({ scale });
+            const wrapper = document.createElement('section');
+            wrapper.className = 'page';
+            wrapper.setAttribute('aria-label', `${texts.page} ${num}`);
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.floor(viewport.width * pixelRatio);
+            canvas.height = Math.floor(viewport.height * pixelRatio);
+            canvas.style.width = `${Math.floor(viewport.width)}px`;
+            canvas.style.height = `${Math.floor(viewport.height)}px`;
+            wrapper.appendChild(canvas);
+            pages.appendChild(wrapper);
+            const context = canvas.getContext('2d', { alpha: false });
+            await page.render({
+              canvasContext: context,
+              viewport,
+              transform: pixelRatio === 1 ? undefined : [pixelRatio, 0, 0, pixelRatio, 0, 0],
+            }).promise;
+          }
+          if (renderId === activeRender) status.hidden = true;
+        } catch (e) {
+          if (renderId === activeRender) showError(e);
+        }
+      }
+
+      function showError(e) {
+        console.error('PDF.js viewer error:', e);
+        status.hidden = true;
+        error.hidden = false;
+        document.querySelector('#error-message').textContent = texts.error;
+      }
+
+      try {
+        const task = pdfjsLib.getDocument({ url: doc.url });
+        pdf = await task.promise;
+        await render();
+      } catch (e) {
+        showError(e);
+      }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { if (pdf) render(); }, 350);
+      });
+    </script>
+  </body>
+</html>
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #e8ece8; color: #25312b; font: 16px/1.5 system-ui, -apple-system, sans-serif; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 12px clamp(12px, 3vw, 24px); background: #fff; border-bottom: 1px solid #d3dbd6; }
+  .toolbar a { text-decoration: none; font-size: .9rem; font-weight: 650; color: #276a59; }
+  .toolbar strong { font-size: .95rem; }
+  .download { border: 1px solid #2a715e; padding: 8px 12px; border-radius: 7px; }
+  main { padding: 16px 12px 40px; }
+  #status, #error { text-align: center; }
+  #pages { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .page { background: white; box-shadow: 0 2px 14px #0002; max-width: 100%; overflow: hidden; }
+  .page canvas { display: block; max-width: 100%; height: auto !important; }
+  #error { margin: 30px auto; max-width: 460px; }
+  #fallback { color: #276a59; }
+  [hidden] { display: none !important; }
+  @media (max-width: 600px) { .toolbar strong { order: 3; width: 100%; text-align: center; } }
+</style>
