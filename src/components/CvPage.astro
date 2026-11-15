@@ -149,10 +149,12 @@ const orderedDocuments = isEnglish ? documents : [...documents].reverse();
                   <p class="card-summary">{doc.summary}</p>
                 </div>
                 <div class="card-actions">
-                  <a class="primary-link" href={doc.url} target="_blank" rel="noopener noreferrer">
-                    {t.view}<span aria-hidden="true">↗</span>
+                  <!-- Same-tab navigation avoids Firefox iOS blank new-tab failures. -->
+                  <a class="primary-link" href={doc.url} type="application/pdf">
+                    {t.view}<span aria-hidden="true">→</span>
                   </a>
-                  <a class="secondary-link" href={doc.url} download={doc.download}>
+                  <!-- Download attribute is a hint; mobile browsers may still open the PDF. -->
+                  <a class="secondary-link" href={doc.url} download={doc.download} type="application/pdf">
                     {t.download}<span aria-hidden="true">↓</span>
                   </a>
                 </div>
